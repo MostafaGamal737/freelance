@@ -3,67 +3,93 @@
  <ul class="vertical-nav-menu">
    <li class="app-sidebar__heading">الرئيسيه</li>
    <li>
-     <a href="{{asset('Dashboard')}}" class="mm-active">
+
+       <a href="{{asset('Dashboard')}}" class='{{Session::get('active')=='Dashboard'?"active":'mm-active'}}'>
+
        <i class="metismenu-icon pe-7s-rocket"></i>
        الصفحه الرئيسية
      </a>
    </li>
    <li >
-     <a href="{{asset('Dashboard\Users')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Users')}}" class='{{Session::get('active')=='Users'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        المستخدمين
      </a>
    </li>
+   <li >
+     <a href="{{asset('Dashboard\Admins')}}" class='{{Session::get('active')=='Admins'?"active":'mm-active'}}'>
+      <i class="metismenu-icon fa fa-edit"></i>
+       المديرين
+     </a>
+   </li>
    <li hidden>
-     <a href="{{asset('Dashboard\Roles')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Roles')}}" class='{{Session::get('active')=='Roles'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        التسلسل الوظيفي
      </a>
    </li>
    <li hidden>
-     <a href="{{asset('Dashboard\Skills')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Skills')}}"  class='{{Session::get('active')=='Skills'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        المهارات
      </a>
    </li>
    <li hidden>
-     <a href="{{asset('Dashboard\Jobs')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Jobs')}}"  class='{{Session::get('active')=='Jobs'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        الاعمال
      </a>
    </li>
    <li hidden>
-     <a href="{{asset('Dashboard\Locations')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Locations')}}"  class='{{Session::get('active')=='Locations'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        البلاد
      </a>
    </li>
-   <li>
-     <a href="{{asset('Dashboard\Orders')}}" class="mm-active">
+   <li >
+     <a href="{{asset('Dashboard\SuccessedOrders')}}"  class='{{Session::get('active')=='SuccessedOrders'?"active":'mm-active'}}' >
       <i class="metismenu-icon fa fa-edit"></i>
-    العمليات
+    العمليات الناجه
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\Reviews')}}" class="mm-active">
+     <a href="{{asset('Dashboard\DelayedOrders')}}"  class='{{Session::get('active')=='DelayedOrders'?"active":'mm-active'}}'>
+      <i class="metismenu-icon fa fa-edit"></i>
+    العمليات المعلقه
+     </a>
+   </li>
+   <li>
+     <a href="{{asset('Dashboard\OngoingOrders')}}"  class='{{Session::get('active')=='OngoingOrders'?"active":'mm-active'}}'>
+      <i class="metismenu-icon fa fa-edit"></i>
+    العمليات الجاريه
+     </a>
+   </li>
+   <li>
+     <a href="{{asset('Dashboard\FailedOrders')}}"  class='{{Session::get('active')=='FailedOrders'?"active":'mm-active'}}'>
+      <i class="metismenu-icon fa fa-edit"></i>
+    العمليات الفاشله
+     </a>
+   </li>
+   <li>
+     <a href="{{asset('Dashboard\Reviews')}}"  class='{{Session::get('active')=='Reviews'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        تقيم مقدمين المخدمات
      </a>
    </li>
    <li hidden>
-     <a href="{{asset('Dashboard\Reports')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Reports')}}"  class='{{Session::get('active')=='Reports'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        التفيمات السيئه
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\Chats')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Chats')}}"  class='{{Session::get('active')=='Chats'?"active":'mm-active'}}'>
        <i class="metismenu-icon fa fa-edit"></i>
        المحادثات
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\Sittings')}}" class="mm-active">
+     <a href="{{asset('Dashboard\Sittings')}}"  class='{{Session::get('active')=='Sittings'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        اعدادات الموقع
      </a>

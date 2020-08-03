@@ -35,7 +35,7 @@
             <div class="widget-subheading">وصول الطرفين الي اتفاق</div>
           </div>
           <div class="widget-content-right">
-            <div class="widget-numbers text-white"><span>{{count(App\order::where('status', '1')->get())}}</span></div>
+            <div class="widget-numbers text-white"><span>{{count(App\order::where('status', '2')->get())}}</span></div>
           </div>
         </div>
       </div>
@@ -52,7 +52,7 @@
               <div class="widget-subheading">قيد التنفيذ</div>
             </div>
             <div class="widget-content-right">
-              <div class="widget-numbers text-success">{{count(App\order::where('status', '0')->get())}}</div>
+              <div class="widget-numbers text-success">{{count(App\order::where('status', '1')->get())}}</div>
             </div>
           </div>
         </div>

@@ -29,8 +29,8 @@
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->phone}}</td>
-            @if ($user->role_id=="")<td>لايوجد</td>@else <td>{{$user->Role->role}}</td>@endif
-          @if ($user->location_id=="")<td>لايوجد</td>@else<td>{{$user->location->location}}</td>@endif
+          <td>{{$user->role}}</td>
+          <td>{{$user->location}}</td>
             <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a><a href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a></td>
             </tr>
     @endforeach

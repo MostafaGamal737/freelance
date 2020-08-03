@@ -22,7 +22,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach (App\order::paginate(1) as $order)
+                      @foreach (App\order::paginate(6) as $order)
 
 
                       <tr>
@@ -37,7 +37,6 @@
                               </div>
                               <div class="widget-content-left flex2">
                                 <div class="widget-heading">{{$order->user->name}}</div>
-                                <div class="widget-subheading opacity-7">{{$order->user->role->role}}</div>
                               </div>
                             </div>
                           </div>
@@ -45,20 +44,22 @@
                         <td class="text-center">{{$order->invoice->provider_name}}</td>
                         <td class="text-center">
                           <div @if ($order->status==0)
-
                             class="badge badge-warning">
-                          @else
+                            معلقه
+                          @elseif($order->status==2)
                             class="badge badge-success">
-                          @endif
-                            @if ($order->status==0)
-                             جاريه
-                             @else
-                               انتهت
+                            ناجحه
+                        @elseif($order->status==-1)
+                            class="badge badge-danger">
+                            فاشلة
+                          @elseif ($order->status==1)
+                            class="badge badge-primary">
+                            قيد التنفيذ
                           @endif
                         </div>
                         </td>
                         <td class="text-center">
-                          <button type="button" id="PopoverCustomT-1" class="btn btn-primary btn-sm">التفاصيل</button>
+                          <a href="{{asset('Dashboard/orders')}}/{{$order->id}}"  id="PopoverCustomT-1" class="btn btn-primary btn-sm">التفاصيل</a>
                         </td>
                       </tr>
                       @endforeach

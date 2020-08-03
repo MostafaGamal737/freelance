@@ -18,6 +18,18 @@ use Illuminate\Support\Facades\Auth;
 Route::get('user', function (Request $request) {
     return response(['data',Auth::user()]);
 })->middleware('auth:api');
-Route::post('SendMessage','chatController@AddMessage')->middleware('auth:api');
+
+
+Route::group(['middleware' => 'auth:api'], function(){
+
+Route::post('SendMessage','api\ChatController@AddMessage');
+Route::get('GetMessages','api\ChatController@GetMessages');
+Route::get('orders','api\OrderController@Orders');
+Route::post('MakeOrder','api\OrderController@MakeOrder');
+Route::post('AcceptOrder','api\OrderController@AcceptOrder');
+Route::post('GetOrder','api\OrderController@GetOrder');
+Route::post('GetOrderUsingStatus','api\OrderController@GetOrderUsingStatus');
+});
 Route::post('Register','api\AuthController@Register');
 Route::post('Login','api\AuthController@Login');
+Route::post('ResetPassord','api\AuthController@Reset');

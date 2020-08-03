@@ -4,7 +4,7 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1">
 
-
+       <meta name="csrf-token" content="{{ csrf_token() }}">
         <title>Laravel</title>
 
         <!-- Fonts -->
@@ -65,7 +65,7 @@
         </style>
     </head>
     <body>
-        <div class="flex-center position-ref full-height" >
+        <div class="flex-center position-ref full-height" id="app">
             @if (Route::has('login'))
                 <div class="top-right links">
                     @auth
@@ -82,7 +82,10 @@
 
             <div class="content">
                 <div class="title m-b-md">
-                    Laravel
+                  @php
+                    $randomid = mt_rand(10000000,99999999);
+                    echo $randomid;
+                  @endphp
                 </div>
 
                 <div class="links">
@@ -97,7 +100,7 @@
                 </div>
             </div>
         </div>
-        <script type="text/javascript" src="js/app.js">
+        <script type="text/javascript" src="{{asset('js/app.js')}}">
 
         </script>
     </body>

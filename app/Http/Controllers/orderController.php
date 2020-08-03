@@ -6,15 +6,9 @@ use Illuminate\Http\Request;
 
 class orderController extends Controller
 {
-  public function AddOrder(Request $data)
+  public function ordersdetails($id)
   {
-
-  $order=new order();
-  $order->client_id='5';
-  $order->provider_id='2';
-  $order->status=0;
-  $order->discription=$data->name;
-  $order->save();
-  return redirect()->back();
-}
+    $order=order::find($id);
+    return view('admin/orders/ordersdetails',compact('order'));
+  }
 }

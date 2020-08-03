@@ -9,10 +9,12 @@ use Illuminate\Broadcasting\PrivateChannel;
 use Illuminate\Contracts\Broadcasting\ShouldBroadcast;
 use Illuminate\Foundation\Events\Dispatchable;
 use Illuminate\Queue\SerializesModels;
+use Illuminate\Contracts\Broadcasting\ShouldBroadcastNow;
 
-class SendMessageEvent implements ShouldBroadcast
+class SendMessageEvent implements ShouldBroadcastNow
 {
     use Dispatchable, InteractsWithSockets, SerializesModels;
+
     public $message;
     /**
      * Create a new event instance.
@@ -21,7 +23,8 @@ class SendMessageEvent implements ShouldBroadcast
      */
     public function __construct($message)
     {
-        $this->message=$message;
+      $this->message=$message;
+
     }
 
     /**

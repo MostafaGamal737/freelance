@@ -8,8 +8,12 @@ use App\user;
 use App\http\Requests\adminValidation;
 use Laravel\Passport\HasApiTokens;
 use App\jobs\activate;
+use App\jobs\ResetPasswordJob;
 use App\Http\Requests\loginvalidation;
 use Auth;
+use App\forgetPassowrd;
+use App\Notifications\ResetPassord;
+
 class AuthController extends Controller
 {
   public function Register(adminValidation $data){
@@ -44,4 +48,59 @@ class AuthController extends Controller
     $token=Auth()->user()->createToken('authToken')->accessToken;
     return response(['success','user'=>Auth()->user(),'token'=>$token]) ;
   }
+
+
+  public function Reset(Request $data)
+  {
+    $user=user::where('email',$data->email)->first();
+
+    if (!empty($user)) {
+      if ($this->checkforget($user)) {
+        $forgetPassowrd=forgetPassowrd::where('email', $user->email)->first();
+        $forgetPassowrd->email=$user->email;
+        $forgetPassowrd->token=$this->getToken(60);;
+        $forgetPassowrd->save();
+
+      }
+      else {
+
+        $forgetPassowrd=new forgetPassowrd();
+        $forgetPassowrd->email=$user->email;
+        $forgetPassowrd->token=$this->getToken(60);;
+        $forgetPassowrd->save();
+      }
+//$user->notify(new ResetPassord($user));
+        dispatch(new ResetPasswordJob($user));
+      return response(['response'=>'تم ارسال الرابط تفقد البريد الخاص بك']);
+    }
+    return response(['response'=>'هذا الاميل غير موجود ']);
+  }
+
+  public function checkforget($user)
+  {
+    $forgetPassowrd=forgetPassowrd::where('email', $user->email)->first();
+    if (empty($forgetPassowrd)) {
+      return false;
+    }
+    return true;
+  }
+
+
+
+  function getToken($length)
+  {
+    $token = "";
+    $codeAlphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+    $codeAlphabet.= "abcdefghijklmnopqrstuvwxyz";
+    $codeAlphabet.= "0123456789";
+    $max = strlen($codeAlphabet); // edited
+
+    for ($i=0; $i < $length; $i++) {
+      $token .= $codeAlphabet[mt_rand(0, $max-1)];
+    }
+
+    return $token;
+  }
+
+
 }

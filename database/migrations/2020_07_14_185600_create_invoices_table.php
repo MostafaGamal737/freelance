@@ -17,13 +17,14 @@ class CreateInvoicesTable extends Migration
             $table->id();
             $table->string('client_name');
             $table->integer('client_phone');
-            $table->string('provider_name');
-            $table->integer('provider_phone');
+            $table->string('provider_name')->nullable();
+            $table->integer('provider_phone')->nullable();
             $table->integer('transaction_id');
             $table->double('price');
             $table->integer('duration');
             $table->float('tax');
             $table->boolean('status');
+            $table->integer('app_money');
             $table->timestamps();
         });
     }
