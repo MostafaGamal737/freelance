@@ -36,7 +36,7 @@ class OrderController extends Controller
       $invoice->tax=$data->tax;
       $invoice->transaction_id=$data->transaction_id;
       $invoice->status=$data->status;
-      $invoice->app_money='1';
+      $invoice->app_money=$data->price*($data->tax/100);
       if ($invoice->save()) {
         $payout->user_id=Auth::id();
         $payout->transaction_id=$data->transaction_id;
@@ -83,8 +83,15 @@ class OrderController extends Controller
   //-----------Start-GetOrder---
   public function GetOrder(Request $data)
   {
-    $order=order::where('code',$data->code)->where('provider_id', Auth::id())->first();
-    return response(['order'=>$order,'invoice'=>$order->invoice->first()]);
+    if (Auth::user()->role='مقدم خدمه') {
+    $order=order::where('code',$data->code)->where('provider_id', Auth::id())->with('invoice')->first();
+    if ($order) {
+
+      return response(['order'=>$order]);
+    }
+    return response(['response'=>' هذا العرض ليس لك']);
+  }
+  return response(['response'=>'انتا لت مقدم خدمه']);
   }
   //------------End-GetOrder-------
 
@@ -103,11 +110,18 @@ class OrderController extends Controller
           $order->status=1;
           $order->save();
           $chat=new chat();
+          if (($chat->findChat($order->user_id,$order->provider_id))=="ture") {
+         return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+          }
+          else {
+
           $chat->sender_id=$order->user_id;
           $chat->receiver_id=$order->provider_id;
-          $chat->chat='chat'.($order->user_id+$order->provider_id);
+          $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
           $chat->save();
           return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+
+        }
 
       }
     }
@@ -118,7 +132,7 @@ class OrderController extends Controller
   //-----------Start-AcceptOrder---
   public function CanceledOrder(Request $data)
   {
-    $order=order::find($data->order_id)->where('provider_id', Auth::id())->first();
+    $order=order::find($data->order_id)->where('provider_id', Auth::id())->with('invoice')->first();
     if ($order) {
 
     if ($order->status!=0) {
@@ -129,7 +143,7 @@ class OrderController extends Controller
     $order->end_time=Carbon::now()->addDays($order->invoice->duration);
     $order->status=-1;
     $order->save();
-    return response(['success'=>'تم رفض الطلب بنجاح','order'=>$order,'invoice'=>$order->invoice->first()]);
+    return response(['success'=>'تم رفض الطلب بنجاح','order'=>$order]);
   }
     }
     return response(['error'=>'هذا الطلب غير موجود']);
@@ -138,11 +152,11 @@ class OrderController extends Controller
 
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
-    if (Auth::user()->role=='عامل') {
-      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->get();
+    if (Auth::user()->role=='مقدم خدمه') {
+      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     else {
-      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->get();
+      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     if (count($SuccessedOreders)>0) {
       return response(['response'=>'success','data'=>$SuccessedOreders]);

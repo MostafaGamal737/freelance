@@ -96,13 +96,12 @@ Route::get('Dashboard/Locations/DeleteLocation/{id}',"locationController@DeleteL
 //------------Reports
 Route::post('Dashboard/Reports/AddReport',"reportController@AddReport");
 
-
-
 //------------chats
-Route::get('Dashboard/Chats/messages/{sender_id}/{receiver_id}',"chatController@GetMessages");
+Route::get('Dashboard/Chats/Chat/{chat_id}/',"chatController@GetMessages");
 
 //-----------Sittings
 Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
+Route::get('chat',"chatController@findChat");
 
 });
 

@@ -50,7 +50,7 @@ class dashboardrController extends Controller
   public function SuccessedOrders()
   {
     session::put('active', 'SuccessedOrders');
-    $orders=order::where('status','1')->get();
+    $orders=order::where('status','2')->get();
    return view('admin\Orders\orders',compact('orders'));
   }
   public function DelayedOrders()
@@ -62,7 +62,7 @@ class dashboardrController extends Controller
   public function OngoingOrders()
   {
     session::put('active', 'OngoingOrders');
-    $orders=order::where('status','2')->get();
+    $orders=order::where('status','1')->get();
    return view('admin\Orders\orders',compact('orders'));
   }
   public function FailedOrders()

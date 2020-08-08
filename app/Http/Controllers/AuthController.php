@@ -24,10 +24,13 @@ class AuthController extends Controller
   {
 
     if (Auth::attempt(['email'=>$data->email,'password'=>$data->password])) {
-      $user=User::where('email','=',$data->email)->first();
-      Auth::Login($user);
-      return redirect('Dashboard');
+      if (Auth::check()) {
+        return redirect('Dashboard');
+      }
+      Auth::login();
+    return redirect('Dashboard');
     }
+
     return redirect()->back()->with('message','بيانات خاطئه');
   }
   public function Logout()

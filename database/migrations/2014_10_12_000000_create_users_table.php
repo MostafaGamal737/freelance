@@ -22,6 +22,7 @@ class CreateUsersTable extends Migration
           $table->integer('phone');
           $table->string('job_title')->nullable();
           $table->integer('hourly_rate')->nullable();
+          $table->decimal('wallet', 8, 2)->default(0);
           $table->string('location');
           $table->boolean('user_verified')->nullable();
           $table->string("role");

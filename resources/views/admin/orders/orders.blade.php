@@ -24,7 +24,7 @@
               <td>{{$order->user->name}}</td>
               <td>{{$order->invoice->provider_name}}</td>
               <td>{{$order->job_name}}</td>
-              <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">تفاصيل</a><a href="DeleteUser/" class="btn btn-danger">حذف</a></td>
+              <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">تفاصيل</a><a href="DeleteUser/" class="btn btn-danger" hidden>حذف</a></td>
             </tr>
           @endforeach
           @csrf

@@ -25,7 +25,7 @@
               <td>{{App\user::find($chat->sender_id)->name}}</td>
               <td>{{App\user::find($chat->receiver_id)->name}}</td>
               <td>{{$chat->chat}}</td>
-              <td ><a href="{{asset('Dashboard\Chats\messages')}}\{{$chat->sender_id}}\{{$chat->receiver_id}}" class="btn btn-primary">مشاهدة</a><a href="DeleteUser/" class="btn btn-danger">حذف</a></td>
+              <td ><a href="{{asset('Dashboard\Chats\Chat')}}\{{$chat->id}}" class="btn btn-primary">مشاهدة</a><a href="DeleteUser/" class="btn btn-danger">حذف</a></td>
             </tr>
           @endforeach
           @csrf
