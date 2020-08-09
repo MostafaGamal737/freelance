@@ -20,86 +20,86 @@ class dashboardrController extends Controller
   public function Users()
   { session::put('active', 'Users');
    $users=user::where('role','!=','مدير')->where('role','!=', 'مدير عام')->get();
-   return view('admin\users\users',compact('users'));
+   return view('admin/users/Users',compact('users'));
   }
   public function Admins()
   { session::put('active', 'Admins');
    $users=user::where('role','مدير')->get();
-   return view('admin\users\Admins',compact('users'));
+   return view('admin/users/Admins',compact('users'));
   }
   public function Dashboard()
   { session::put('active', 'Dashboard');
-   return view('admin\dashboard');
+   return view('admin/dashboard');
   }
   public function roles()
   { session::put('active', 'roles');
     $roles=role::get();
-   return view('admin\roles\role',compact('roles'));
+   return view('admin/roles/role',compact('roles'));
   }
   public function Skills()
   { session::put('active', 'Skills');
     $skills=skill::get();
-   return view('admin\skills\skill',compact('skills'));
+   return view('admin/skills/skill',compact('skills'));
   }
   public function Jobs()
   {
     session::put('active', 'Jobs');
     $jobs=job::get();
-   return view('admin\jobs\jobs',compact('jobs'));
+   return view('admin/jobs/jobs',compact('jobs'));
   }
   public function SuccessedOrders()
   {
     session::put('active', 'SuccessedOrders');
     $orders=order::where('status','2')->get();
-   return view('admin\Orders\orders',compact('orders'));
+   return view('admin/orders/orders',compact('orders'));
   }
   public function DelayedOrders()
   {
     session::put('active', 'DelayedOrders');
     $orders=order::where('status','0')->get();
-   return view('admin\Orders\orders',compact('orders'));
+   return view('admin/orders/orders',compact('orders'));
   }
   public function OngoingOrders()
   {
     session::put('active', 'OngoingOrders');
     $orders=order::where('status','1')->get();
-   return view('admin\Orders\orders',compact('orders'));
+   return view('admin/orders/orders',compact('orders'));
   }
   public function FailedOrders()
   {
     session::put('active', 'FailedOrders');
     $orders=order::where('status','-1')->get();
-   return view('admin\Orders\orders',compact('orders'));
+   return view('admin/orders/orders',compact('orders'));
   }
   public function Reviews()
   {
     session::put('active', 'Reviews');
     $reviews=review::get();
-   return view('admin\reviews\reviews',compact('reviews'));
+   return view('admin/reviews/reviews',compact('reviews'));
   }
   public function Locations()
   {
     session::put('active', 'Locations');
     $locations=location::get();
-   return view('admin\locations\locations',compact('locations'));
+   return view('admin/locations/locations',compact('locations'));
   }
   public function Reports()
   {
     session::put('active', 'Reports');
     $reports=report::get();
-   return view('admin\reports\reports',compact('reports'));
+   return view('admin/reports/reports',compact('reports'));
   }
   public function Chats()
   {
 session::put('active', 'Chats');
     $chats=chat::get();
-   return view('admin\chats\chats',compact('chats'));
+   return view('admin/chats/chats',compact('chats'));
   }
   public function Sittings()
   {
 session::put('active', 'Sittings');
     $sitting=sitting::first();
-    return view('admin\sittings\sittings',compact('sitting'));
+    return view('admin/sittings/sittings',compact('sitting'));
   }
   public function AddSittings(Request $data)
   {

@@ -4,19 +4,19 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\user;
-use App\jobs\activate;
+use App\Jobs\activate;
 use DB;
-use App\http\Requests\adminValidation;
+use App\Http\Requests\adminValidation;
 class userController extends Controller
 {
   public function UserProfile($id)
   {
     $user=user::find($id);
-    return view('admin\users\UserProfile',compact('user'));
+    return view('admin/users/UserProfile',compact('user'));
   }
   public function ShowAddUser()
   {
-    return view('admin\users\AddUser');
+    return view('admin.users.AddUser');
   }
   public function AddUser(adminValidation $data)
   {

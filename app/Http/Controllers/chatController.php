@@ -16,7 +16,7 @@ class chatController extends Controller
     {
        session::put('active', 'chat');
       $messages=message::where('chat_id', $chat_id)->with('user')->get();
-      return view('admin\chats\messages',compact('messages'));
+      return view('admin/chats/messages',compact('messages'));
     }
 
    public function findChat()

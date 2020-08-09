@@ -16,7 +16,7 @@ class AuthController extends Controller
   public function AdminLogin()
   {
     if (!Auth::check()) {
-      return view('admin\Auth\Login');
+      return view('admin/Auth/Login');
     }
     return redirect('Dashboard');
   }
@@ -43,7 +43,7 @@ class AuthController extends Controller
     if (Auth::check()) {
       return redirect('Dashboard');
     }
-    return view('admin\Auth\ResetPassord');
+    return view('admin/Auth/ResetPassord');
   }
   public function Reset(Request $data)
   {
@@ -76,7 +76,7 @@ class AuthController extends Controller
     $forgetPassowrd=forgetPassowrd::where('token',$token)->first();
     if ($forgetPassowrd) {
 
-      return view('admin\Auth\NewPassword',compact('token','email'));
+      return view('admin/Auth/NewPassword',compact('token','email'));
     }
     else {
       return redirect('AdminLogin');

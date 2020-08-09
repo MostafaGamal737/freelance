@@ -4,11 +4,11 @@ namespace App\Http\Controllers\api;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\user;
-use App\http\Requests\adminValidation;
+use App\User;
+use App\Http\Requests\adminValidation;
 use Laravel\Passport\HasApiTokens;
-use App\jobs\activate;
-use App\jobs\ResetPasswordJob;
+use App\Jobs\activate;
+use App\Jobs\ResetPasswordJob;
 use App\Http\Requests\loginvalidation;
 use Auth;
 use App\forgetPassowrd;

@@ -19,10 +19,7 @@ class CreateReviewsTable extends Migration
             $table->integer("client_id");
             $table->text("review");
             $table->timestamps();
-            $table->foreign('user_id')
-      ->references('id')->on('users')
-      ->onDelete('cascade');
-        
+           
         });
     }
 

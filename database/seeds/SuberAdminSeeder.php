@@ -1,7 +1,7 @@
 <?php
 
 use Illuminate\Database\Seeder;
-use App\user;
+use App\User;
 class SuberAdminSeeder extends Seeder
 {
     /**
@@ -11,7 +11,7 @@ class SuberAdminSeeder extends Seeder
      */
     public function run()
     {
-        $user=new user();
+        $user=new User();
         $user->name='mostafa';
         $user->email='admin@gmail.com';
         $user->password=bcrypt('asdasdasd');
