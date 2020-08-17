@@ -17,4 +17,13 @@ class order extends Model
   {
     return $this->belongsTo('App\invoice');
   }
+  public function usermoney()
+  {
+    $money=0;
+    $orders=(order::where('customers_money_status',0)->get());
+    foreach ($orders as $order) {
+      $money+=(($order->invoice->price)-($order->invoice->app_money));
+    }
+    return $money;
+  }
 }

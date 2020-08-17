@@ -14,6 +14,6 @@ use Illuminate\Support\Facades\Broadcast;
 */
 
 
-Broadcast::channel('Chat', function ($user, $id) {
+Broadcast::channel('Chat.{id}', function ($user, $id) {
     return $user;
 });

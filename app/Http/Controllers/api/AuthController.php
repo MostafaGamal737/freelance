@@ -45,6 +45,9 @@ class AuthController extends Controller
     if (!Auth::attempt(['email'=>$data->email,'password'=>$data->password])) {
       return response(['error'=>'البيانات غير صحيحه']);
     }
+
+    Auth::user()->fire_token=$data->fire_token;
+    Auth::user()->save();
     $token=Auth()->user()->createToken('authToken')->accessToken;
     return response(['success','user'=>Auth()->user(),'token'=>$token]) ;
   }

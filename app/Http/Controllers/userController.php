@@ -7,6 +7,7 @@ use App\user;
 use App\Jobs\activate;
 use DB;
 use App\Http\Requests\adminValidation;
+use App\Http\Requests\ubdaterequest;
 class userController extends Controller
 {
   public function UserProfile($id)
@@ -68,4 +69,23 @@ class userController extends Controller
       }
       return redirect()->back()->with('message', 'تم الحذف بنجاح');
     }
+    public function ShowUpdate($id)
+    {
+      $user=user::find($id);
+      return view('admin/users/Update',compact('user'));
+    }
+    public function Update($id,ubdaterequest $data)
+    {
+      $user=user::find($id);
+      if ($data->has('password') and !is_null($data->input('password'))) {
+          $data['password'] = bcrypt($data['password']);
+      }else {
+        unset($data['password']);
+      }
+
+       $user->update($data->all());
+
+      return redirect()->back()->with(['message'=>'تم تحديث البيانات بنجاح']);
+    }
+
   }

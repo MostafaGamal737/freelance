@@ -28,6 +28,7 @@ Route::get('orders','api\OrderController@Orders');
 Route::post('MakeOrder','api\OrderController@MakeOrder');
 Route::post('AcceptOrder','api\OrderController@AcceptOrder');
 Route::post('CanceledOrder','api\OrderController@CanceledOrder');
+Route::post('Rating','api\OrderController@Rating');
 Route::post('GetOrder','api\OrderController@GetOrder');
 Route::post('GetOrderUsingStatus','api\OrderController@GetOrderUsingStatus');
 Route::get('GetMyChats','api\ChatController@GetMyChats');

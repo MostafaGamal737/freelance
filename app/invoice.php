@@ -13,4 +13,22 @@ class invoice extends Model
   {
     return $this->belongsTo('App\order');
   }
+  public function appMoney()
+  {
+    $money=0;
+    $invoices=(invoice::get());
+    foreach ($invoices as $invoice) {
+      $money+=$invoice->app_money;
+    }
+    return $money;
+  }
+  public function totalTransfers()
+  {
+    $money=0;
+    $invoices=(invoice::get());
+    foreach ($invoices as $invoice) {
+      $money+=$invoice->price;
+    }
+    return $money;
+  }
 }

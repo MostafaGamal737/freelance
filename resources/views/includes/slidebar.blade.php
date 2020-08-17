@@ -71,9 +71,9 @@
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\Reviews')}}"  class='{{Session::get('active')=='Reviews'?"active":'mm-active'}}'>
+     <a href="{{asset('Dashboard\UsreMoney')}}"  class='{{Session::get('active')=='UsreMoney'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
-       تقيم مقدمين المخدمات
+       الاموال المعلقه
      </a>
    </li>
    <li hidden>

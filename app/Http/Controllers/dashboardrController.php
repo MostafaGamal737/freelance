@@ -71,11 +71,11 @@ class dashboardrController extends Controller
     $orders=order::where('status','-1')->get();
    return view('admin/orders/orders',compact('orders'));
   }
-  public function Reviews()
+  public function UsreMoney()
   {
-    session::put('active', 'Reviews');
-    $reviews=review::get();
-   return view('admin/reviews/reviews',compact('reviews'));
+    session::put('active', 'UsreMoney');
+    $orders=order::where('customers_money_status',0)->get();
+   return view('admin/reviews/reviews',compact('orders'));
   }
   public function Locations()
   {

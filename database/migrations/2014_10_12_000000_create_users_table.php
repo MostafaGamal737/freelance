@@ -21,9 +21,11 @@ class CreateUsersTable extends Migration
           $table->string('password');
           $table->integer('phone');
           $table->string('job_title')->nullable();
-          $table->integer('hourly_rate')->nullable();
+          //$table->integer('hourly_rate')->nullable();
+          $table->double('rating')->default(0);
           $table->decimal('wallet', 8, 2)->default(0);
           $table->string('location');
+          $table->string('fire_token')->default('token');
           $table->boolean('user_verified')->nullable();
           $table->string("role");
           $table->rememberToken();

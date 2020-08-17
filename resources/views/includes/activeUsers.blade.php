@@ -5,8 +5,8 @@
                 <div class="card-header">حالة العمليات
                   <div class="btn-actions-pane-right">
                     <div role="group" class="btn-group-sm btn-group">
-                      <button class="active btn btn-focus">الاسبوع الماضي</button>
-                      <button class="btn btn-focus">الشهر الماضي</button>
+                      <button class="active btn btn-focus"></button>
+                      <button class="btn btn-focus"></button>
                     </div>
                   </div>
                 </div>
@@ -22,7 +22,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach (App\order::paginate(6) as $order)
+                      @foreach (App\order::paginate(5) as $order)
 
 
                       <tr>
@@ -67,7 +67,7 @@
                     </table>
                   </div>
                   <div class="d-block text-center card-footer">
-                    <button class="btn-wide btn ">{{App\order::paginate(1)->links()}}</button>
+                    <button class="btn-wide btn ">{{App\order::paginate(5)->links()}}</button>
                   </div>
                 </div>
               </div>

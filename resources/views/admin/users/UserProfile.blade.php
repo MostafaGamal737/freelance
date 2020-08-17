@@ -57,7 +57,7 @@
                 </div>
                 <div class="row">
                   <div class="col-md-6">
-                    <label>الايمال</label>
+                    <label>البريد الالكتروني</label>
                   </div>
                   <div class="col-md-6">
                     <p class="p-3 mb-2 bg-danger text-white">{{$user->email}}</p>

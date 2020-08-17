@@ -25,4 +25,49 @@ class chatController extends Controller
      return $chat->findChat(2,1);
    }
 
+
+   public function action(Request $data_search)
+   {
+     $output='';
+     if ($data_search->ajax()) {
+       $query=$data_search->get('query');
+       if ($query!='') {
+         $data=chat::where('id','like','%'.$query.'%')
+         ->get();
+       }
+       else {
+         $data=chat::orderBy('id', 'DESC')->get();
+       }
+       $total_row=count($data);
+     }
+     if ($total_row>0) {
+       foreach ($data as $row) {
+         $output.='
+          <tr>
+          <td>'.$row->id.'</td>
+          <td>'.user::find($row->sender_id)->name.'</td>
+          <td>'.user::find($row->receiver_id)->name.'</td>
+          <td>'.$row->chat.'</td>
+          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class=btnbtn-primary>مشاهدة</a></td>
+
+          </tr>
+         ';
+       }
+     }
+     else {
+       $output='
+       <tr>
+       <td align="center" colspan="5">
+       no Data founded
+       </td>
+       </tr>
+       ';
+     }
+     $data=array(
+       'table_data'=>$output,
+       'total_data'=>$total_row
+     );
+     echo json_encode($data);
+   }
 }
+//<td ><a href="{{asset('Dashboard\Chats\Chat')}}\{{$chat->id}}" class="btn btn-primary">مشاهدة</a><a href="DeleteUser/" class="btn btn-danger">حذف</a></td>

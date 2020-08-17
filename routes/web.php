@@ -4,6 +4,7 @@ use Illuminate\Support\Facades\Route;
 use App\Events\SendMessageEvent;
 use App\Http\Middleware\AdminMiddleware;
 
+
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -16,6 +17,7 @@ use App\Http\Middleware\AdminMiddleware;
 */
 Route::get('/', function (Request $request) {
   //broadcast(new SendMessageEvent("mostafa"));
+
 
     return view('welcome');
 });
@@ -47,7 +49,7 @@ Route::get('Dashboard/DelayedOrders',"dashboardrController@DelayedOrders");
 Route::get('Dashboard/OngoingOrders',"dashboardrController@OngoingOrders");
 Route::get('Dashboard/FailedOrders',"dashboardrController@FailedOrders");
 
-Route::get('Dashboard/Reviews',"dashboardrController@Reviews");
+Route::get('Dashboard/UsreMoney',"dashboardrController@UsreMoney");
 Route::get('Dashboard/Locations',"dashboardrController@Locations");
 Route::get('Dashboard/Reports',"dashboardrController@Reports");
 Route::get('Dashboard/Chats',"dashboardrController@Chats");
@@ -62,6 +64,8 @@ Route::get('Dashboard/Users/AddUser',"userController@ShowAddUser");
 Route::Post('Dashboard/Users/AddUser',"userController@AddUser");
 Route::get('Dashboard/Users/DeleteUser/{id}',"userController@DeleteUser");
 Route::get('Dashboard/Users/{id}',"userController@UserProfile");
+Route::get('Dashboard/Users/Update/{id}',"userController@ShowUpdate");
+Route::post('Dashboard/Users/Update/{id}',"userController@Update");
 Route::get('activate/{id}/{name}',"userController@activate");
 
 //----------Roles
@@ -98,10 +102,12 @@ Route::post('Dashboard/Reports/AddReport',"reportController@AddReport");
 
 //------------chats
 Route::get('Dashboard/Chats/Chat/{chat_id}/',"chatController@GetMessages");
+Route::get('chat',"chatController@findChat");
 
+//Route::get('search','chatController@search');
+Route::get('search/action','chatController@action')->name('search.action');
 //-----------Sittings
 Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
-Route::get('chat',"chatController@findChat");
 
 });
 

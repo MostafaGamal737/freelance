@@ -14,7 +14,7 @@
         <thead>
           <tr>
             <th>الاسم</th>
-            <th>الايمال</th>
+            <th>البريد الالكتروني</th>
             <th>الجوال</th>
             <th>الوظيفه</th>
             <th>البلد</th>
@@ -31,7 +31,7 @@
             <td>{{$user->phone}}</td>
           <td>{{$user->role}}</td>
           <td>{{$user->location}}</td>
-            <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a><a href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a></td>
+            <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a><a href="{{asset('Dashboard\Users\Update')}}\{{$user->id}}" class="btn btn-info">تعديل</a><a href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a></td>
             </tr>
     @endforeach
 @csrf
