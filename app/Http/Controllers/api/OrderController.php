@@ -101,7 +101,7 @@ class OrderController extends Controller
   public function AcceptOrder(Request $data)
   {
      $notification=new notification();
-    $order=order::where('id',$data->order_id)->where('provider_id', Auth::id())->first();
+    $order=order::find($data->order_id);
     $user=user::find($order->user_id);
 
     if ($order) {
@@ -139,7 +139,7 @@ class OrderController extends Controller
   public function CanceledOrder(Request $data)
   {
     $notification=new notification();
-    $order=order::find($data->order_id)->where('provider_id', Auth::id())->with('invoice')->first();
+    $order=order::find($data->order_id);
     $user=user::find($order->user_id);
 
     if ($order) {

@@ -22,11 +22,13 @@ return [
      * messages to each other via the webSockets.
      */
     'apps' => [
-        [
-          'id' => env('PUSHER_APP_ID'),
+        [       
+      'id' => env('PUSHER_APP_ID'),
       'name' => env('APP_NAME'),
       'key' => env('PUSHER_APP_KEY'),
       'secret' => env('PUSHER_APP_SECRET'),
+      'path' => env('PUSHER_APP_PATH'),
+      'capacity' => null,
       'enable_client_messages' => false,
       'enable_statistics' => true,
         ],
@@ -108,20 +110,24 @@ return [
          * certificate chain of issuers. The private key also may be contained
          * in a separate file specified by local_pk.
          */
-        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+//        'local_cert' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_CERT', null),
+
+'local_cert' => '/home/admin/conf/web/ssl.taameed.app.crt',
+
+'local_pk' => '/home/admin/conf/web/ssl.taameed.app.key',
 
         /*
          * Path to local private key file on filesystem in case of separate files for
          * certificate (local_cert) and private key.
          */
-        'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
+  //      'local_pk' => env('LARAVEL_WEBSOCKETS_SSL_LOCAL_PK', null),
 
         /*
          * Passphrase for your local_cert file.
          */
         'passphrase' => env('LARAVEL_WEBSOCKETS_SSL_PASSPHRASE', null),
+        'verify_peer' => false,
     ],
-
     /*
      * Channel Manager
      * This class handles how channel persistence is handled.
