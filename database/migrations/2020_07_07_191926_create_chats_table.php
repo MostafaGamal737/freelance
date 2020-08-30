@@ -17,6 +17,8 @@ class CreateChatsTable extends Migration
             $table->id();
             $table->integer("sender_id");
             $table->integer("receiver_id");
+            $table->string("sender_name");
+            $table->string("receiver_name");
             $table->string("chat");
             $table->string("file")->nullable();
             $table->timestamps();

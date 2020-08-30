@@ -15,6 +15,8 @@ use App\chat;
 use App\message;
 use App\sitting;
 use session;
+use Auth;
+use App\Notifications\OrderNotification;
 class dashboardrController extends Controller
 {
   public function Users()

@@ -33,6 +33,8 @@ class chatController extends Controller
        $query=$data_search->get('query');
        if ($query!='') {
          $data=chat::where('id','like','%'.$query.'%')
+         ->orwhere('sender_name','like','%'.$query.'%')
+         ->orwhere('receiver_name','like','%'.$query.'%')
          ->get();
        }
        else {
@@ -58,7 +60,7 @@ class chatController extends Controller
        $output='
        <tr>
        <td align="center" colspan="5">
-       no Data founded
+      لا يوجد نتائج
        </td>
        </tr>
        ';

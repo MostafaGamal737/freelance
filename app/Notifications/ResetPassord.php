@@ -47,7 +47,8 @@ class ResetPassord extends Notification
     {
         return (new MailMessage)
                     ->line('وصلنا طلبط بأنك قد نسيت كلمة السر الخاصه بك ')
-                    ->action('كلمة مرور جديده', ('http://127.0.0.1:8000/ResetPassord/'.$this->forgetPassowrd->token.'/'.$this->forgetPassowrd->email))
+                    //->action('كلمة مرور جديده', ('http://127.0.0.1:8000/ResetPassord/'.$this->forgetPassowrd->token.'/'.$this->forgetPassowrd->email))
+                    ->action($this->forgetPassowrd->token,('#'))
                     ->line('نشكر علي استخدامك التطبيق الخاص بنا!');
     }
 

@@ -16,9 +16,9 @@ class chat extends Model
 
     public function findChat($user_id,$provider_id){
       $chat=chat::where('sender_id', $user_id)
-      ->orwhere('receiver_id', $provider_id)
+      ->where('receiver_id', $provider_id)
       ->orwhere('sender_id', $provider_id)
-      ->orwhere('receiver_id', $user_id)
+      ->where('receiver_id', $user_id)
       ->first();
       if ($chat) {
         return 'true';

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Route;
 use App\Events\SendMessageEvent;
 use App\Http\Middleware\AdminMiddleware;
-
+use App\user;
 
 /*
 |--------------------------------------------------------------------------
@@ -17,7 +17,7 @@ use App\Http\Middleware\AdminMiddleware;
 */
 Route::get('/', function (Request $request) {
   //broadcast(new SendMessageEvent("mostafa"));
-
+return  user::find(1)->Notifications[0]->data['message'];
 
     return view('welcome');
 });
@@ -26,8 +26,9 @@ Route::get('Logout',"AuthController@Logout");
 Route::get('AdminLogin','AuthController@AdminLogin');
 Route::post('AdminLogin','AuthController@Login');
 Route::get('ResetPassord','AuthController@ResetPassord');
+Route::get('CodeValidation','AuthController@CodeValidation');
 Route::post('ResetPassord','AuthController@Reset');
-Route::get('ResetPassord/{token}/{email}','AuthController@NewPassword');
+Route::post('NewPassword','AuthController@NewPassword');
 Route::post('ResetNewPassord','AuthController@ResetNewPassword');
 //------------ endAuthantication
 //Route::get('AddMessage',"chatController@AddMessage");
@@ -112,3 +113,39 @@ Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 });
 
 //------------
+
+
+//user------------------------------------
+//-----------------Auth-----------
+Route::get('Login','User\AuthController@Login');
+Route::Post('Login','User\AuthController@UserLogin');
+Route::get('Registr','User\AuthController@Registr');
+Route::Post('Registr','User\AuthController@AddUser');
+Route::get('UserType','User\AuthController@UserType');
+Route::Post('UserType','User\AuthController@AddUserType');
+
+//------------------End-Auth----------
+Route::get('Home','User\HomeController@Home');
+Route::get('AddOrder','User\HomeController@AddOrder');
+
+
+//------------Order-Controller-------------
+Route::get('Home/Orders','User\OrderController@Orders');
+Route::get('Home/Orders/OrdersDetails/{id}','User\OrderController@OrdersDetails');
+Route::post('Home/Orders/OrdersDetails/{id}/cancel','User\OrderController@CancelOrder');
+Route::get('Home/Orders/OrdersDetails/{id}/accept','User\OrderController@AcceptOrder');
+Route::get('Home/MakeOrder','User\OrderController@ShowMakeOrder');
+Route::post('Home/MakeOrder','User\OrderController@MakeOrder');
+Route::get('Home/ExcuteOrder','User\OrderController@ShowExcute');
+Route::post('Home/ExcuteOrder','User\OrderController@ExcuteOrder');
+Route::get('Home/Orders/FailedOrders','User\OrderController@FailedOrders');
+Route::get('Home/Orders/PandingOrders','User\OrderController@PandingOrders');
+Route::get('Home/Orders/SuccessedOrders','User\OrderController@SuccessedOrders');
+Route::get('Home/Orders/UnderWayOrders','User\OrderController@UnderWayOrders');
+Route::get('Home/payment','User\OrderController@payment');
+
+//messages-------------
+Route::get('Home/chats','User\MessageController@chats');
+Route::get('Home/chats/{id}','User\MessageController@Messages');
+Route::get('Home/chats/{id}/messages','User\MessageController@GetMessages');
+Route::post('sendmessage','User\MessageController@sendmessage');

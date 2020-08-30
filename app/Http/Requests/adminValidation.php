@@ -28,7 +28,6 @@ class adminValidation extends FormRequest
           'email'=>'required|email|unique:users',
           'phone'=>'min:7|numeric',
           'password'=>'required|min:6|max:16',
-          
         ];
     }
     public function messages(){

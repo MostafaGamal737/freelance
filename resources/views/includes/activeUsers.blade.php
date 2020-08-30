@@ -22,7 +22,7 @@
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach (App\order::paginate(5) as $order)
+                      @foreach (App\order::limit(10)->get() as $order)
 
 
                       <tr>
@@ -67,7 +67,7 @@
                     </table>
                   </div>
                   <div class="d-block text-center card-footer">
-                    <button class="btn-wide btn ">{{App\order::paginate(5)->links()}}</button>
+
                   </div>
                 </div>
               </div>

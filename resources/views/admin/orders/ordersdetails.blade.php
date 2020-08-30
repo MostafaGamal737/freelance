@@ -1,6 +1,8 @@
 
 @extends('includes.master')
-
+@section('title')
+  تفاصيل المعامله
+@endsection
 @section('body')
 <style media="screen">
   th {text-align:center;}

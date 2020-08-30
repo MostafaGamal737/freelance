@@ -1,5 +1,7 @@
 @extends('includes.master')
-
+@section('title')
+  المعاملات
+@endsection
 @section('body')
 
   <div class="app-main__outer">

@@ -49,7 +49,7 @@ class AuthController extends Controller
     Auth::user()->fire_token=$data->fire_token;
     Auth::user()->save();
     $token=Auth()->user()->createToken('authToken')->accessToken;
-    return response(['success','user'=>Auth()->user(),'token'=>$token]) ;
+    return response(['success','user'=>Auth()->user()]) ;
   }
 
 
@@ -104,6 +104,7 @@ class AuthController extends Controller
 
     return $token;
   }
+
 
 
 }
