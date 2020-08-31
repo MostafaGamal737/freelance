@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\order;
 use App\invoice;
 use App\payout;
-use App\user;
+use App\User;
 use App\chat;
 use Auth;
 use Carbon\Carbon;
@@ -67,7 +67,7 @@ class OrderController extends Controller
     {
       $notification=new notification();
       $order=order::find($id);
-      $user=user::find($order->user_id);
+      $user=User::find($order->user_id);
        if ((Auth::user()->phone)==($order->invoice->provider_phone)) {
          $order->start_time=Carbon::now();
          $order->end_time=Carbon::now()->addDays($order->invoice->duration);
@@ -75,7 +75,7 @@ class OrderController extends Controller
          $order->cancel=$data->cancel;
          $order->save();
          $notification->SendNotification($user,'لقدم تم رفض الطلب');
-         $user->notify(new OrderNotification(user::find($order->provider_id),'تم رفض الطلب المقدم ل ',$order));
+         $user->notify(new OrderNotification(User::find($order->provider_id),'تم رفض الطلب المقدم ل ',$order));
          return redirect()->back()->with('message','تم رفض الطلب المقدم ل ');
        }
        return redirect('Home');
@@ -85,7 +85,7 @@ class OrderController extends Controller
     {
       $notification=new notification();
       $order=order::find($id);
-      $user=user::find($order->user_id);
+      $user=User::find($order->user_id);
        $order=order::find($id);
 
        if ((Auth::user()->phone)==($order->invoice->provider_phone)&&$order->status==0) {
@@ -94,7 +94,7 @@ class OrderController extends Controller
          $order->status=1;
          $order->save();
          $notification->SendNotification($user,'لقد تم قبول الطلب');
-         $user->notify(new OrderNotification(user::find($order->provider_id),'تم قبول العرض المقدم ل ',$order));
+         $user->notify(new OrderNotification(User::find($order->provider_id),'تم قبول العرض المقدم ل ',$order));
            $chat=new chat();
              if (($chat->findChat($order->user_id,$order->provider_id))=="false") {
                $chat->sender_id=$order->user_id;
@@ -117,7 +117,7 @@ class OrderController extends Controller
     public function MakeOrder(Request $data){
       $payout=new payout();
       $data['status']=1;
-      $provider=user::where('phone',$data->provider_phone)->first();
+      $provider=User::where('phone',$data->provider_phone)->first();
       if (empty($provider)) {
         return redirect()->back()->with('error','حدث خطء في تقديم الطلب تأكد من البيانات المدخله');
       }
