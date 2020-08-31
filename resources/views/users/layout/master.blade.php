@@ -16,7 +16,7 @@
     <title>@yield('title')</title>
 </head>
 <body>
-@include('users\layout\nav')
+@include('users.layout.nav')
  @yield('body')
 
 

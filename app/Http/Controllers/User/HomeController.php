@@ -9,10 +9,10 @@ class HomeController extends Controller
 {
   public function Home()
   {
-    return view('users\Home');
+    return view('users/Home');
   }
   public function AddOrder()
   {
-    return view('users\Orders\NewOrder');
+    return view('users/Orders/NewOrder');
   }
 }

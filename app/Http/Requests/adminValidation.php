@@ -24,9 +24,9 @@ class adminValidation extends FormRequest
     public function rules()
     {
         return [
-          'name'=>'max:20|min:6',
+          'name'=>'max:30|min:6',
           'email'=>'required|email|unique:users',
-          'phone'=>'min:7|numeric',
+          'phone'=>'min:7|numeric|unique',
           'password'=>'required|min:6|max:16',
         ];
     }
@@ -39,6 +39,7 @@ class adminValidation extends FormRequest
         'email.unique'=>'هذا البريد موجد لدينا اختر واحدا اخر',
         'phone.numeric'=>'يجب الا يقل رقم الجوال عن 7 ارقام',
         'phone.min'=>'الجوال يجب ان يكون ارقام فقط',
+        'phone.unique'=>'هذا الرقم موجود بالفعل',
         'password.min'=>'يجب الا تقل كلمة السر عن 6 احرف',
         'password.confirmed'=>'تأكيد كلمة السير غير متطابقه',
       ];

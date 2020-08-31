@@ -18,49 +18,49 @@ class OrderController extends Controller
 {
     public function Orders()
     {
-      return view('users\Orders\Orders');
+      return view('users/Orders/Orders');
     }
     public function OrdersDetails($id)
     {
       $order=order::find($id);
       if (!empty($order)) {
-        return view('users\Orders\OrderDetails',compact('order'));
+        return view('users/Orders/OrderDetails',compact('order'));
       }
       return redirect('Home');
     }
     public function ShowMakeOrder()
     {
-      return view('users\Orders\MakeOrder');
+      return view('users/Orders/MakeOrder');
     }
     public function FailedOrders()
     {
 
       $orders=order::where('user_id',Auth::id())->where('status',-1)->orwhere('provider_id',Auth::id())->where('status',-1)->get();
-      return view('users\Orders\FailedOrders',compact('orders'));
+      return view('users/Orders/FailedOrders',compact('orders'));
 
     }
     public function PandingOrders()
     {
 
       $orders=order::where('user_id',Auth::id())->where('status',0)->orwhere('provider_id',Auth::id())->where('status',0)->get();
-      return view('users\Orders\PandingOrders',compact('orders'));
+      return view('users/Orders/PandingOrders',compact('orders'));
 
     }
     public function SuccessedOrders()
     {
       $orders=order::where('user_id',Auth::id())->where('status',2)->orwhere('provider_id',Auth::id())->where('status',2)->get();
 
-      return view('users\Orders\SuccessedOrders',compact('orders'));
+      return view('users/Orders/SuccessedOrders',compact('orders'));
 
     }
     public function UnderWayOrders()
     {  $orders=order::where('user_id',Auth::id())->where('status',1)->orwhere('provider_id',Auth::id())->where('status',1)->get();
-        return view('users\Orders\UnderWayOrders',compact('orders'));
+        return view('users/Orders/UnderWayOrders',compact('orders'));
 
     }
     public function payment()
     {
-      return view('users\Orders\payment');
+      return view('users/Orders/payment');
     }
 
     public function CancelOrder(Request $data,$id)
@@ -181,7 +181,7 @@ class OrderController extends Controller
     {
       if (auth::user()->role=='مقدم خدمه') {
 
-        return view('users\Orders\ExcuteOrder');
+        return view('users/Orders/ExcuteOrder');
       }
       return redirect('Home');
     }
@@ -189,9 +189,9 @@ class OrderController extends Controller
     {
       if (auth::user()->role=='مقدم خدمه') {
         if ($order=order::where('code',$data->code)->first()) {
-          return view('users\Orders\OrderDetails',compact('order'));
+          return view('users/Orders/OrderDetails',compact('order'));
         }
-        return view('users\Orders\ExcuteOrder');
+        return view('users/Orders/ExcuteOrder');
       }
    return redirect('Home');
     }

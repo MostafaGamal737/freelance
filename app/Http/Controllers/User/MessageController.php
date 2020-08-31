@@ -18,12 +18,12 @@ class MessageController extends Controller
      return redirect('Home');
    }
 
-    return view('users\Messages\Messages',compact('messages','chat'));
+    return view('users/Messages/Messages',compact('messages','chat'));
   }
   public function chats()
   {  $chats=chat::where('sender_id',Auth::id())
     ->orwhere('receiver_id',Auth::id())->with('messages')->get();
-      return view('users\Messages\chats',compact('chats'));
+      return view('users/Messages/chats',compact('chats'));
   }
   public function sendmessage(Request $data)
   {

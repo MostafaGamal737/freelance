@@ -14,7 +14,7 @@ class AuthController extends Controller
     {  if (Auth::check()) {
         return redirect('Home');
       }
-      return view('users\Auth\Login');
+      return view('users/Auth/Login');
     }
     public function UserLogin(loginvalidation $data)
     {
@@ -29,7 +29,7 @@ class AuthController extends Controller
     }
     public function Registr()
     {
-      return view('users\Auth\Registr');
+      return view('users/Auth/Registr');
     }
     public function AddUser(adminValidation $data)
     {
@@ -51,7 +51,7 @@ class AuthController extends Controller
         $user->image='avatar.jpg';
       }
  $user->save();
-      return view('users\Auth\UserType',compact('user'));
+      return view('users/Auth/UserType',compact('user'));
     }
     public function UserType()
     {
