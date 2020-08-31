@@ -5,7 +5,7 @@ namespace App\Http\Controllers\User;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use App\Http\Requests\adminValidation;
-use App\user;
+use App\User;
 use App\Http\Requests\loginvalidation;
 use Auth;
 class AuthController extends Controller
@@ -35,7 +35,7 @@ class AuthController extends Controller
     {
       $data['role']='null';
       $image_name='null';
-      $user=new user();
+      $user=new User();
       $user->name=$data->name;
       $user->email=$data->email;
       $user->phone=$data->phone;
