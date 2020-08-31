@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 use App\Jobs\activate;
 use DB;
 use App\Http\Requests\adminValidation;
@@ -12,7 +12,7 @@ class userController extends Controller
 {
   public function UserProfile($id)
   {
-    $user=user::find($id);
+    $user=User::find($id);
     return view('admin/users/UserProfile',compact('user'));
   }
   public function ShowAddUser()
@@ -22,7 +22,7 @@ class userController extends Controller
   public function AddUser(adminValidation $data)
   {
     $image_name='null';
-    $user=new user();
+    $user=new User();
     $user->name=$data->name;
     $user->email=$data->email;
     $user->phone=$data->phone;
@@ -46,7 +46,7 @@ class userController extends Controller
 
     public function activate($id,$name)
     {
-      $user=user::where('name', $name)->where('id', $id)->first();
+      $user=User::where('name', $name)->where('id', $id)->first();
 
       if ($user) {
         $user->user_verified=1;
@@ -60,7 +60,7 @@ class userController extends Controller
     public function DeleteUser($id)
     {
 
-      if ($user=user::find($id)) {
+      if ($user=User::find($id)) {
       DB::table('job_user')->where('user_id',$id)->delete();
       DB::table('skill_user')->where('user_id',$id)->delete();
       $user->reviews()->delete();
@@ -76,7 +76,7 @@ class userController extends Controller
     }
     public function Update($id,ubdaterequest $data)
     {
-      $user=user::find($id);
+      $user=User::find($id);
       if ($data->has('password') and !is_null($data->input('password'))) {
           $data['password'] = bcrypt($data['password']);
       }else {

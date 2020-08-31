@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 use App\role;
 use App\skill;
 use App\job;
@@ -21,12 +21,12 @@ class dashboardrController extends Controller
 {
   public function Users()
   { session::put('active', 'Users');
-   $users=user::where('role','!=','مدير')->where('role','!=', 'مدير عام')->get();
+   $users=User::where('role','!=','مدير')->where('role','!=', 'مدير عام')->get();
    return view('admin/users/Users',compact('users'));
   }
   public function Admins()
   { session::put('active', 'Admins');
-   $users=user::where('role','مدير')->get();
+   $users=User::where('role','مدير')->get();
    return view('admin/users/Admins',compact('users'));
   }
   public function Dashboard()

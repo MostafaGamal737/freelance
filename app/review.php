@@ -10,6 +10,6 @@ class review extends Model
       'review',
   ];
     public function user(){
-      return  $this->belongsTo('App\user');
+      return  $this->belongsTo('App\User');
     }
 }

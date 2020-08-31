@@ -11,7 +11,7 @@ class job extends Model
   ];
   public function Users()
   {
-    return $this->belongsToMany('App\user')
+    return $this->belongsToMany('App\User')
     ->using('App\user_has_skill')
     ->withPivot([
       'created_by',

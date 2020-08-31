@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\order;
 use App\invoice;
 use App\payout;
-use App\user;
+use App\User;
 use App\chat;
 use Auth;
 use Carbon\Carbon;

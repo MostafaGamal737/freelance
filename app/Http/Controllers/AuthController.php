@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use Auth;
-use App\user;
+use App\User;
 use App\forgetPassowrd;
 use App\Notifications\ResetPassord;
 use App\Http\Requests\newpassrequest;
@@ -50,7 +50,7 @@ class AuthController extends Controller
   }
   public function Reset(Request $data)
   {
-    $user=user::where('email',$data->email)->first();
+    $user=User::where('email',$data->email)->first();
 
     if (!empty($user)) {
       if ($this->checkforget($user)) {
@@ -94,7 +94,7 @@ if (strlen($data->password)<6||($data->password)!=($data->password_confirmation)
   return redirect('Login')->with('message','تأكد من كلمة المرور جيدا ');
 }
 
-    $user=user::where('email',$data->email)->first();
+    $user=User::where('email',$data->email)->first();
     $user->password=bcrypt($data->password);
     $user->save();
     $forgetPassowrd=forgetPassowrd::where('token',$data->token)->first()->delete();

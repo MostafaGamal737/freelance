@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 use App\message;
 use App\chat;
 use Auth;
@@ -47,8 +47,8 @@ class chatController extends Controller
          $output.='
           <tr>
           <td>'.$row->id.'</td>
-          <td>'.user::find($row->sender_id)->name.'</td>
-          <td>'.user::find($row->receiver_id)->name.'</td>
+          <td>'.User::find($row->sender_id)->name.'</td>
+          <td>'.User::find($row->receiver_id)->name.'</td>
           <td>'.$row->chat.'</td>
           <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class=btnbtn-primary>مشاهدة</a></td>
 
