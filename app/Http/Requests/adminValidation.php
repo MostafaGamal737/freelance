@@ -26,7 +26,7 @@ class adminValidation extends FormRequest
         return [
           'name'=>'max:30|min:6',
           'email'=>'required|email|unique:users',
-          'phone'=>'min:7|numeric|unique',
+          'phone'=>'min:7|numeric|unique:users',
           'password'=>'required|min:6|max:16',
         ];
     }
