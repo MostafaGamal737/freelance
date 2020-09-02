@@ -5,12 +5,21 @@
 @section('body')
   <div class="app-main__outer">
     <div class="app-main__inner">
-    <a href="{{asset('Dashboard/Users/AddUser')}}" class="btn btn-primary">اضف جديد</a>
+    <a href="{{asset('Dashboard/Users/AddUser')}}" class="btn btn-primary"hidden>اضف جديد</a>
     @if(session()->has('message'))
       <div class="alert alert-success">
           {{ session()->get('message') }}
       </div>
   @endif
+  <div class="">
+     <form class="form" action="{{asset('search/user')}}" method="post">
+       <div class="form-group">
+@csrf
+       <input required class="form-control col-lg-2" type="text" name="search" value="" placeholder="بحث" style="text-align:right;">
+       <input class="btn btn-primary form-control col-lg-2" type="submit" name="" value="بحث">
+     </div>
+     </form>
+  </div>
       </form>
       <table class="table table-striped">
         <thead>
@@ -34,8 +43,12 @@
           <td>{{$user->role}}</td>
           <td>{{$user->location}}</td>
             <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a><a href="{{asset('Dashboard\Users\Update')}}\{{$user->id}}" class="btn btn-info">تعديل</a><a href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a></td>
+
             </tr>
     @endforeach
+    <tr>
+      <td class="center">{{ $users->links() }}</td>
+    </tr>
 @csrf
           </tbody>
         </table>

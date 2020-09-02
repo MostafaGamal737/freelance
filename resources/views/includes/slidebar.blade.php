@@ -19,7 +19,7 @@
        المستخدمين
      </a>
    </li>
-   <li >
+   <li hidden>
      <a href="{{asset('Dashboard\Admins')}}" class='{{Session::get('active')=='Admins'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        المديرين

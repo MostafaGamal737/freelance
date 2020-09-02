@@ -21,7 +21,7 @@ class dashboardrController extends Controller
 {
   public function Users()
   { session::put('active', 'Users');
-   $users=User::where('role','!=','مدير')->where('role','!=', 'مدير عام')->get();
+   $users=User::paginate(10);
    return view('admin/users/Users',compact('users'));
   }
   public function Admins()

@@ -71,7 +71,7 @@ class userController extends Controller
     }
     public function ShowUpdate($id)
     {
-      $user=user::find($id);
+      $user=User::find($id);
       return view('admin/users/Update',compact('user'));
     }
     public function Update($id,ubdaterequest $data)
@@ -87,5 +87,15 @@ class userController extends Controller
 
       return redirect()->back()->with(['message'=>'تم تحديث البيانات بنجاح']);
     }
+
+       public function searchuser(Request $data)
+       {
+         $users=User::where('name','like','%'.$data->search.'%')
+         ->orwhere('phone','like','%'.$data->search.'%')
+         ->orwhere('email','like','%'.$data->search.'%')
+         ->orwhere('role','like','%'.$data->search.'%')
+         ->paginate();
+          return view('admin/users/Users',compact('users'));
+       }
 
   }

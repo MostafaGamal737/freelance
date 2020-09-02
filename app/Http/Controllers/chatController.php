@@ -50,7 +50,7 @@ class chatController extends Controller
           <td>'.User::find($row->sender_id)->name.'</td>
           <td>'.User::find($row->receiver_id)->name.'</td>
           <td>'.$row->chat.'</td>
-          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class=btnbtn-primary>مشاهدة</a></td>
+          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class="btn btn-primary">مشاهدة</a></td>
 
           </tr>
          ';
@@ -67,7 +67,7 @@ class chatController extends Controller
      }
      $data=array(
        'table_data'=>$output,
-       'total_data'=>$total_row
+       'total_data'=>$total_row,
      );
      echo json_encode($data);
    }

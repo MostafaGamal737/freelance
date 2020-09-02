@@ -51,7 +51,7 @@
      @endif
      <div class="card" id="registration-card">
          <div class="card-body">
-           <form class="" action="{{asset('Registr')}}" method="post">
+           <form class="" action="{{asset('Register')}}" method="post">
              {{csrf_field()}}
 
              <div class="row d-flex justify-content-center">

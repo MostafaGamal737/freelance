@@ -27,9 +27,9 @@ class AuthController extends Controller
       }
       return redirect()->back()->with('message','بيانات خاطئه');
     }
-    public function Registr()
+    public function Register()
     {
-      return view('users/Auth/Registr');
+      return view('users/Auth/Register');
     }
     public function AddUser(adminValidation $data)
     {

@@ -27,7 +27,7 @@
                     <a  class="nav-link disabled">تسجيل الدخول</span></a>
                 </li>
                 <li class="nav-item">
-                    <a href="{{asset('Registr')}}" class="nav-link" >تسجيل جديد</a>
+                    <a href="{{asset('Register')}}" class="nav-link" >تسجيل جديد</a>
                 </li>
 
             </ul>

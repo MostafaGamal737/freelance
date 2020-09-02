@@ -107,6 +107,7 @@ Route::get('chat',"chatController@findChat");
 
 //Route::get('search','chatController@search');
 Route::get('search/action','chatController@action')->name('search.action');
+Route::post('search/user','userController@searchuser');
 //-----------Sittings
 Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 
@@ -117,14 +118,17 @@ Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 
 //user------------------------------------
 //-----------------Auth-----------
-Route::get('Login','User\AuthController@Login');
+Route::get('/Login','User\AuthController@Login')->name('Login');
 Route::Post('Login','User\AuthController@UserLogin');
-Route::get('Registr','User\AuthController@Registr');
-Route::Post('Registr','User\AuthController@AddUser');
+Route::get('Register','User\AuthController@Register');
+Route::Post('Registeer','User\AuthController@AddUser');
 Route::get('UserType','User\AuthController@UserType');
 Route::Post('UserType','User\AuthController@AddUserType');
 
 //------------------End-Auth----------
+Route::group(['middleware' => "auth"], function(){
+
+
 Route::get('Home','User\HomeController@Home');
 Route::get('AddOrder','User\HomeController@AddOrder');
 
@@ -149,3 +153,7 @@ Route::get('Home/chats','User\MessageController@chats');
 Route::get('Home/chats/{id}','User\MessageController@Messages');
 Route::get('Home/chats/{id}/messages','User\MessageController@GetMessages');
 Route::post('sendmessage','User\MessageController@sendmessage');
+/////notifications
+Route::get('user/notifications','User\UserController@Notification');
+
+});
