@@ -5,13 +5,7 @@
 @section('body')
 
   <div class="app-main__outer">
-  <form class="form" action="{{asset('Dashboard/search/order')}}" method="get">
-       <div class="form-group">
-@csrf
-       <input required class="form-control col-lg-2" type="text" name="search" value="" placeholder="بحث" style="text-align:right;">
-       <input class="btn btn-primary form-control col-lg-2" type="submit" name="" value="بحث">
-     </div>
-     </form>
+
     <div class="app-main__inner">
       <table class="table table-striped">
         <thead>

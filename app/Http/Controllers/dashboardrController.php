@@ -21,7 +21,7 @@ class dashboardrController extends Controller
 {
   public function Users()
   { session::put('active', 'Users');
-   $users=User::paginate(10);
+   $users=User::where('role','!=','مدير عام')->paginate(10);
    return view('admin/users/Users',compact('users'));
   }
   public function Admins()
@@ -52,25 +52,25 @@ class dashboardrController extends Controller
   public function SuccessedOrders()
   {
     session::put('active', 'SuccessedOrders');
-    $orders=order::where('status','2')->get();
+    $orders=order::where('status','2')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function DelayedOrders()
   {
     session::put('active', 'DelayedOrders');
-    $orders=order::where('status','0')->get();
+    $orders=order::where('status','0')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function OngoingOrders()
   {
     session::put('active', 'OngoingOrders');
-    $orders=order::where('status','1')->get();
+    $orders=order::where('status','1')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function FailedOrders()
   {
     session::put('active', 'FailedOrders');
-    $orders=order::where('status','-1')->get();
+    $orders=order::where('status','-1')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function UsreMoney()

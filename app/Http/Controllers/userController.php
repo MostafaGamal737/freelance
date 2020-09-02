@@ -8,6 +8,7 @@ use App\Jobs\activate;
 use DB;
 use App\Http\Requests\adminValidation;
 use App\Http\Requests\ubdaterequest;
+use Auth;
 class userController extends Controller
 {
   public function UserProfile($id)
@@ -59,7 +60,7 @@ class userController extends Controller
     }
     public function DeleteUser($id)
     {
-
+      if(Auth::user()->role=='مدير عام'){
       if ($user=User::find($id)) {
       DB::table('job_user')->where('user_id',$id)->delete();
       DB::table('skill_user')->where('user_id',$id)->delete();
@@ -69,13 +70,19 @@ class userController extends Controller
       }
       return redirect()->back()->with('message', 'تم الحذف بنجاح');
     }
+    return redirect('Dashboard');
+    }
     public function ShowUpdate($id)
-    {
+    { if(Auth::user()->role=='مدير عام'){
       $user=User::find($id);
       return view('admin/users/Update',compact('user'));
     }
+    return redirect('Dashboard');
+
+    }
     public function Update($id,ubdaterequest $data)
     {
+      if(Auth::user()->role=='مدير عام'){
       $user=User::find($id);
       if ($data->has('password') and !is_null($data->input('password'))) {
           $data['password'] = bcrypt($data['password']);
@@ -84,9 +91,26 @@ class userController extends Controller
       }
 
        $user->update($data->all());
-
+       return $user->role;
       return redirect()->back()->with(['message'=>'تم تحديث البيانات بنجاح']);
     }
+    return redirect('Dashboard');
+    }
+    public function adminUpdate(Request $data)
+    {
+      $user=user::find($data->id);
+      if($data->admin=='true')
+      {
+        $user->role='مدير';
+        $user->save();
+        return 'تمت الترقيه بنجاح';
+      }
+      else{
+      $user->role='مقدم خدمه';
+        $user->save();
+        return 'تمت الترقيه بنجاح';
+      }
+      }
 
        public function searchuser(Request $data)
        {

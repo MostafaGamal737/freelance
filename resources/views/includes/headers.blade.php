@@ -10,6 +10,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, user-scalable=no, shrink-to-fit=no" />
   <meta name="description" content="This is an example dashboard created using build-in elements and components.">
   <meta name="msapplication-tap-highlight" content="no">
+  <meta name="csrf-token" content="{{ csrf_token() }}">
+
     <link href="{{asset('admin/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/main.css')}}" rel="stylesheet">
@@ -65,7 +67,11 @@
                     </div>
                     <div class="widget-content-left  ml-3 header-user-info">
                       <div class="widget-heading">
-                        {{Auth::user()->name}}
+                       @if(Auth::user()->role=='مدير عام')
+                       <a href="{{asset('Dashboard/Users/Update')}}/{{Auth::id()}}">{{Auth::user()->name}}</a> 
+                       @else
+                       {{Auth::user()->name}}
+                       @endif
                       </div>
                       <div class="widget-subheading">
 

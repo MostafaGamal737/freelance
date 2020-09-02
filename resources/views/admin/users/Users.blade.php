@@ -30,6 +30,7 @@
             <th>الوظيفه</th>
             <th>البلد</th>
             <th >الفعل</th>
+            <th >مدير</th>
           </tr>
         </thead>
         <tbody>
@@ -42,8 +43,15 @@
             <td>{{$user->phone}}</td>
           <td>{{$user->role}}</td>
           <td>{{$user->location}}</td>
-            <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a><a href="{{asset('Dashboard\Users\Update')}}\{{$user->id}}" class="btn btn-info">تعديل</a><a href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a></td>
-
+            <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a>
+            @if(Auth::user()->role=='مدير عام')
+            <a hidden href="{{asset('Dashboard\Users\Update')}}\{{$user->id}}" class="btn btn-info">تعديل</a>
+            <a  href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a>
+            
+            </td>
+            <td><input name={{$user->id}} type="checkbox" {{($user->role=='مدير')?'checked':""}}></td>
+            @endif
+          
             </tr>
     @endforeach
     <tr>
@@ -54,4 +62,27 @@
         </table>
       </div>
     </div>
+    
   @endsection
+  @section('jsSection')
+  <script>
+     $('table td input[type=checkbox]' ).click(function() {
+  var  id = (this.name) ; // button ID 
+     console.log(id);
+     console.log(this.checked);
+     $.ajax({
+       
+                    /* the route pointing to the post function */
+                    url: '/Dashboard/Users/Update/admin/'+id,
+                    type: 'POST',
+                    /* send the csrf-token and the input to the controller */
+                    data: {_token: '{{csrf_token()}}','id':id,'admin':this.checked},
+                    dataType: 'JSON',
+                    /* remind that 'data' is the response of the AjaxController */
+                    success: function (data) { 
+                       console.log(data); 
+                    }
+                }); 
+});
+    </script>
+    @endsection

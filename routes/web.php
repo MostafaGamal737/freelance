@@ -62,12 +62,15 @@ Route::post('Dashboard/Sittings/AddSittings',"dashboardrController@AddSittings")
 //------------users
 
 Route::get('Dashboard/Users/AddUser',"userController@ShowAddUser");
+//Route::get('Dashboard/Users/admin/profile',"userController@ShowAddUser");
 Route::Post('Dashboard/Users/AddUser',"userController@AddUser");
 Route::get('Dashboard/Users/DeleteUser/{id}',"userController@DeleteUser");
 Route::get('Dashboard/Users/{id}',"userController@UserProfile");
 Route::get('Dashboard/Users/Update/{id}',"userController@ShowUpdate");
 Route::post('Dashboard/Users/Update/{id}',"userController@Update");
 Route::get('activate/{id}/{name}',"userController@activate");
+
+Route::post('Dashboard/Users/Update/admin/{id}',"userController@adminUpdate");
 
 //----------Roles
 Route::post('Dashboard/Roles/AddRole',"roleController@AddRole");
@@ -108,6 +111,8 @@ Route::get('chat',"chatController@findChat");
 //Route::get('search','chatController@search');
 Route::get('search/action','chatController@action')->name('search.action');
 Route::post('search/user','userController@searchuser');
+Route::get('Dashboard/search/order','orderController@searchorder');
+
 //-----------Sittings
 Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 
@@ -121,7 +126,7 @@ Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 Route::get('/Login','User\AuthController@Login')->name('Login');
 Route::Post('Login','User\AuthController@UserLogin');
 Route::get('Register','User\AuthController@Register');
-Route::Post('Registeer','User\AuthController@AddUser');
+Route::Post('Register','User\AuthController@AddUser');
 Route::get('UserType','User\AuthController@UserType');
 Route::Post('UserType','User\AuthController@AddUserType');
 
