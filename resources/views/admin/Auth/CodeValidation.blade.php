@@ -25,10 +25,10 @@
         <div class="collapse navbar-collapse" id="navbarNav">
             <ul class="navbar-nav">
                 <li class="nav-item active">
-                    <a class="nav-link disabled">تسجيل الدخول</span></a>
+                    <a class="nav-link disabled"href="{{asset('Login')}}">تسجيل الدخول</span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="registration.html">تسجيل جديد</a>
+                    <a class="nav-link" href="{{asset('Register')}}">تسجيل جديد</a>
                 </li>
 
             </ul>

@@ -9,6 +9,11 @@
               <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image">
           <h1 class="centered">قم بتقديم طلب تنفيذ خدمه</h1>
           </div>
+          @if(session()->has('error'))
+            <div class="row d-flex justify-content-center alert alert-danger">
+                {{ session()->get('error') }}
+            </div>
+        @endif
           <!--login card-->
           <div class="card" id="registration-card">
               <div class="card-body">
@@ -19,19 +24,24 @@
                   @csrf
 
                   <div class="row d-flex justify-content-center">
-                      <input name="provider_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بك" required>
+                      <input name="provider_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بك" required oninvalid="this.setCustomValidity('ادخل رقم الجوال الخاص بك')"
+                      oninput="setCustomValidity('')">
                   </div>
                   <div class="row d-flex justify-content-center">
-                      <input name="client_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بطالب الخدمه"required>
+                      <input name="client_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بطالب الخدمه"required oninvalid="this.setCustomValidity('ادخل رقم الجوال الخاص بطالب الخدمه')"
+                      oninput="setCustomValidity('')">
                   </div>
                   <div class="row d-flex justify-content-center">
-                      <input name="code" class="form-control" type="text" placeholder="الكود"required>
+                      <input name="code" class="form-control" type="text" placeholder="الكود"required oninvalid="this.setCustomValidity('ادخل الكود الخاص بالخدمه المطلوبه')"
+                      oninput="setCustomValidity('')">
                   </div>
                   <div class="row d-flex justify-content-center">
-                      <input name="account_number" class="form-control" type="text" placeholder="رقم الحساب"required>
+                      <input name="account_number" class="form-control" type="text" placeholder="رقم الحساب"required oninvalid="this.setCustomValidity('ادخل رقم الحساب الخاص بك')"
+                      oninput="setCustomValidity('')">
                   </div>
                   <div class="row d-flex justify-content-center">
-                      <input name="IBAN" class="form-control" type="text" placeholder="IBAN"required>
+                      <input name="IBAN" class="form-control" type="text" placeholder="IBAN"required oninvalid="this.setCustomValidity('ادخل ال IBAN الخاص بك')"
+                      oninput="setCustomValidity('')">
                   </div>
 
                   <div class="row" id="check-row">
@@ -39,7 +49,8 @@
                           <label class="form-check-label" for="defaultCheck1">
                               موافق علي الشروط و الاحكام
                               </label>
-                          <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1">
+                          <input required class="form-check-input" type="checkbox" value="" id="defaultCheck1" oninvalid="this.setCustomValidity('اوافق علي الشروط')"
+                          oninput="setCustomValidity('')">
                       </div>
                   </div>
 

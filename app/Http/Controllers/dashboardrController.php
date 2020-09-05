@@ -98,10 +98,13 @@ session::put('active', 'Chats');
    return view('admin/chats/chats',compact('chats'));
   }
   public function Sittings()
-  {
+  {if (Auth::user()->role=='مدير عام') {
+    // code...
 session::put('active', 'Sittings');
     $sitting=sitting::first();
     return view('admin/sittings/sittings',compact('sitting'));
+  }
+return redirect('Dashboard');
   }
   public function AddSittings(Request $data)
   {

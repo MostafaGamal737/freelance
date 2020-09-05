@@ -39,9 +39,7 @@
   <div class="container">
 
      <!--login card-->
-     @foreach($errors->all() as $error)
-       <small class="alert alert-danger" >{{$error}}</small>
-     @endforeach
+  
      @if(session()->has('message'))
      @include('includes.erorrs')
      @endif
@@ -59,15 +57,28 @@
              </div>
              <div class="row d-flex justify-content-center">
                  <input name='name' class="form-control" type="text" placeholder="الاسم بالكامل">
+                 @if (($errors->has('name')))
+                    <small class="text-danger" >{{$errors->first('name')}}</small>
+                 @endif
+
              </div>
              <div class="row d-flex justify-content-center">
                  <input name='email' class="form-control" type="email" placeholder="البريد الالكتروني">
+                 @if (($errors->has('email')))
+                    <small class="text-danger" >{{$errors->first('email')}}</small>
+                 @endif
              </div>
              <div class="row d-flex justify-content-center">
                  <input name='phone' class="form-control" type="phone" placeholder="رقم الجوال">
+                 @if (($errors->has('phone')))
+                    <small class="text-danger" >{{$errors->first('phone')}}</small>
+                 @endif
              </div>
              <div class="row d-flex justify-content-center">
                  <input class="form-control" type="password" placeholder="كلمه المرور" name='password'>
+                 @if (($errors->has('password')))
+                    <small class="text-danger" >{{$errors->first('password')}}</small>
+                 @endif
              </div>
 
              <div class="row d-flex justify-content-center">

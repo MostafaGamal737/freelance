@@ -8,6 +8,8 @@ use App\Http\Requests\adminValidation;
 use App\User;
 use App\Http\Requests\loginvalidation;
 use Auth;
+use session;
+
 class AuthController extends Controller
 {
     public function Login()

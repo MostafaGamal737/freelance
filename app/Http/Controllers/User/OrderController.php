@@ -12,10 +12,19 @@ use App\chat;
 use Auth;
 use Carbon\Carbon;
 use App\notification;
+use Session;
+
 use App\Notifications\OrderNotification;
 
 class OrderController extends Controller
 {
+  public function __construct()
+   {
+    Session::put('website', 'Order');
+     }
+
+
+
     public function Orders()
     {
       return view('users/Orders/Orders');
@@ -191,7 +200,7 @@ class OrderController extends Controller
         if ($order=order::where('code',$data->code)->first()) {
           return view('users/Orders/OrderDetails',compact('order'));
         }
-        return view('users/Orders/ExcuteOrder');
+      return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
       }
    return redirect('Home');
     }

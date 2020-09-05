@@ -34,7 +34,8 @@ class AuthController extends Controller
     return redirect()->back()->with('message','بيانات خاطئه');
   }
   public function Logout()
-  {if (Auth::user()->role('مقدم خدمه')||Auth::user()->role('طالب خدمه')) {
+  {
+    if (Auth::user()->role('مقدم خدمه')||Auth::user()->role('طالب خدمه')) {
     if (Auth::user()->role=='مزود خدمه'||Auth::user()->role=='طالب خدمه') {
       Auth::logout();
       return redirect('Login');

@@ -17,9 +17,9 @@ use App\user;
 */
 Route::get('/', function (Request $request) {
   //broadcast(new SendMessageEvent("mostafa"));
-return  user::find(1)->Notifications[0]->data['message'];
+//return  user::find(1)->Notifications[0]->data['message'];
 
-    return view('welcome');
+    return redirect('Login');
 });
 //-------------Authantication--------------
 Route::get('Logout',"AuthController@Logout");

@@ -51,10 +51,18 @@
                       <h5 class="card-title header-text">تسجيل الدخول</h5>
                   </div>
                   <div class="row d-flex justify-content-center">
-                      <input class="form-control" name="email" type="email" placeholder="البريد الالكتروني">
+                      <input class="form-control" name="email" type="email" placeholder="البريد الالكتروني" oninvalid="this.setCustomValidity('Please Enter valid email')"
+                      oninput="setCustomValidity('')">
+                    
+                      @if (($errors->has('email')))
+                         <small class="text-danger" >{{$errors->first('email')}}</small>
+                      @endif
                   </div>
                   <div class="row d-flex justify-content-center">
                       <input name="password" class="form-control" type="password" placeholder="كلمه المرور">
+                      @if (($errors->has('password')))
+                         <small class="text-danger" >{{$errors->first('password')}}</small>
+                      @endif
                   </div>
                   <div class="row col-5 d-flex justify-content-center">
                       <a href="ResetPassord" class="card-link">هل نسيت كلمة المرور؟</a>

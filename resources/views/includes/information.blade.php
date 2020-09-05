@@ -7,28 +7,28 @@
   @endphp
       <div class="row">
     <div class="col-md-6 col-xl-4">
-      <div class="card mb-3 widget-content bg-midnight-bloom">
-        <div class="widget-content-wrapper text-white">
+      <div class="card mb-3 widget-content bg-info">
+        <div class="widget-content-wrapper ">
           <div class="widget-content-left">
-            <div class="widget-heading">مجموع الطلبات</div>
-            <div class="widget-subheading">هذه السنه</div>
+            <div class="widget-heading text-light">مجموع الخدمات</div>
+            <div class="widget-subheading text-light">لدينا</div>
           </div>
           <div class="widget-content-right">
-            <div class="widget-numbers text-white"><span>{{count(App\order::get())}}</span></div>
+            <div class="widget-numbers text-light"><span>{{count(App\order::get())}}</span></div>
           </div>
         </div>
       </div>
     </div>
     <div class="col-md-6 col-xl-4">
-      <div class="card mb-3 widget-content">
+      <div class="card mb-3 widget-content bg-warning">
         <div class="widget-content-outer">
           <div class="widget-content-wrapper">
             <div class="widget-content-left">
-              <div class="widget-heading">مجموع العمليات الجاريه</div>
-              <div class="widget-subheading">قيد التنفيذ</div>
+              <div class="widget-heading " >مجموع الخدمات الجاريه</div>
+              <div class="widget-subheading ">قيد التنفيذ</div>
             </div>
             <div class="widget-content-right">
-              <div class="widget-numbers text-success">{{count(App\order::where('status', '1')->get())}}</div>
+              <div class="widget-numbers ">{{count(App\order::where('status', '1')->get())}}</div>
             </div>
           </div>
         </div>
@@ -41,7 +41,7 @@
       <div class="card mb-3 widget-content bg-grow-early">
         <div class="widget-content-wrapper text-white">
           <div class="widget-content-left">
-            <div class="widget-heading">مجموع العمليات التامه</div>
+            <div class="widget-heading">مجموع الخدمات التامه</div>
             <div class="widget-subheading">وصول الطرفين الي اتفاق</div>
           </div>
           <div class="widget-content-right">
@@ -54,7 +54,7 @@
 
   <div class="row">
     <div class="col-md-6 col-xl-4">
-      <div class="card mb-3 widget-content bg-midnight-bloom">
+      <div class="card mb-3 widget-content bg-danger">
         <div class="widget-content-wrapper text-white">
           <div class="widget-content-left">
             <div class="widget-heading">الامول الواجب سدادها</div>
@@ -68,16 +68,16 @@
     </div>
 
     <div class="col-md-6 col-xl-4">
-      <div class="card mb-3 widget-content">
+      <div class="card mb-3 widget-content bg-success">
         <div class="widget-content-outer">
           <div class="widget-content-wrapper">
             <div class="widget-content-left">
-              <div class="widget-heading">مجموع الامول لدينا </div>
-              <div class="widget-subheading">الخاصه بعمليات جاريه</div>
+              <div class="widget-heading text-light">مجموع الامول لدينا </div>
+              <div class="widget-subheading text-light">الخاصه بعمليات جاريه</div>
             </div>
             <div class="widget-content-right">
 
-              <div class="widget-numbers text-warning">{{$money->appMoney()}}ريال</div>
+              <div class="widget-numbers text-light">{{$money->appMoney()}}ريال</div>
 
             </div>
           </div>
@@ -85,15 +85,15 @@
       </div>
     </div>
     <div class="col-md-6 col-xl-4">
-      <div class="card mb-3 widget-content">
+      <div class="card mb-3 widget-content bg-primary">
         <div class="widget-content-outer">
           <div class="widget-content-wrapper">
             <div class="widget-content-left">
-              <div class="widget-heading"> الاموال المعلقه </div>
-              <div class="widget-subheading">نسبتنا الخاصه من العمليات</div>
+              <div class="widget-heading text-light"> الاموال المعلقه </div>
+              <div class="widget-subheading text-light">نسبتنا الخاصه من العمليات</div>
             </div>
             <div class="widget-content-right">
-              <div class="widget-numbers text-danger">{{$money->totalTransfers()}}ريال</div>
+              <div class="widget-numbers text-light">{{$money->totalTransfers()}}ريال</div>
             </div>
           </div>
         </div>

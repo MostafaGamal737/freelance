@@ -14,9 +14,9 @@
           <thead>
             <tr>
               <th class="text-center">مسلسل</th>
-              <th>المستخدم</th>
+              <th>مقدم الخدمه</th>
               <th class="text-center">الوظيفه</th>
-              <th class="text-center">العمليات</th>
+              <th class="text-center">عدد الخدمات</th>
               <th class="text-center">الفعل</th>
             </tr>
           </thead>

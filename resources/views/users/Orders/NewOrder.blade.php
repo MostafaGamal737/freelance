@@ -19,6 +19,7 @@
               <p class="text-right">بيانات طالب الخدمه</p>
               <div class="row d-flex justify-content-center">
                   <input class="form-control" type="text" placeholder="الاسم بالكامل">
+                  
               </div>
               <div class="row d-flex justify-content-center">
                   <input class="form-control" type="phone" placeholder="رقم الجوال">

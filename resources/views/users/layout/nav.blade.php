@@ -1,6 +1,8 @@
 <!--navbar-->
 @php
-  if (count(Auth::user()->Notifications)>0) {
+$count=0;
+$notifications=[];
+  if (count(Auth::user()->Notifications()->get())>0) {
     $notifications=Auth::user()->Notifications()->orderBy('id','desc')->take(7)->get();
     $count=Auth::user()->unreadNotifications()->get()->count();
   }
@@ -14,24 +16,27 @@
       <li class="nav-item ">
         <a class="nav-link" href="{{asset('Logout')}}">تسجيل الخروج</span></a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item {{Session::get('website')=='Home'?"active":''}}">
         <a class="nav-link " href="{{asset('Home')}}">الصفحه الرئيسيه</a>
       </li>
-      <li class="nav-item active">
+      <li class="nav-item  {{Session::get('website')=='Order'?"active":''}}">
         <a class="nav-link" href='{{asset('Home/Orders')}}'>المعاملات</span></a>
       </li>
-      <li class="nav-item ">
+      <li class="nav-item {{Session::get('website')=='Message'?"active":''}}">
         <a class="nav-link" href='{{asset('Home/chats')}}'>الرسائل</span></a>
       </li>
       <li class="nav-item dropdown">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          الاشعارات <small class="text-primary"><strong>{{($count)}}</strong></small>
+          الاشعارات <small class="text-primary"><strong>{{$count}}</strong></small>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          @if (count($notifications)>0)
+
             @foreach ($notifications as $notification)
              <a class="dropdown-item" href="{{asset('Home/Orders/OrdersDetails')}}/{{$notification->data['id']}}">{{$notification->data['message']}}  <strong class="font-weight-bold">{{$notification->data['name']}} كود العرض {{$notification->data['code']}}</strong></a>
 
           @endforeach
+        @endif
 
           </div>
         </li>

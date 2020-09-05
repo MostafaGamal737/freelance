@@ -26,6 +26,10 @@ class OrderController extends Controller
   }
   //-----------MakeOrder
   public function MakeOrder(Request $data){
+    $provider=user::where('phone',$data->provider_phone)->first();
+    if (!empty($provider)) {
+
+
     $payout=new payout();
     if ($data->status==1) {
       $invoice=new invoice();
@@ -48,7 +52,7 @@ class OrderController extends Controller
         if ($payout->save()) {
           $order=new order();
           $order->user_id=Auth::id();
-          $provider=user::where('phone',$data->provider_phone)->first();
+
           $order->provider_id=$provider->id;
           $order->invoice_id=$invoice->id;
           $order->payout_id=$payout->id;
@@ -59,7 +63,7 @@ class OrderController extends Controller
           $order->code = mt_rand(10000000,99999999);
           $notification=new notification();
           $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد'));
-          $notification->SendNotification($provider->firetoken,'لديك عرض جديد');
+          //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
           $order->save();
           return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);
         }
@@ -81,6 +85,10 @@ class OrderController extends Controller
       $payout->status=$data->status;
       $payout->save();
       return response(['error'=>'قم بتحويل الاموال اولا']);
+    }
+    }
+    else {
+      return response(['error'=>'بيانات مقدم الخدمه ليست صحيحه']);
     }
   }
   //-----------End-MakeOrder------------

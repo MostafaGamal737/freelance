@@ -8,8 +8,15 @@ use App\chat;
 use App\message;
 use Auth;
 use App\Events\SendMessageEvent;
+use Session;
+
 class MessageController extends Controller
 {
+  public function __construct()
+   {
+    Session::put('website', 'Message');
+    }
+
   public function Messages($id)
   {
    $messages=message::where('chat_id', $id)->get();
