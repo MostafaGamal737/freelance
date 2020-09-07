@@ -159,6 +159,6 @@ Route::get('Home/chats/{id}','User\MessageController@Messages');
 Route::get('Home/chats/{id}/messages','User\MessageController@GetMessages');
 Route::post('sendmessage','User\MessageController@sendmessage');
 /////notifications
-Route::get('user/notifications','User\UserController@Notification');
+Route::get('/user/notifications','User\UserController@Notification');
 
 });

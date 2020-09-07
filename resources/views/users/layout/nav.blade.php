@@ -12,7 +12,7 @@ $notifications=[];
     <span class="navbar-toggler-icon"></span>
   </button>
   <div class="collapse navbar-collapse" id="navbarNav">
-    <ul class="navbar-nav" id="notification">
+    <ul class="navbar-nav" >
       <li class="nav-item ">
         <a class="nav-link" href="{{asset('Logout')}}">تسجيل الخروج</span></a>
       </li>
@@ -25,7 +25,7 @@ $notifications=[];
       <li class="nav-item {{Session::get('website')=='Message'?"active":''}}">
         <a class="nav-link" href='{{asset('Home/chats')}}'>الرسائل</span></a>
       </li>
-      <li class="nav-item dropdown">
+      <li class="nav-item dropdown"  id="notification">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           الاشعارات <small class="text-primary"><strong>{{$count}}</strong></small>
         </a>

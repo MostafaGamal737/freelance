@@ -126,7 +126,7 @@ class OrderController extends Controller
     public function MakeOrder(Request $data){
       $payout=new payout();
       $data['status']=1;
-      $provider=User::where('phone',$data->provider_phone)->first();
+      $provider=User::where('phone',$data->provider_phone)->where('role','مقدم خدمه')->first();
       if (empty($provider)) {
         return redirect()->back()->with('error','حدث خطء في تقديم الطلب تأكد من البيانات المدخله');
       }
