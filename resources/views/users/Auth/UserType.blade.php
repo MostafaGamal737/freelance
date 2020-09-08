@@ -54,9 +54,9 @@
             </div>
             <div class="row d-flex justify-content-center">
                 <div class="form-check">
-                    <input class="form-check-input" type="radio" name="role" id="freelancer" value="مقدم خدمه">
+                    <input class="form-check-input" type="radio" name="role" id="freelancer" value="منفذ خدمات">
                     <label class="form-check-label" for="freelancer">
-                        منفذ خدمه
+                        منفذ خدمات
                       </label>
                 </div>
             </div>

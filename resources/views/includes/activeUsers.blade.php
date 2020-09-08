@@ -16,7 +16,7 @@
                       <tr>
                         <th class="text-center">مسلسل</th>
                         <th>طالب الخدمه</th>
-                        <th class="text-center">مقدم الخدمه</th>
+                        <th class="text-center">منفذ الخدمه</th>
                         <th class="text-center">حالة الخدمه</th>
                         <th class="text-center">الفعل</th>
                       </tr>

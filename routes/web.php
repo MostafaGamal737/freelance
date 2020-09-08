@@ -123,7 +123,7 @@ Route::post('Dashboard/Sittings/AddSittings',"SittingsController@AddSittings");
 
 //user------------------------------------
 //-----------------Auth-----------
-Route::get('/Login','User\AuthController@Login')->name('Login');
+Route::get('Login','User\AuthController@Login')->name('Login');
 Route::Post('Login','User\AuthController@UserLogin');
 Route::get('Register','User\AuthController@Register');
 Route::Post('Register','User\AuthController@AddUser');

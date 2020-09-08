@@ -35,7 +35,7 @@ class AuthController extends Controller
   }
   public function Logout()
   {
-    if (Auth::user()->role=='مقدم خدمه'||Auth::user()->role=='طالب خدمه') {
+    if (Auth::user()->role=='منفذ خدمات'||Auth::user()->role=='طالب خدمه') {
 
       Auth::logout();
       return redirect('Login');
@@ -100,7 +100,7 @@ if (strlen($data->password)<6||($data->password)!=($data->password_confirmation)
     $user->password=bcrypt($data->password);
     $user->save();
     $forgetPassowrd=forgetPassowrd::where('token',$data->token)->first()->delete();
-    if ($user->role=='مقدم خدمه'||$user->role=='طالب خدمه') {
+    if ($user->role=='منفذ خدمات'||$user->role=='طالب خدمه') {
       return redirect('Login')->with('message','تم تغير كلمة السر بنجاح');
     }
     return redirect('AdminLogin')->with('message','تم تغير كلمه السر بنجاح');

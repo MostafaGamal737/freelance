@@ -47,11 +47,11 @@
             @if(Auth::user()->role=='مدير عام')
             <a hidden href="{{asset('Dashboard\Users\Update')}}\{{$user->id}}" class="btn btn-info">تعديل</a>
             <a  href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a>
-            
+
             </td>
-            <td><input name={{$user->id}} type="checkbox" {{($user->role=='مدير')?'checked':""}}></td>
+            <td><input name={{$user->id}} type="checkbox" {{($user->role=='مدير')?'checked':""}} onchange="return confirm('هل تريد دخول هذا الشخص علي لوحة التحكم');"></td>
             @endif
-          
+
             </tr>
     @endforeach
     <tr>
@@ -62,16 +62,15 @@
         </table>
       </div>
     </div>
-    
+
   @endsection
   @section('jsSection')
   <script>
      $('table td input[type=checkbox]' ).click(function() {
-  var  id = (this.name) ; // button ID 
-     console.log(id);
-     console.log(this.checked);
+  var  id = (this.name) ; // button ID
+  
      $.ajax({
-       
+
                     /* the route pointing to the post function */
                     url: '/Dashboard/Users/Update/admin/'+id,
                     type: 'POST',
@@ -79,10 +78,10 @@
                     data: {_token: '{{csrf_token()}}','id':id,'admin':this.checked},
                     dataType: 'JSON',
                     /* remind that 'data' is the response of the AjaxController */
-                    success: function (data) { 
-                       console.log(data); 
+                    success: function (data) {
+                       console.log(data);
                     }
-                }); 
+                });
 });
     </script>
     @endsection

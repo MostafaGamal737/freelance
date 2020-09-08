@@ -96,7 +96,7 @@ class OrderController extends Controller
   //-----------Start-GetOrder---
   public function GetOrder(Request $data)
   {
-    if (Auth::user()->role='مقدم خدمه') {
+    if (Auth::user()->role='منفذ خدمات') {
       $order=order::where('code',$data->code)->where('provider_id', Auth::id())->with('invoice')->first();
       if ($order) {
 
@@ -104,7 +104,7 @@ class OrderController extends Controller
       }
       return response(['response'=>' هذا العرض ليس لك']);
     }
-    return response(['response'=>'انتا لت مقدم خدمه']);
+    return response(['response'=>'انتا لت منفذ خدمات']);
   }
   //------------End-GetOrder-------
 
@@ -176,7 +176,7 @@ class OrderController extends Controller
 
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
-    if (Auth::user()->role=='مقدم خدمه') {
+    if (Auth::user()->role=='منفذ خدمات') {
       $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     else {

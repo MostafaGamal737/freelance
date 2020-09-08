@@ -13,6 +13,7 @@ use Auth;
 use Carbon\Carbon;
 use App\notification;
 use Session;
+use App\Http\Requests\OrderRequest;
 
 use App\Notifications\OrderNotification;
 
@@ -22,8 +23,6 @@ class OrderController extends Controller
    {
     Session::put('website', 'Order');
      }
-
-
 
     public function Orders()
     {
@@ -123,10 +122,10 @@ class OrderController extends Controller
 
 
 
-    public function MakeOrder(Request $data){
+    public function MakeOrder(OrderRequest $data){
       $payout=new payout();
       $data['status']=1;
-      $provider=User::where('phone',$data->provider_phone)->where('role','مقدم خدمه')->first();
+      $provider=User::where('phone',$data->provider_phone)->where('role','منفذ خدمات')->first();
       if (empty($provider)) {
         return redirect()->back()->with('error','حدث خطء في تقديم الطلب تأكد من البيانات المدخله');
       }
@@ -188,7 +187,7 @@ class OrderController extends Controller
 
     public function ShowExcute()
     {
-      if (auth::user()->role=='مقدم خدمه') {
+      if (auth::user()->role=='منفذ خدمات') {
 
         return view('users/Orders/ExcuteOrder');
       }
@@ -196,7 +195,7 @@ class OrderController extends Controller
     }
     public function ExcuteOrder(Request $data)
     {
-      if (auth::user()->role=='مقدم خدمه') {
+      if (auth::user()->role=='منفذ خدمات') {
         if ($order=order::where('code',$data->code)->first()) {
           return view('users/Orders/OrderDetails',compact('order'));
         }

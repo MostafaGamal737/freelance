@@ -106,7 +106,7 @@ class userController extends Controller
         return 'تمت الترقيه بنجاح';
       }
       else{
-      $user->role='مقدم خدمه';
+      $user->role='منفذ خدمات';
         $user->save();
         return 'تمت الترقيه بنجاح';
       }

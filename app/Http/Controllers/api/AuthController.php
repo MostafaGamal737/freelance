@@ -39,8 +39,9 @@ class AuthController extends Controller
       dispatch(new activate($user))->delay(2);
     }
     $token=$user->createToken('authToken')->accessToken;
-    return response(['success'=>'تم الاضافه بنجاح','user'=>$user,'token'=>$token]) ;
+    return response(['success'=>'تم الاضافه بنجاح','user'=>$user]) ;
   }
+
   public function Login(loginvalidation $data){
     if (!Auth::attempt(['email'=>$data->email,'password'=>$data->password])) {
       return response(['error'=>'البيانات غير صحيحه']);
@@ -49,7 +50,7 @@ class AuthController extends Controller
     Auth::user()->fire_token=$data->fire_token;
     Auth::user()->save();
     $token=Auth()->user()->createToken('authToken')->accessToken;
-    return response(['success','user'=>Auth()->user()]) ;
+    return response(['success','user'=>Auth()->user(),'toke'=>$token]) ;
   }
 
 

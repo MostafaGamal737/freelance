@@ -14,14 +14,14 @@
           <thead>
             <tr>
               <th class="text-center">مسلسل</th>
-              <th>مقدم الخدمه</th>
+              <th>منفذ الخدمه</th>
               <th class="text-center">الوظيفه</th>
               <th class="text-center">عدد الخدمات</th>
               <th class="text-center">الفعل</th>
             </tr>
           </thead>
           <tbody>
-            @foreach (App\user::where('role','مقدم خدمه')->paginate(10) as $user)
+            @foreach (App\user::where('role','منفذ خدمات')->paginate(10) as $user)
 
 
             <tr>
