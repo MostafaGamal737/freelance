@@ -9,6 +9,8 @@ use App\invoice;
 use App\payout;
 use App\User;
 use App\chat;
+use App\sitting;
+
 use Auth;
 use Carbon\Carbon;
 use App\notification;
@@ -126,6 +128,8 @@ class OrderController extends Controller
 
     public function MakeOrder(OrderRequest $data){
       Session::put('website', 'Order');
+      $sitting=sitting::first('tax');
+      
       $payout=new payout();
       $data['status']=1;
       $provider=User::where('phone',$data->provider_phone)->where('role','منفذ خدمات')->first();
@@ -140,7 +144,7 @@ class OrderController extends Controller
         $invoice->provider_phone=$data->provider_phone;
         $invoice->price=$data->price;
         $invoice->duration=$data->duration;
-        $invoice->tax=$data->tax;
+        $invoice->tax=$sitting->tax;
         $invoice->transaction_id=$data->transaction_id;
         $invoice->status=$data->status;
         $invoice->app_money=$data->price*($data->tax/100);
