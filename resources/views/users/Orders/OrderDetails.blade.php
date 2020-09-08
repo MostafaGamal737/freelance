@@ -30,7 +30,7 @@
                   <p class="text-right mt-0 mb-0" id="payment-text-black">وقت انتهاء التنفيذ :{{$order->end_time}}</p>
 
 
-@if ($order->status==0&&Auth::user()->role=='مقدم خدمه')
+@if ($order->status==0&&Auth::user()->role=='منفذ خدمات')
 
                   <div class="row d-flex justify-content-center mt-4">
                       <div class="col-sm-4">

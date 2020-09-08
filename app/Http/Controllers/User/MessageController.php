@@ -14,11 +14,12 @@ class MessageController extends Controller
 {
   public function __construct()
    {
-    Session::put('website', 'Message');
+   // Session::put('website', 'Message');
     }
 
   public function Messages($id)
   {
+    Session::put('website', 'Message'); 
    $messages=message::where('chat_id', $id)->get();
    $chat=chat::find($id);
    if (Auth::id()!=$chat->sender_id&&Auth::id()!=$chat->receiver_id&&Auth::user()->role!='مدير') {
@@ -28,7 +29,9 @@ class MessageController extends Controller
     return view('users/Messages/Messages',compact('messages','chat'));
   }
   public function chats()
-  {  $chats=chat::where('sender_id',Auth::id())
+  {
+    Session::put('website', 'Message'); 
+     $chats=chat::where('sender_id',Auth::id())
     ->orwhere('receiver_id',Auth::id())->with('messages')->get();
       return view('users/Messages/chats',compact('chats'));
   }
@@ -39,11 +42,11 @@ class MessageController extends Controller
     $message->chat_id=$data->chat_id;
     $message->user_id=Auth::id();
     $message->save();
-    broadcast(new SendMessageEvent($message,$data->chat_id));
+    broadcast(new SendMessageEvent($message->load('user'),$data->chat_id))->toOthers();
   return "sent SuccessedOrders";
   }
 public function  GetMessages($id)
-{
+{Session::put('website', 'Message'); 
   $allmessages= message::where('chat_id', $id)->with('user')->get();
 
   return $allmessages;

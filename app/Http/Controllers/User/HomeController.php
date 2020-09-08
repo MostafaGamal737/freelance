@@ -10,10 +10,11 @@ class HomeController extends Controller
 {
   public function __construct()
    {
-    Session::put('website', 'Home');
+   // Session::put('website', 'Home');
      }
   public function Home()
   {
+    Session::put('website', 'Home');
     return view('users/Home');
   }
   public function AddOrder()

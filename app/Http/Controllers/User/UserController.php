@@ -11,10 +11,11 @@ class UserController extends Controller
 {
   public function __construct()
    {
-    session::put('website', 'Not');
+   // session::put('website', 'Not');
      }
 
     public function Notification(){
+      session::put('website', 'Not');
       $ntifications=Auth::user()->Notifications;
       Auth::user()->unreadNotifications->markAsRead();
       return Auth::user()->unreadNotifications;

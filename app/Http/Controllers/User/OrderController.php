@@ -21,15 +21,15 @@ class OrderController extends Controller
 {
   public function __construct()
    {
-    Session::put('website', 'Order');
+   // Session::put('website', 'Order');
      }
 
     public function Orders()
-    {
+    { Session::put('website', 'Order');
       return view('users/Orders/Orders');
     }
     public function OrdersDetails($id)
-    {
+    {Session::put('website', 'Order');
       $order=order::find($id);
       if (!empty($order)) {
         return view('users/Orders/OrderDetails',compact('order'));
@@ -37,11 +37,11 @@ class OrderController extends Controller
       return redirect('Home');
     }
     public function ShowMakeOrder()
-    {
+    {Session::put('website', 'Order');
       return view('users/Orders/MakeOrder');
     }
     public function FailedOrders()
-    {
+    {Session::put('website', 'Order');
 
       $orders=order::where('user_id',Auth::id())->where('status',-1)->orwhere('provider_id',Auth::id())->where('status',-1)->get();
       return view('users/Orders/FailedOrders',compact('orders'));
@@ -49,20 +49,22 @@ class OrderController extends Controller
     }
     public function PandingOrders()
     {
-
+      Session::put('website', 'Order');
       $orders=order::where('user_id',Auth::id())->where('status',0)->orwhere('provider_id',Auth::id())->where('status',0)->get();
       return view('users/Orders/PandingOrders',compact('orders'));
 
     }
     public function SuccessedOrders()
-    {
+    {Session::put('website', 'Order');
       $orders=order::where('user_id',Auth::id())->where('status',2)->orwhere('provider_id',Auth::id())->where('status',2)->get();
 
       return view('users/Orders/SuccessedOrders',compact('orders'));
 
     }
     public function UnderWayOrders()
-    {  $orders=order::where('user_id',Auth::id())->where('status',1)->orwhere('provider_id',Auth::id())->where('status',1)->get();
+    {  
+      Session::put('website', 'Order');
+      $orders=order::where('user_id',Auth::id())->where('status',1)->orwhere('provider_id',Auth::id())->where('status',1)->get();
         return view('users/Orders/UnderWayOrders',compact('orders'));
 
     }
@@ -72,7 +74,7 @@ class OrderController extends Controller
     }
 
     public function CancelOrder(Request $data,$id)
-    {
+    {Session::put('website', 'Order');
       $notification=new notification();
       $order=order::find($id);
       $user=User::find($order->user_id);
@@ -90,7 +92,7 @@ class OrderController extends Controller
     }
 
     public function AcceptOrder($id)
-    {
+    {Session::put('website', 'Order');
       $notification=new notification();
       $order=order::find($id);
       $user=User::find($order->user_id);
@@ -123,6 +125,7 @@ class OrderController extends Controller
 
 
     public function MakeOrder(OrderRequest $data){
+      Session::put('website', 'Order');
       $payout=new payout();
       $data['status']=1;
       $provider=User::where('phone',$data->provider_phone)->where('role','منفذ خدمات')->first();
@@ -195,6 +198,7 @@ class OrderController extends Controller
     }
     public function ExcuteOrder(Request $data)
     {
+      Session::put('website', 'Order');
       if (auth::user()->role=='منفذ خدمات') {
         if ($order=order::where('code',$data->code)->first()) {
           return view('users/Orders/OrderDetails',compact('order'));

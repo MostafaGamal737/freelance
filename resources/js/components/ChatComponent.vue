@@ -4,17 +4,18 @@
 
             <div class="mesgs">
                 <div class="msg_history" v-for='message in messages'>
-                    <div class="incoming_msg" v-if='user.id!=message.user_id'>
+                    <div class="incoming_msg" v-if='user.id!=message.user.id'>
                         <div class="incoming_msg_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
                         <div class="received_msg">
-                            <div class="received_withd_msg">
-                                <p>{{message.message}}</p>
-                                <span class="time_date">{{message.created_at}}</span></div>
+                            <div class="received_withd_msg" >
+                              <p>{{message.user.name}} : <small>{{message.message}}</small></p>
+                                <span class="time_date">{{message.created_at}}</span>
+                              </div>
                         </div>
                     </div>
-                    <div class="outgoing_msg" v-if='user.id==message.user_id'>
+                    <div class="outgoing_msg" v-if='user.id==message.user.id'>
                         <div class="sent_msg">
-                            <p>{{message.message}}</p>
+                              <p>{{message.user.name}} : <small>{{message.message}}</small></p>
                             <span class="time_date"> {{message.created_at}}</span> </div>
                     </div>
                 </div>
@@ -123,7 +124,7 @@
       sendmessages(){
           this.messages.push({
           user:this.user,
-          massege:this.newmessage
+          message:this.newmessage
         });
         axios({
           method: 'post',
