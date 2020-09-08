@@ -37,10 +37,16 @@ window.Echo = new Echo({
   key: process.env.MIX_PUSHER_APP_KEY,
   wsHost: window.location.hostname,
   wsPort: 6001,
+<<<<<<< HEAD
   wssPort: 6001,
  disableStats: true,
 //  forceTLS: false,
 //  enabledTransports: ["ws", "wss"],
+=======
+  disableStats: true,
+  forceTLS: false,
+  //enabledTransports: ["ws", "wss"],
+>>>>>>> 05efa216137bd13f28bb3f90f2ff3ce59f2c5488
 });
 
 window.Echo.channel('Chat')

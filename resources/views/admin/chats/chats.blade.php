@@ -1,6 +1,8 @@
 
 @extends('includes.master')
-
+@section('title')
+  المحادثات
+@endsection
 @section('body')
 
   <div class="app-main__outer">

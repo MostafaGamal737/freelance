@@ -2,7 +2,7 @@
           <div class="row">
             <div class="col-md-12">
               <div class="main-card mb-3 card">
-                <div class="card-header">حالة العمليات
+                <div class="card-header">بعض الخدمات
                   <div class="btn-actions-pane-right">
                     <div role="group" class="btn-group-sm btn-group">
                       <button class="active btn btn-focus"></button>
@@ -15,14 +15,14 @@
                     <thead>
                       <tr>
                         <th class="text-center">مسلسل</th>
-                        <th>العميل</th>
-                        <th class="text-center">مقدم الخدمه</th>
-                        <th class="text-center">حالة العمليه</th>
+                        <th>طالب الخدمه</th>
+                        <th class="text-center">منفذ الخدمه</th>
+                        <th class="text-center">حالة الخدمه</th>
                         <th class="text-center">الفعل</th>
                       </tr>
                     </thead>
                     <tbody>
-                      @foreach (App\order::paginate(5) as $order)
+                      @foreach (App\order::limit(10)->get() as $order)
 
 
                       <tr>
@@ -67,7 +67,7 @@
                     </table>
                   </div>
                   <div class="d-block text-center card-footer">
-                    <button class="btn-wide btn ">{{App\order::paginate(5)->links()}}</button>
+
                   </div>
                 </div>
               </div>

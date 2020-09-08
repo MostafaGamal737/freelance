@@ -27,9 +27,13 @@ return [
       'name' => env('APP_NAME'),
       'key' => env('PUSHER_APP_KEY'),
       'secret' => env('PUSHER_APP_SECRET'),
+<<<<<<< HEAD
       'path' => env('PUSHER_APP_PATH'),
       'capacity' => null,
       'enable_client_messages' => false,
+=======
+      'enable_client_messages' => true,
+>>>>>>> 05efa216137bd13f28bb3f90f2ff3ce59f2c5488
       'enable_statistics' => true,
         ],
     ],

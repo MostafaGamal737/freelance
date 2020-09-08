@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\job;
-use App\user;
+use App\User;
 use DB;
 use App\Http\Requests\jobsValidation;
 

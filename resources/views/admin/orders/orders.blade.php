@@ -1,9 +1,17 @@
 @extends('includes.master')
-
+@section('title')
+  المعاملات
+@endsection
 @section('body')
 
   <div class="app-main__outer">
-
+  <form class="form" action="{{asset('Dashboard/search/order')}}" method="get">
+       <div class="form-group">
+@csrf
+       <input required class="form-control col-lg-2" type="text" name="search" value="" placeholder="بحث" style="text-align:right;">
+       <input class="btn btn-primary form-control col-lg-2" type="submit" name="" value="بحث">
+     </div>
+     </form>
     <div class="app-main__inner">
       <table class="table table-striped">
         <thead>
@@ -12,6 +20,7 @@
             <th>اسم العميل</th>
             <th>اسم مقدم الخدمه</th>
             <th>اسم الخدمه </th>
+            <th>كود الخدمه </th>
             <th >action</th>
           </tr>
         </thead>
@@ -24,6 +33,7 @@
               <td>{{$order->user->name}}</td>
               <td>{{$order->invoice->provider_name}}</td>
               <td>{{$order->job_name}}</td>
+              <td>{{$order->code}}</td>
               <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">تفاصيل</a><a href="DeleteUser/" class="btn btn-danger" hidden>حذف</a></td>
             </tr>
           @endforeach

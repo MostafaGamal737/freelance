@@ -1,0 +1,343 @@
+body {
+    font-family: 'Cairo', sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.navbar {
+    background-color: #3CB54A;
+}
+
+.nav-link {
+    color: #ffffff;
+}
+
+.nav-link:hover {
+    color: #000000;
+}
+
+#login-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 109px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#share-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 10px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#forget-password-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 109px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#registration-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 109px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#request-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 40px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#payment-card {
+    height: 100%;
+    padding: 1%;
+    width: 70%;
+    margin: 10px auto;
+    float: none;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#deals-card {
+    height: auto;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+#deals-img {
+    height: 130px;
+}
+
+.header-text {
+    color: #3CB54A;
+    font-size: 14px;
+    margin-top: 25px;
+}
+
+#logo {
+    margin-right: 176px;
+}
+
+.form-control {
+    display: inline-block;
+    text-align: right;
+    margin-top: 15px;
+    width: 100%;
+    height: 58px;
+    border: 1px solid var(--unnamed-color-f2f2f2);
+    box-shadow: 0px 20px 40px #B7B7B71A;
+    border: 1px solid #F2F2F2;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.form-control::placeholder {
+    /* Chrome, Firefox, Opera, Safari 10.1+ */
+    color: #AAAAAA;
+    font-size: 12px;
+    opacity: 1;
+    /* Firefox */
+}
+
+.form-control:-ms-input-placeholder {
+    /* Internet Explorer 10-11 */
+    color: #AAAAAA;
+    font-size: 12px;
+}
+
+.form-control::-ms-input-placeholder {
+    /* Microsoft Edge */
+    color: #AAAAAA;
+    font-size: 12px;
+}
+
+.card-link {
+    width: 100%;
+    display: inline-block;
+    color: #3CB54A;
+    margin-top: 15px;
+    font-size: 2.5vmin;
+}
+
+.card-link:hover {
+    display: inline-block;
+    color: #AAAAAA;
+    margin-top: 15px;
+}
+
+#btn-submit {
+    height: 50px;
+    width: auto;
+    max-width: 70%;
+    margin-top: 40px;
+}
+
+.transparent-img {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+
+/* Centered text */
+
+.centered {
+    position: absolute;
+    top: 20%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    color: white;
+    font-size: 3.7vw;
+}
+
+.radios-card {
+    margin: 50px auto;
+    padding: 20px;
+    direction: rtl;
+    height: auto;
+    width: 40%;
+    background: var(--unnamed-color-ffffff) 0% 0% no-repeat padding-box;
+    border: 2px solid var(--unnamed-color-e6e6e6);
+    background: #FFFFFF 0% 0% no-repeat padding-box;
+    box-shadow: 0px 15px 30px #827F7F26;
+    border: 2px solid #E6E6E6;
+    border-radius: 8px;
+    opacity: 1;
+}
+
+.form-check-label {
+    color: #3CB54A;
+}
+
+#home-img {
+    width: 319px;
+    height: 200px;
+}
+
+h2 {
+    color: #3CB54A;
+    padding: 5px;
+    margin-top: 10px;
+    margin-bottom: 50px;
+}
+
+#home-container {
+    margin-top: 10%;
+}
+
+p {
+    margin-right: 5%;
+    color: #3CB54A;
+    margin-top: 40px;
+}
+
+label {
+    margin-right: 30px;
+}
+
+#check-row {
+    float: right;
+    margin-right: 10%;
+    margin-top: 10px;
+}
+
+#send-request-btn {
+    margin-top: 50px;
+}
+
+#payment-text {
+    margin-right: 10%;
+    color: #AAAAAA;
+    margin-top: -20px;
+}
+
+#payment-text-green {
+    margin-right: 10%;
+    color: #3CB54A;
+    margin-top: -20px;
+}
+
+#payment-text-black {
+    margin-right: 10%;
+    color: #000000;
+    margin-top: -20px;
+}
+
+.payment-texts {
+    margin-top: 30px;
+}
+
+hr {
+    width: 50%;
+    margin-bottom: 30px;
+}
+
+#successfull-deal-txt {
+    color: #3CB54A;
+}
+
+#underway-deal-txt {
+    color: #FFE600;
+}
+
+#pending-deal-txt {
+    color: #6C63FF;
+}
+
+#failed-deal-txt {
+    color: #FF0000;
+}
+
+#avatar {
+    height: 75px;
+    width: 75px;
+}
+
+#btn-accept-decline {
+    height: 50px;
+    width: 100%;
+    margin-top: 40px;
+}
+
+h1 {
+    font-size: 4.0vw;
+}
+
+h2 {
+    font-size: 2.8vh;
+}
+
+p {
+    font-size: 2.2vmin;
+}
+
+button {
+    font-size: 2.2vmin;
+}
+
+label {
+    font-size: 2.2vmin;
+}
+
+.modal-content textarea.form-control {
+    max-width: 100%;
+}
+
+.image-container {
+    margin-left: -15px;
+    margin-right: -15px;
+}

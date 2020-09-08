@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 use App\message;
 use App\chat;
 use Auth;
@@ -33,6 +33,8 @@ class chatController extends Controller
        $query=$data_search->get('query');
        if ($query!='') {
          $data=chat::where('id','like','%'.$query.'%')
+         ->orwhere('sender_name','like','%'.$query.'%')
+         ->orwhere('receiver_name','like','%'.$query.'%')
          ->get();
        }
        else {
@@ -45,10 +47,10 @@ class chatController extends Controller
          $output.='
           <tr>
           <td>'.$row->id.'</td>
-          <td>'.user::find($row->sender_id)->name.'</td>
-          <td>'.user::find($row->receiver_id)->name.'</td>
+          <td>'.User::find($row->sender_id)->name.'</td>
+          <td>'.User::find($row->receiver_id)->name.'</td>
           <td>'.$row->chat.'</td>
-          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class=btnbtn-primary>مشاهدة</a></td>
+          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class="btn btn-primary">مشاهدة</a></td>
 
           </tr>
          ';
@@ -58,14 +60,14 @@ class chatController extends Controller
        $output='
        <tr>
        <td align="center" colspan="5">
-       no Data founded
+      لا يوجد نتائج
        </td>
        </tr>
        ';
      }
      $data=array(
        'table_data'=>$output,
-       'total_data'=>$total_row
+       'total_data'=>$total_row,
      );
      echo json_encode($data);
    }

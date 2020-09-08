@@ -13,6 +13,10 @@ use Illuminate\Support\Facades\Broadcast;
 |
 */
 
+/*
+Broadcast::channel('Chat', function ($user) {
+    return $user;
+});*/
 
 Broadcast::channel('Chat.{id}', function ($user, $id) {
     return $user;

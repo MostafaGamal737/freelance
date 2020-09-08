@@ -1,7 +1,9 @@
 
 
 @extends('includes.master')
-
+@section('title')
+  الاعدادات
+@endsection
 @section('body')
   <div class="app-main__outer">
     <div class="app-main__inner">
@@ -24,9 +26,9 @@
         </div>
       </div>
       <div class="form-group">
-        <label class="control-label col-sm-2" > الايمال</label>
+        <label class="control-label col-sm-2" > البريد الالكتروني</label>
         <div class="col-sm-10">
-          <input type="text" class="form-control"  placeholder="ادخيل ايميال الخاص بالموقع " autocomplete="off" name="email"value="@if ($sitting){{$sitting->email}}
+          <input type="text" class="form-control"  placeholder=" ادخل البريد الالكتروني الخاص بالموقع" autocomplete="off" name="email"value="@if ($sitting){{$sitting->email}}
          @endif">
       </div>
         </div>

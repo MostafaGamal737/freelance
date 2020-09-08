@@ -7,11 +7,13 @@ use Illuminate\Http\Request;
 use App\order;
 use App\invoice;
 use App\payout;
-use App\user;
+use App\User;
 use App\chat;
 use Auth;
 use Carbon\Carbon;
 use App\notification;
+use App\Notifications\OrderNotification;
+
 class OrderController extends Controller
 {
   public function Orders()
@@ -24,6 +26,10 @@ class OrderController extends Controller
   }
   //-----------MakeOrder
   public function MakeOrder(Request $data){
+    $provider=user::where('phone',$data->provider_phone)->first();
+    if (!empty($provider)) {
+
+
     $payout=new payout();
     if ($data->status==1) {
       $invoice=new invoice();
@@ -46,7 +52,7 @@ class OrderController extends Controller
         if ($payout->save()) {
           $order=new order();
           $order->user_id=Auth::id();
-          $provider=user::where('phone',$data->provider_phone)->first();
+
           $order->provider_id=$provider->id;
           $order->invoice_id=$invoice->id;
           $order->payout_id=$payout->id;
@@ -56,7 +62,8 @@ class OrderController extends Controller
           $order->status=0;
           $order->code = mt_rand(10000000,99999999);
           $notification=new notification();
-          $notification->SendNotification($provider->firetoken,'لديك عرض جديد');
+          $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد'));
+          //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
           $order->save();
           return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);
         }
@@ -79,13 +86,17 @@ class OrderController extends Controller
       $payout->save();
       return response(['error'=>'قم بتحويل الاموال اولا']);
     }
+    }
+    else {
+      return response(['error'=>'بيانات مقدم الخدمه ليست صحيحه']);
+    }
   }
   //-----------End-MakeOrder------------
 
   //-----------Start-GetOrder---
   public function GetOrder(Request $data)
   {
-    if (Auth::user()->role='مقدم خدمه') {
+    if (Auth::user()->role='منفذ خدمات') {
       $order=order::where('code',$data->code)->where('provider_id', Auth::id())->with('invoice')->first();
       if ($order) {
 
@@ -93,7 +104,7 @@ class OrderController extends Controller
       }
       return response(['response'=>' هذا العرض ليس لك']);
     }
-    return response(['response'=>'انتا لت مقدم خدمه']);
+    return response(['response'=>'انتا لت منفذ خدمات']);
   }
   //------------End-GetOrder-------
 
@@ -103,7 +114,6 @@ class OrderController extends Controller
      $notification=new notification();
     $order=order::find($data->order_id);
     $user=user::find($order->user_id);
-
     if ($order) {
       if ($order->status!=0) {
         return response(['response'=>'تم قبول هذ العرض بالفعل وهو قيد التنفيذ الان']);
@@ -116,6 +126,7 @@ class OrderController extends Controller
         $chat=new chat();
         if (($chat->findChat($order->user_id,$order->provider_id))=="ture") {
           $notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
+         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض'));
           return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
         }
         else {
@@ -124,6 +135,7 @@ class OrderController extends Controller
           $chat->receiver_id=$order->provider_id;
           $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
           $chat->save();
+          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض'));
           $notification->SendNotification($user,'لقدم تم قبول الطلب');
           return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
 
@@ -141,10 +153,11 @@ class OrderController extends Controller
     $notification=new notification();
     $order=order::find($data->order_id);
     $user=user::find($order->user_id);
-
+   //return $order::with('invoice');
     if ($order) {
 
       if ($order->status!=0) {
+
         return response(['success'=>'تم رفض الطلب']);
       }
       else {
@@ -153,6 +166,7 @@ class OrderController extends Controller
         $order->status=-1;
         $order->save();
         $notification->SendNotification($user,'لقدم تم رفض الطلب');
+        $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض'));
         return response(['success'=>'تم رفض الطلب بنجاح','order'=>$order]);
       }
     }
@@ -162,7 +176,7 @@ class OrderController extends Controller
 
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
-    if (Auth::user()->role=='مقدم خدمه') {
+    if (Auth::user()->role=='منفذ خدمات') {
       $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     else {

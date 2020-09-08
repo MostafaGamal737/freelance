@@ -16,14 +16,16 @@ class SendMessageEvent implements ShouldBroadcastNow
     use Dispatchable, InteractsWithSockets, SerializesModels;
 
     public $message;
+    public $chat_id;
     /**
      * Create a new event instance.
      *
      * @return void
      */
-    public function __construct($message)
+    public function __construct($message,$chat_id)
     {
       $this->message=$message;
+      $this->chat_id=$chat_id;
 
     }
 
@@ -34,6 +36,7 @@ class SendMessageEvent implements ShouldBroadcastNow
      */
     public function broadcastOn()
     {
-        return new PresenceChannel('Chat.'.$this->message->chat->id);
+        //return new PresenceChannel('Chat.'.$this->message->chat->id);
+        return new PresenceChannel('Chat.'.$this->chat_id);
     }
 }

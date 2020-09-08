@@ -1,5 +1,7 @@
 @extends('includes.master')
-
+@section('title')
+  الصفحه الرئيسية
+@endsection
 @section('body')
 
   @include('includes.information')

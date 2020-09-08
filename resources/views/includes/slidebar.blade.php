@@ -1,6 +1,9 @@
 <div class="scrollbar-sidebar">
 <div class="app-sidebar__inner">
  <ul class="vertical-nav-menu">
+   @php
+     use App\order;
+   @endphp
    <li class="app-sidebar__heading">الرئيسيه</li>
    <li>
 
@@ -16,7 +19,7 @@
        المستخدمين
      </a>
    </li>
-   <li >
+   <li hidden>
      <a href="{{asset('Dashboard\Admins')}}" class='{{Session::get('active')=='Admins'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
        المديرين
@@ -47,27 +50,27 @@
      </a>
    </li>
    <li >
-     <a href="{{asset('Dashboard\SuccessedOrders')}}"  class='{{Session::get('active')=='SuccessedOrders'?"active":'mm-active'}}' >
+     <a href="{{asset('Dashboard\SuccessedOrders')}}"  class='{{Session::get('active')=='SuccessedOrders'?"active":'mm-active'}}btn btn-success' >
       <i class="metismenu-icon fa fa-edit"></i>
-    العمليات الناجه
+    العمليات الناجه  ({{order::where('status', 2)->count()}})
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\DelayedOrders')}}"  class='{{Session::get('active')=='DelayedOrders'?"active":'mm-active'}}'>
+     <a href="{{asset('Dashboard\DelayedOrders')}}"  class='{{Session::get('active')=='DelayedOrders'?"active":'mm-active'}}btn btn-primary'>
       <i class="metismenu-icon fa fa-edit"></i>
-    العمليات المعلقه
+    العمليات المعلقه ({{order::where('status', 0)->count()}})
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\OngoingOrders')}}"  class='{{Session::get('active')=='OngoingOrders'?"active":'mm-active'}}'>
+     <a href="{{asset('Dashboard\OngoingOrders')}}"  class='{{Session::get('active')=='OngoingOrders'?"active":'mm-active'}}btn btn-warning'>
       <i class="metismenu-icon fa fa-edit"></i>
-    العمليات الجاريه
+    العمليات الجاريه  ({{order::where('status', 1)->count()}})
      </a>
    </li>
    <li>
-     <a href="{{asset('Dashboard\FailedOrders')}}"  class='{{Session::get('active')=='FailedOrders'?"active":'mm-active'}}'>
+     <a href="{{asset('Dashboard\FailedOrders')}}"  class='{{Session::get('active')=='FailedOrders'?"active":'mm-active'}}btn btn-danger'>
       <i class="metismenu-icon fa fa-edit"></i>
-    العمليات الفاشله
+    العمليات الفاشله  ({{order::where('status', -1)->count()}})
      </a>
    </li>
    <li>
@@ -91,7 +94,7 @@
    <li>
      <a href="{{asset('Dashboard\Sittings')}}"  class='{{Session::get('active')=='Sittings'?"active":'mm-active'}}'>
       <i class="metismenu-icon fa fa-edit"></i>
-       اعدادات الموقع
+       الاعدادات
      </a>
    </li>
 

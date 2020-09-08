@@ -1,6 +1,8 @@
 
 @extends('includes.master')
-
+@section('title')
+  بيانات المستخدم
+@endsection
 @section('body')
   <div class="app-main__outer">
     <div class="app-main__inner">
@@ -26,7 +28,7 @@
                 <li class="nav-item">
                   <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">معلومات شخصيه</a>
                 </li>
-                <li class="nav-item">
+                <li class="nav-item" hidden>
                   <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">معلومات مهنيه</a>
                 </li>
               </ul>
@@ -71,6 +73,27 @@
                     <p class="p-3 mb-2 bg-dark text-white">{{$user->phone}}</p>
                   </div>
                 </div>
+                <div class="row">
+                  <div class="col-md-6">
+                    <label>عدد الخدمات التي قام بها</label>
+                  </div>
+                  <div class="col-md-6">
+                    <p class="p-3 mb-2 bg-dark text-white">{{count(App\order::where('provider_id',$user->id)->orwhere('user_id',$user->id)->get())}}</p>
+                  </div>
+                </div>
+
+
+
+
+
+
+
+
+
+
+
+
+
                 <div class="row" hidden>
                   <div class="col-md-6">
                     <label>المهارات</label>

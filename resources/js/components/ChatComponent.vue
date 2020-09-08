@@ -1,73 +1,137 @@
 <template>
-  <div class="row justify-content-center">
+    <div class="messaging">
+        <div class="inbox_msg">
 
-    <div class="col-md-6">
-      <div class="card-header">
-        <div class="card-body p-0">
-          <ul class="list-unstyled" style="height:300px;overflow:scroll">
-            <li class="p-2" v-for='message in messages'>
-              <strong>{{message.user.name}}</strong>
-              {{message.message}}
-            </li>
-          </ul>
+            <div class="mesgs">
+                <div class="msg_history" v-for='message in messages'>
+                    <div class="incoming_msg" v-if='user.id!=message.user.id'>
+                        <div class="incoming_msg_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
+                        <div class="received_msg">
+                            <div class="received_withd_msg" >
+                              <p>{{message.user.name}} : <small>{{message.message}}</small></p>
+                                <span class="time_date">{{message.created_at}}</span>
+                              </div>
+                        </div>
+                    </div>
+                    <div class="outgoing_msg" v-if='user.id==message.user.id'>
+                        <div class="sent_msg">
+                              <p>{{message.user.name}} : <small>{{message.message}}</small></p>
+                            <span class="time_date"> {{message.created_at}}</span> </div>
+                    </div>
+                </div>
+                <div class="type_msg">
+                    <div class="input_msg_write">
+                    <div class="container">
+                    <div class="row">
+                    <div class="col-sm">
+                        <input name="message" type="text"  placeholder="اكتب رسالتك" autocomplete="off"
+                        @keydown="typing"
+                        v-model="newmessage"
+                        @keyup.enter="sendmessages"
+                        />
+
+                    </div>
+
+                    <div class="col-sm-2 ml-1">
+                        <button type="button" class="btn btn-primary msg_send_btn">ارسل</button>
+                    </div>
+                    </div>
+                    </div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="inbox_people">
+                <div class="headind_srch">
+                    <div class="recent_heading">
+                        <h4>الاعضاء</h4>
+                    </div>
+
+                    <div class="chat_list">
+                        <div class="chat_people" v-for='user in users' >
+                            <div class="chat_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
+                            <div class="chat_ib">
+                                <h5 class="text-right">{{user.name}} <span class="chat_date">متاح</span></h5>
+                                <p class="text-right"><span class="text-muted" v-if='activeUSer==user.name'>يكتب الان..</span></p>
+
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
         </div>
-
-        <input type="text" name="message" class="form-control"autocomplete="off"
-        v-model="newmessage"
-        @keyup.enter="sendmessages"
-        placeholder="write message here......">
-        <span class="text-muted">user is typing</span>
-      </div>
     </div>
-    <div class="col-2">
-      <div class="card card-default">
-        <div class="card-header">active user</div>
-        <div class="card-body">
-          <ul>
-            <li class="py-2">jarsh</li>
-          </ul>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
+  </template>
 
-<script>
+  <script>
   export default {
-    props:['user'],
+    props:['user','chat'],
+
+
     data()
     {
       return{
         messages:[],
         newmessage:'',
+        users:[],
+        username:'',
+        activeUSer:false,
+        seen:false,
+        time:'',
       }
 
     },
     created(){
       this.getmessages();
 
-      Echo.join('chat')
-      .listen('sendMessageEvent',(e)=>{
-        this.messages.push(e.message)
+      Echo.join('Chat.'+this.chat.id)
+      .here(user=>{
+        this.users=user;
+
+        this.time = String(new Date().getHours()-12)+':'+String(new Date().getMinutes());
+      })
+      .leaving(user=>{
+        this.users=this.users.filter(u=>u.id !=user.id);
+      })
+      .joining(user=>{
+        this.users.push(user);
+          this.seen=true;
+      })
+      .listen('SendMessageEvent',(e)=>{
+        this.messages.push(e.message);
+
+      })
+      .listenForWhisper('typing', (e) => {
+        if (e.message!='') {
+          this.activeUSer=e.name;
+        }
+        else {
+          this.activeUSer=null;
+        }
+
       });
+
     },
 
     methods:{
       getmessages(){
-        axios.get('messages').then(response=>{
+
+        axios.get('/Home/chats/'+this.chat.id+'/messages').then(response=>{
           this.messages=response.data;
+
         });
       },
       sendmessages(){
-        this.messages.push({
+          this.messages.push({
           user:this.user,
-          massege:this.newmessage
+          message:this.newmessage
         });
         axios({
           method: 'post',
-          url: '/messages',
+          url: '/sendmessage',
           data: {
-            messege:this.newmessage,
+            message:this.newmessage,
+            chat_id:this.chat.id,
 
           }
         }).then(function (response) {
@@ -76,7 +140,13 @@
         this.newmessage="";
 
       },
-
+      typing(){
+        Echo.join('Chat.'+this.chat.id)
+          .whisper('typing',{
+            name:this.user.name,
+            message:this.newmessage,
+          });
+      }
     },
   }
-</script>
+  </script>

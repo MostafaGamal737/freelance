@@ -32,6 +32,10 @@ Route::post('Rating','api\OrderController@Rating');
 Route::post('GetOrder','api\OrderController@GetOrder');
 Route::post('GetOrderUsingStatus','api\OrderController@GetOrderUsingStatus');
 Route::get('GetMyChats','api\ChatController@GetMyChats');
+Route::get('GetNotifications','api\NotificationController@GetNotifications');
+Route::get('NotificationsCount','api\NotificationController@GetUnreadNotificationsCount');
+
+
 });
 Route::post('Register','api\AuthController@Register');
 Route::post('Login','api\AuthController@Login');

@@ -1,7 +1,9 @@
 
 
 @extends('includes.master')
-
+@section('title')
+  تعديل بيانات المستخدم
+@endsection
 @section('body')
   <div class="app-main__outer">
     <div class="app-main__inner">
@@ -13,21 +15,21 @@
     <form class="form-horizontal" action="{{asset('Dashboard/Users/Update')}}/{{$user->id}}" method="post" enctype="multipart/form-data">
       {{csrf_field()}}
       <div class="form-group">
-        <label class="control-label col-sm-2" >اسم  </label>
+        <label class="control-label col-sm-2" >الاسم </label>
         <div class="col-sm-10">
           <input type="text" class="form-control"  placeholder="ادخل اسم   " autocomplete="off"name="name" value="{{$user->name}}">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="control-label col-sm-2" >جوال  </label>
+        <label class="control-label col-sm-2" >رقم الجوال</label>
         <div class="col-sm-10">
           <input type="text" class="form-control"  placeholder="ادخلي رقم  " autocomplete="off" name="phone" value="{{$user->phone}}">
         </div>
       </div>
 
       <div class="form-group">
-        <label class="control-label col-sm-2" >كلمة سر  </label>
+        <label class="control-label col-sm-2" >كلمة السر </label>
         <div class="col-sm-10">
           <input type="password" class="form-control"  placeholder="Enter Passowrd " name="password" autocomplete="off"></input>
         </div>
@@ -43,7 +45,7 @@
       </div>
       <div class="col-lg-4">
 
-        <label class="control-label col-lg-2" >الوظيفه</label>
+        <label class="control-label col-lg-2"hidden >الوظيفه</label>
         <div class="col-lg-2">
           <select class="" name="role">
            @foreach (App\role::get() as $role)
@@ -55,7 +57,7 @@
       </div>
       <div class="col-lg-4">
 
-        <label class="control-label col-lg-2" >البلد</label>
+        <label class="control-label col-lg-2" hidden>البلد</label>
         <div class="col-lg-2">
           <select class="" name="location">
 

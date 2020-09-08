@@ -21,6 +21,7 @@ class CreateSittingsTable extends Migration
             $table->string('logo')->nullable();
             $table->text('description')->nullable();
             $table->text('terms')->nullable();
+            $table->integer('tax')->default(5);
             $table->timestamps();
         });
     }

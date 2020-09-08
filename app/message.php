@@ -10,7 +10,7 @@ class message extends Model
       'message',
   ];
     public function user(){
-      return $this->belongsTo('App\user');
+      return $this->belongsTo('App\User');
     }
     public function chat(){
       return $this->belongsTo('App\chat');

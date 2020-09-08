@@ -51,6 +51,9 @@
   }
 </style>
 @endsection
+@section('title')
+  الرسائل
+@endsection
 @section('body')
 
   <div class="app-main__outer">

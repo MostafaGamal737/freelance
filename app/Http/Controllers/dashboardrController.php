@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\user;
+use App\User;
 use App\role;
 use App\skill;
 use App\job;
@@ -15,16 +15,18 @@ use App\chat;
 use App\message;
 use App\sitting;
 use session;
+use Auth;
+use App\Notifications\OrderNotification;
 class dashboardrController extends Controller
 {
   public function Users()
   { session::put('active', 'Users');
-   $users=user::where('role','!=','مدير')->where('role','!=', 'مدير عام')->get();
+   $users=User::where('role','!=','مدير عام')->paginate(10);
    return view('admin/users/Users',compact('users'));
   }
   public function Admins()
   { session::put('active', 'Admins');
-   $users=user::where('role','مدير')->get();
+   $users=User::where('role','مدير')->get();
    return view('admin/users/Admins',compact('users'));
   }
   public function Dashboard()
@@ -50,25 +52,25 @@ class dashboardrController extends Controller
   public function SuccessedOrders()
   {
     session::put('active', 'SuccessedOrders');
-    $orders=order::where('status','2')->get();
+    $orders=order::where('status','2')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function DelayedOrders()
   {
     session::put('active', 'DelayedOrders');
-    $orders=order::where('status','0')->get();
+    $orders=order::where('status','0')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function OngoingOrders()
   {
     session::put('active', 'OngoingOrders');
-    $orders=order::where('status','1')->get();
+    $orders=order::where('status','1')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function FailedOrders()
   {
     session::put('active', 'FailedOrders');
-    $orders=order::where('status','-1')->get();
+    $orders=order::where('status','-1')->paginate(10);
    return view('admin/orders/orders',compact('orders'));
   }
   public function UsreMoney()
@@ -96,10 +98,13 @@ session::put('active', 'Chats');
    return view('admin/chats/chats',compact('chats'));
   }
   public function Sittings()
-  {
+  {if (Auth::user()->role=='مدير عام') {
+    // code...
 session::put('active', 'Sittings');
     $sitting=sitting::first();
     return view('admin/sittings/sittings',compact('sitting'));
+  }
+return redirect('Dashboard');
   }
   public function AddSittings(Request $data)
   {
