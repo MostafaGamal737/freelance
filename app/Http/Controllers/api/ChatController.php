@@ -24,9 +24,10 @@ class ChatController extends Controller
 
   public function GetMessages()
   {
+
     if (isset($_GET['chat_id'])) {
-      $messages=message::where('chat_id', $chat_id)->with('user')->get();
-      return view('admin\chats\messages',compact('messages'));
+      $messages=message::where('chat_id', $_GET['chat_id'])->with('user')->get();
+      return response(['status'=>'true','messages'=>$messages]);
   }
 else {
   return response(['هناك خطْ']);

@@ -24,7 +24,7 @@ Route::group(['middleware' => 'auth:api'], function(){
 
 Route::post('SendMessage','api\ChatController@AddMessage');
 
-Route::get('GetMessages','api\ChatController@GetMessages');
+Route::get('GetMessages','api\ChatController@GetMessages');//done
 
 Route::get('orders','api\OrderController@Orders');//done
 
@@ -34,19 +34,18 @@ Route::post('AcceptOrder','api\OrderController@AcceptOrder');//done
 
 Route::post('CanceledOrder','api\OrderController@CanceledOrder');//done
 
-Route::post('Rating','api\OrderController@Rating');
 
 Route::post('GetOrder','api\OrderController@GetOrder');//done
 
 Route::post('GetOrderUsingStatus','api\OrderController@GetOrderUsingStatus');//done
 
-Route::get('GetMyChats','api\ChatController@GetMyChats');
+Route::get('GetMyChats','api\ChatController@GetMyChats');//done
 
 Route::get('GetNotifications','api\NotificationController@GetNotifications');//done
 
 Route::get('NotificationsCount','api\NotificationController@GetUnreadNotificationsCount');//done
 
-
+Route::post('Rating','api\OrderController@Rating');
 });
 
 

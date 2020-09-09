@@ -124,7 +124,8 @@ class OrderController extends Controller
         $order->status=1;
         $order->save();
         $chat=new chat();
-        if (($chat->findChat($order->user_id,$order->provider_id))=="ture") {
+    
+        if ($chat->findChat($order->user_id,$order->provider_id)=='true') {
           //$notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض',$order));
           return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
