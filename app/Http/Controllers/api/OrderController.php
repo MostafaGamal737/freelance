@@ -9,7 +9,6 @@ use App\invoice;
 use App\payout;
 use App\User;
 use App\chat;
-use App\Sittings;
 use Auth;
 use Carbon\Carbon;
 use App\notification;
@@ -19,15 +18,14 @@ class OrderController extends Controller
 {
   public function Orders()
   {
-    $success=order::where('provider_id',Auth::id())->where('status',2)->orwhere('user_id',Auth::id())->where('status',2)->get();
-    $padding=order::where('provider_id',Auth::id())->where('status',0)->orwhere('user_id',Auth::id())->where('status',0)->get();
-    $failed=order::where('provider_id',Auth::id())->where('status',-1)->orwhere('user_id',Auth::id())->where('status',-1)->get();
-    $processing=order::where('provider_id',Auth::id())->where('status',1)->orwhere('user_id',Auth::id())->where('status',1)->get();
+    $success=order::where('provider_id',Auth::id())->where('status',2)->get();
+    $padding=order::where('provider_id',Auth::id())->where('status',0)->get();
+    $failed=order::where('provider_id',Auth::id())->where('status',-1)->get();
+    $processing=order::where('provider_id',Auth::id())->where('status',1)->get();
     return response(['data'=>['success'=>$success,'failed'=>$failed,'padding'=>$padding,'processing'=>$processing]]);
   }
   //-----------MakeOrder
   public function MakeOrder(Request $data){
-    $sitting=sitting::first('tax');
     $provider=user::where('phone',$data->provider_phone)->first();
     if (!empty($provider)) {
 
@@ -41,7 +39,7 @@ class OrderController extends Controller
       $invoice->provider_phone=$data->provider_phone;
       $invoice->price=$data->price;
       $invoice->duration=$data->duration;
-      $invoice->tax=Sittings::get('tax');
+      $invoice->tax=$data->tax;
       $invoice->transaction_id=$data->transaction_id;
       $invoice->status=$data->status;
       $invoice->app_money=$data->price*($data->tax/100);
@@ -64,9 +62,9 @@ class OrderController extends Controller
           $order->status=0;
           $order->code = mt_rand(10000000,99999999);
           $notification=new notification();
-          $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد'));
-          //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
           $order->save();
+          $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد',$order));
+          //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
           return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);
         }
         else {
@@ -98,8 +96,8 @@ class OrderController extends Controller
   //-----------Start-GetOrder---
   public function GetOrder(Request $data)
   {
-    if (Auth::user()->role='منفذ خدمات'||Auth::user()->role='طالب خدمه') {
-      $order=order::where('code',$data->code)->where('provider_id', Auth::id())->orwhere('user_id', Auth::id())->with('invoice')->first();
+    if (Auth::user()->role='منفذ خدمات') {
+      $order=order::where('code',$data->code)->where('provider_id', Auth::id())->with('invoice')->first();
       if ($order) {
 
         return response(['order'=>$order]);
@@ -127,19 +125,21 @@ class OrderController extends Controller
         $order->save();
         $chat=new chat();
         if (($chat->findChat($order->user_id,$order->provider_id))=="ture") {
-          $notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
-         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض'));
-          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+          //$notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
+         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض',$order));
+          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
         }
         else {
 
           $chat->sender_id=$order->user_id;
           $chat->receiver_id=$order->provider_id;
+          $chat->sender_name=$order->invoice->client_name;
+          $chat->receiver_name=$order->invoice->provider_name;
           $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
           $chat->save();
-          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض'));
-          $notification->SendNotification($user,'لقدم تم قبول الطلب');
-          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض',$order));
+          //$notification->SendNotification($user,'لقدم تم قبول الطلب');
+          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
 
         }
 
@@ -166,9 +166,10 @@ class OrderController extends Controller
         $order->start_time=Carbon::now();
         $order->end_time=Carbon::now()->addDays($order->invoice->duration);
         $order->status=-1;
+        $order->cancel=$data->cancel;
         $order->save();
         $notification->SendNotification($user,'لقدم تم رفض الطلب');
-        $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض'));
+        $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض',$order));
         return response(['success'=>'تم رفض الطلب بنجاح','order'=>$order]);
       }
     }
@@ -178,11 +179,11 @@ class OrderController extends Controller
 
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
-    if (Auth::user()->role=='منفذ خدمات'||Auth::user()->role=='طالب خدمه') {
-      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->orwhere('user_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
+    if (Auth::user()->role=='منفذ خدمات') {
+      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     else {
-      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->orwhere('user_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
+      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
     }
     if (count($SuccessedOreders)>0) {
       return response(['response'=>'success','data'=>$SuccessedOreders]);
