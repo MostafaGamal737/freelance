@@ -22,7 +22,7 @@ class MessageController extends Controller
     Session::put('website', 'Message'); 
    $messages=message::where('chat_id', $id)->get();
    $chat=chat::find($id);
-   if (Auth::id()!=$chat->sender_id&&Auth::id()!=$chat->receiver_id&&Auth::user()->role!='مدير') {
+   if (Auth::id()!=$chat->sender_id&&Auth::id()!=$chat->receiver_id&&Auth::user()->role!='مدير'&&Auth::user()->role!='مدير عام') {
      return redirect('Home');
    }
 

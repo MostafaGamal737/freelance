@@ -14,11 +14,11 @@ class ChatController extends Controller
 
        $message=new message();
        $message->message=$data->message;
-       $message->recever_id=$data->recever_id;
+      // $message->recever_id=$data->recever_id;
        $message->chat_id=$data->chat_id;
        $message->user_id=Auth::id();
        $message->save();
-       broadcast(new SendMessageEvent($message));
+       broadcast(new SendMessageEvent($message->load('user'),$data->chat_id))->toOthers();
      return response(['status'=>'success','message'=>'message sent successfully']);
   }
 

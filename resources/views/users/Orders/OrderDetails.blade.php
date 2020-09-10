@@ -5,7 +5,7 @@
 @section('body')
       <div class="container-fluid">
           <div class="image-container">
-              <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image">
+              <img src="{{asset('images/wfh.png')}}" class="img-fluid"style="width:100%" alt="Responsive image">
               <h1 class="centered">تفاصيل الخدمه</h1>
           </div>
           @include('includes.success')
