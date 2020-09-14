@@ -41,7 +41,7 @@
             <td>{{$user->name}}</td>
             <td>{{$user->email}}</td>
             <td>{{$user->phone}}</td>
-          <td>{{$user->role}}</td>
+          <td id='role'>{{$user->role}}</td>
           <td>{{$user->location}}</td>
             <td ><a href="{{asset('Dashboard\Users')}}\{{$user->id}}" class="btn btn-primary">مشاهدة</a>
             @if(Auth::user()->role=='مدير عام')
@@ -49,7 +49,7 @@
             <a  href="{{asset('Dashboard/Users/DeleteUser')}}/{{$user->id}}" class="btn btn-danger"onclick="return confirm('هل ترغب في اتمام عملية الحذف؟');">حذف</a>
 
             </td>
-            <td><input name={{$user->id}} type="checkbox" {{($user->role=='مدير')?'checked':""}} onchange="return confirm('هل تريد دخول هذا الشخص علي لوحة التحكم');"></td>
+            <td><input name='{{$user->id}}' type="checkbox"    {{($user->role=='مدير')?'checked':''}} ></td>
             @endif
 
             </tr>
@@ -68,7 +68,7 @@
   <script>
      $('table td input[type=checkbox]' ).click(function() {
   var  id = (this.name) ; // button ID
-  
+  if(confirm('هل انتا متأكد !!')==true){
      $.ajax({
 
                     /* the route pointing to the post function */
@@ -79,9 +79,27 @@
                     dataType: 'JSON',
                     /* remind that 'data' is the response of the AjaxController */
                     success: function (data) {
-                       console.log(data);
+                      console.log('data');
+                      location.reload(true);
+                    },
+                    error:function(x,e) {
+                      location.reload(true);
                     }
+
+                    
                 });
+              }
+              else{
+                if(this.checked==true){
+                  this.checked=false;
+                }
+                else{
+                  this.checked=true;
+                }
+  
+} 
 });
+
+
     </script>
     @endsection
