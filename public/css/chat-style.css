@@ -173,6 +173,8 @@ img {
     float: left;
     padding: 30px 15px 0 25px;
     width: 60%;
+    height:  600px !important;
+    overflow-y:scroll
 }
 
 .sent_msg p {
@@ -241,5 +243,5 @@ img {
 
 .msg_history {
     height: auto;
-    overflow-y: auto;
+
 }

@@ -1,22 +1,22 @@
 <template>
     <div class="messaging">
-        <div class="inbox_msg">
+        <div class="inbox_msg scrollbar scrollbar-lady-lips">
 
-            <div class="mesgs">
+            <div class="mesgs " v-chat-scroll >
                 <div class="msg_history" v-for='message in messages'>
                     <div class="incoming_msg" v-if='user.id!=message.user.id'>
                         <div class="incoming_msg_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
                         <div class="received_msg">
                             <div class="received_withd_msg" >
                               <p>{{message.user.name}} : <small>{{message.message}}</small></p>
-                                <span class="time_date">{{message.created_at}}</span>
+                                <span class="time_date">{{date(message.created_at)}}</span>
                               </div>
                         </div>
                     </div>
                     <div class="outgoing_msg" v-if='user.id==message.user.id'>
                         <div class="sent_msg">
                               <p>{{message.user.name}} : <small>{{message.message}}</small></p>
-                            <span class="time_date"> {{message.created_at}}</span> </div>
+                            <span class="time_date"> {{date(message.created_at)}}</span> </div>
                     </div>
                 </div>
                 <div class="type_msg">
@@ -33,7 +33,7 @@
                     </div>
 
                     <div class="col-sm-2 ml-1">
-                        <button type="button" class="btn btn-primary msg_send_btn">ارسل</button>
+                        <button @click="sendmessages" type="button" class="btn btn-primary msg_send_btn">ارسل</button>
                     </div>
                     </div>
                     </div>
@@ -64,6 +64,7 @@
   </template>
 
   <script>
+  import moment from 'moment';
   export default {
     props:['user','chat'],
 
@@ -114,10 +115,14 @@
     },
 
     methods:{
+      date: function (date) {
+        return moment(date).format('MMMM Do , h:mm a');
+      },
       getmessages(){
 
         axios.get('/Home/chats/'+this.chat.id+'/messages').then(response=>{
           this.messages=response.data;
+
 
         });
       },
