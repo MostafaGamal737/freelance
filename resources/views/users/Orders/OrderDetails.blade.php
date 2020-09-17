@@ -30,7 +30,7 @@
                   <p class="text-right mt-0 mb-0" id="payment-text-black">وقت انتهاء التنفيذ :{{$order->end_time}}</p>
 
 
-@if ($order->status==0&&Auth::user()->role=='منفذ خدمات')
+@if ($order->status==0&&Auth::user()->role=='منفذ خدمات'&&$order->approved_status=='مفعله')
 
                   <div class="row d-flex justify-content-center mt-4">
                       <div class="col-sm-4">
@@ -40,11 +40,21 @@
                           <button type="submit" class="btn btn-secondary btn-block mt-2" id="btn-accept-decline" data-toggle="modal" data-target="#declineModal">رفض</button>
                       </div>
                   </div>
-@elseif ($order->status==-1)
-  <div class="">
-    سبب رفض العرض <h2>{{$order->cancel}}</h2>
-  </div>
-@endif
+        @elseif ($order->status==0&&Auth::user()->role=='طالب خدمه'&&$order->approved_status=='مفعله')
+        <h2 class='text-danger'>مقدم الخدمات لم يقبل العرض بعد</h2>
+        @elseif ($order->status==-1)
+         <div class="">
+           سبب رفض العرض <h2>{{$order->cancel}}</h2>
+         </div>
+          @elseif ($order->status==1)
+         <div class="">
+          <h2>تم قبول العرض</h2>
+         </div>
+         @else
+         <div class='bg-danger'>
+            <h1> الخدمه معلقه لحين سداد الاموال </h1>
+         </div>
+    @endif
 
 
                   <!-- Modal for decline -->

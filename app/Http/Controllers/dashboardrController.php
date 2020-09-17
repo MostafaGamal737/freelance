@@ -76,7 +76,10 @@ class dashboardrController extends Controller
   public function UsreMoney()
   {
     session::put('active', 'UsreMoney');
-    $orders=order::where('customers_money_status',0)->get();
+    $orders=order::where('customers_money_status',0)
+    ->where('status','!=',0)
+    ->where('status','!=',1)
+    ->get();
    return view('admin/reviews/reviews',compact('orders'));
   }
   public function Locations()

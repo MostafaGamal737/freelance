@@ -39,10 +39,11 @@ class OrderController extends Controller
       $invoice->provider_phone=$data->provider_phone;
       $invoice->price=$data->price;
       $invoice->duration=$data->duration;
-      $invoice->tax=$data->tax;
+      $invoice->tax=$sitting->tax;
       $invoice->transaction_id=$data->transaction_id;
       $invoice->status=$data->status;
       $invoice->app_money=$data->price*($data->tax/100);
+      $invoice->total_price=$invoice->app_money+$invoice->price;
       if ($invoice->save()) {
         $payout->user_id=Auth::id();
         $payout->transaction_id=$data->transaction_id;
@@ -51,18 +52,18 @@ class OrderController extends Controller
 
         if ($payout->save()) {
           $order=new order();
-          $order->user_id=Auth::id();
-
-          $order->provider_id=$provider->id;
-          $order->invoice_id=$invoice->id;
-          $order->payout_id=$payout->id;
-          $order->job_name=$data->job_name;
-          $order->description=$data->description;
-          $order->customers_money_status=0;
-          $order->status=0;
-          $order->code = mt_rand(10000000,99999999);
-          $notification=new notification();
-          $order->save();
+            $order->user_id=Auth::id();
+            $order->provider_id=$provider->id;
+            $order->invoice_id=$invoice->id;
+            $order->payout_id=$payout->id;
+            $order->job_name=$data->job_name;
+            $order->description=$data->description;
+            $order->customers_money_status=0;
+            $order->approved_status='قيد الانتظار';
+            $order->status=0;
+            $order->code = mt_rand(10000000,99999999);
+            $notification=new notification();
+            $order->save();
           $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد',$order));
           //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
           return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);

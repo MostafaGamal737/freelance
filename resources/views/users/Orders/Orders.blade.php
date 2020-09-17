@@ -19,7 +19,7 @@
                     </div>
                      <div class="card-body">
                         <a href="{{asset('Home/Orders/SuccessedOrders')}}">  <h5 class="card-title " id="successfull-deal-txt" style=" text-align: right;">المعاملات الناجحه</h5></a>
-                         <p class="card-text" id="successfull-deal-txt" style=" text-align: right;margin: auto;">هي المعاملات التي انتهنت بنجاح و تم تحويل مقابلها المادي بدون مشاكل</p>
+                         <p class="card-text" id="successfull-deal-txt" style="text-align: right;margin: auto;">هي المعاملات التي انتهنت بنجاح و تم تحويل مقابلها المادي بدون مشاكل</p>
                      </div>
                  </div>
              </div>

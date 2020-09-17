@@ -15,7 +15,7 @@ class SittingsController extends Controller
         $sitting->card_number=$data->card_number;
         $sitting->description=$data->description;
         $sitting->terms=$data->terms;
-        $sitting->terms=$data->terms;
+        $sitting->iban=$data->iban;
         //$image_name=time().'.'.$data->image->getClientOriginalExtension();
         //$sitting->image=$image_name;
         //$data->image->move('images',$image_name);
@@ -28,7 +28,7 @@ class SittingsController extends Controller
       $sitting->card_number=$data->card_number;
       $sitting->description=$data->description;
       $sitting->terms=$data->terms;
-      $sitting->terms=$data->terms;
+      $sitting->iban=$data->iban;
       //$image_name=time().'.'.$data->image->getClientOriginalExtension();
       //$sitting->image=$image_name;
       //$data->image->move('images',$image_name);

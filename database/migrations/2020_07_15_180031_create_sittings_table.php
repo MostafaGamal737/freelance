@@ -17,8 +17,8 @@ class CreateSittingsTable extends Migration
             $table->id();
             $table->string('email')->nullable();
             $table->integer('phone')->nullable();
-            $table->string('card_number')->nullable();
-            $table->string('logo')->nullable();
+            $table->biginteger('card_number')->nullable();
+            $table->integer('iban')->nullable();
             $table->text('description')->nullable();
             $table->text('terms')->nullable();
             $table->integer('tax')->default(5);

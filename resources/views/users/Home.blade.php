@@ -18,7 +18,6 @@
           <!-- في حاله ان نوع الحساب لطلب الخدمات-->
           <div class="row d-flex justify-content-center">
             @if (Auth::user()->role=='طالب خدمه')
-
               <a href="{{asset('Home/MakeOrder')}}" type="submit" class="btn btn-success " id="btn-submit">طلب خدمه</a>
           @else
             <a href="{{asset('Home/ExcuteOrder')}}" type="submit" class="btn btn-success " id="btn-submit">انجاز مهمه</a>

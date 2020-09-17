@@ -40,10 +40,10 @@
             @elseif ($order->status==2)
                 <td>ناجحه</td>
               @endif
-              <td>{{($order->invoice->price)-($order->invoice->app_money)}}</td>
+              <td>{{($order->invoice->price)}}</td>
 
               <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">مشاهده</a>
-             <a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-info">رد الاموال</a>
+             <a href="{{asset('Dashboard/orders/returnMoney')}}/{{$order->id}}" class="btn btn-info">رد الاموال</a>
               </td>
             </tr>
           @endforeach

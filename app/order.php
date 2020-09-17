@@ -22,7 +22,7 @@ class order extends Model
     $money=0;
     $orders=(order::where('customers_money_status',0)->get());
     foreach ($orders as $order) {
-      $money+=(($order->invoice->price)-($order->invoice->app_money));
+      $money+=(($order->invoice->price));
     }
     return $money;
   }

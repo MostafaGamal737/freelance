@@ -28,7 +28,11 @@
               <td>{{$order->invoice->provider_name}}</td>
               <td>{{$order->job_name}}</td>
               <td>{{$order->code}}</td>
-              <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">تفاصيل</a><a href="DeleteUser/" class="btn btn-danger" hidden>حذف</a></td>
+              <td ><a href="{{asset('Dashboard/orders')}}/{{$order->id}}" class="btn btn-primary">تفاصيل</a><a href="DeleteUser/" class="btn btn-danger" hidden>حذف</a>
+              @if($order->approved_status=='قيد الانتظار')
+                <a href="{{asset('Dashboard/orders/Approved')}}/{{$order->id}}" class="btn btn-success" >تفعيل</a>
+              @endif
+              </td>
             </tr>
           @endforeach
           @csrf
