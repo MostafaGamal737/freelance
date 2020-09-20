@@ -6,7 +6,7 @@
 
 
   <div class="image-container">
-              <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image">
+              <img src="{{asset('images/wfh.png')}}"style="width:100%" class="img-fluid" alt="Responsive image">
           <h1 class="centered">قم بتقديم طلب تنفيذ خدمه</h1>
           </div>
           <!--login card-->

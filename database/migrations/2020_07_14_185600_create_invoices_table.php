@@ -21,6 +21,7 @@ class CreateInvoicesTable extends Migration
             $table->integer('provider_phone')->nullable();
             $table->integer('transaction_id');
             $table->double('price');
+            $table->double('total_price');
             $table->integer('duration');
             $table->float('tax');
             $table->boolean('status');

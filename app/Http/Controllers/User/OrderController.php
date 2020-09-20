@@ -9,6 +9,8 @@ use App\invoice;
 use App\payout;
 use App\User;
 use App\chat;
+use App\sitting;
+
 use Auth;
 use Carbon\Carbon;
 use App\notification;
@@ -68,9 +70,10 @@ class OrderController extends Controller
         return view('users/Orders/UnderWayOrders',compact('orders'));
 
     }
-    public function payment()
+    public function payment($id)
     {
-      return view('users/Orders/payment');
+      $order=order::find($id);
+      return view('users/Orders/payment',compact('order'));
     }
 
     public function CancelOrder(Request $data,$id)
@@ -126,6 +129,8 @@ class OrderController extends Controller
 
     public function MakeOrder(OrderRequest $data){
       Session::put('website', 'Order');
+      $sitting=sitting::first('tax');
+      
       $payout=new payout();
       $data['status']=1;
       $provider=User::where('phone',$data->provider_phone)->where('role','منفذ خدمات')->first();
@@ -140,14 +145,15 @@ class OrderController extends Controller
         $invoice->provider_phone=$data->provider_phone;
         $invoice->price=$data->price;
         $invoice->duration=$data->duration;
-        $invoice->tax=$data->tax;
+        $invoice->tax=$sitting->tax;
         $invoice->transaction_id=$data->transaction_id;
         $invoice->status=$data->status;
         $invoice->app_money=$data->price*($data->tax/100);
+        $invoice->total_price=$invoice->app_money+$invoice->price;
         if ($invoice->save()) {
           $payout->user_id=Auth::id();
           $payout->transaction_id=$data->transaction_id;
-          $payout->cost=$data->price;
+          $payout->cost=$data->price+$invoice->app_money;
           $payout->status=$data->status;
 
           if ($payout->save()) {
@@ -159,13 +165,14 @@ class OrderController extends Controller
             $order->job_name=$data->job_name;
             $order->description=$data->description;
             $order->customers_money_status=0;
+            $order->approved_status='قيد الانتظار';
             $order->status=0;
             $order->code = mt_rand(10000000,99999999);
             $notification=new notification();
             $order->save();
             $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد من',$order));
             $notification->SendNotification($provider->firetoken,'لديك عرض جديد من');
-            return redirect()->back()->with('message','لقت تم طلب الخدمه بنجاح انتظر رد مقدم الخدمه ');
+            return redirect('Home/payment/'.$order->id)->with('message','لقت تم طلب الخدمه بنجاح انتظر رد مقدم الخدمه ');
           }
           else {
             return redirect()->back()->with('error','حدث خطء في تقديم الطلب تأكد من البيانات المدخله');

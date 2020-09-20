@@ -38,6 +38,12 @@
           <input type="text" class="form-control"  placeholder="ادخل رقم الحساب البنكي " autocomplete="off" name="card_number"value="@if ($sitting){{$sitting->card_number}}
          @endif">
         </div>
+        <div class="form-group">
+        <label class="control-label col-sm-2" > IBAN</label>
+        <div class="col-sm-10">
+          <input type="text" class="form-control"  placeholder="ادخل رقم IBAN " autocomplete="off" name="iban"value="@if ($sitting){{$sitting->iban}}
+         @endif">
+        </div>
       </div>
       <div class="form-group">
         <label class="control-label col-sm-2" >شرح مفصل</label>

@@ -47,7 +47,7 @@
       </tr>
 
       <tr>
-        @if ($order->customer_money_status==0)
+        @if ($order->customers_money_status==0)
           <th scope="row">لم يتم السداد بعد</th>
         @else
           <th scope="row">لفد تم السداد</th>

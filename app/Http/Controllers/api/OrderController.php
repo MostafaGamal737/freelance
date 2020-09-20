@@ -39,10 +39,11 @@ class OrderController extends Controller
       $invoice->provider_phone=$data->provider_phone;
       $invoice->price=$data->price;
       $invoice->duration=$data->duration;
-      $invoice->tax=$data->tax;
+      $invoice->tax=$sitting->tax;
       $invoice->transaction_id=$data->transaction_id;
       $invoice->status=$data->status;
       $invoice->app_money=$data->price*($data->tax/100);
+      $invoice->total_price=$invoice->app_money+$invoice->price;
       if ($invoice->save()) {
         $payout->user_id=Auth::id();
         $payout->transaction_id=$data->transaction_id;
@@ -51,20 +52,20 @@ class OrderController extends Controller
 
         if ($payout->save()) {
           $order=new order();
-          $order->user_id=Auth::id();
-
-          $order->provider_id=$provider->id;
-          $order->invoice_id=$invoice->id;
-          $order->payout_id=$payout->id;
-          $order->job_name=$data->job_name;
-          $order->description=$data->description;
-          $order->customers_money_status=0;
-          $order->status=0;
-          $order->code = mt_rand(10000000,99999999);
-          $notification=new notification();
-          $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد'));
+            $order->user_id=Auth::id();
+            $order->provider_id=$provider->id;
+            $order->invoice_id=$invoice->id;
+            $order->payout_id=$payout->id;
+            $order->job_name=$data->job_name;
+            $order->description=$data->description;
+            $order->customers_money_status=0;
+            $order->approved_status='قيد الانتظار';
+            $order->status=0;
+            $order->code = mt_rand(10000000,99999999);
+            $notification=new notification();
+            $order->save();
+          $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد',$order));
           //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
-          $order->save();
           return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);
         }
         else {
@@ -124,20 +125,23 @@ class OrderController extends Controller
         $order->status=1;
         $order->save();
         $chat=new chat();
-        if (($chat->findChat($order->user_id,$order->provider_id))=="ture") {
-          $notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
-         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض'));
-          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+    
+        if ($chat->findChat($order->user_id,$order->provider_id)=='true') {
+          //$notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
+         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض',$order));
+          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
         }
         else {
 
           $chat->sender_id=$order->user_id;
           $chat->receiver_id=$order->provider_id;
+          $chat->sender_name=$order->invoice->client_name;
+          $chat->receiver_name=$order->invoice->provider_name;
           $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
           $chat->save();
-          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض'));
-          $notification->SendNotification($user,'لقدم تم قبول الطلب');
-          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order,'invoice'=>$order->invoice->first()]);
+          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض',$order));
+          //$notification->SendNotification($user,'لقدم تم قبول الطلب');
+          return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
 
         }
 
@@ -164,9 +168,10 @@ class OrderController extends Controller
         $order->start_time=Carbon::now();
         $order->end_time=Carbon::now()->addDays($order->invoice->duration);
         $order->status=-1;
+        $order->cancel=$data->cancel;
         $order->save();
         $notification->SendNotification($user,'لقدم تم رفض الطلب');
-        $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض'));
+        $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض',$order));
         return response(['success'=>'تم رفض الطلب بنجاح','order'=>$order]);
       }
     }

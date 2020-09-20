@@ -58,7 +58,7 @@
         <div class="widget-content-wrapper text-white">
           <div class="widget-content-left">
             <div class="widget-heading">الامول الواجب سدادها</div>
-            <div class="widget-subheading">اموال العملاء لدينا</div>
+            <div class="widget-subheading">اموال العمليات الجاريه والمعلقه</div>
           </div>
           <div class="widget-content-right">
             <div class="widget-numbers text-white"><span>{{$usermoney->usermoney()}}ريال</span></div>
@@ -73,7 +73,7 @@
           <div class="widget-content-wrapper">
             <div class="widget-content-left">
               <div class="widget-heading text-light">مجموع الامول لدينا </div>
-              <div class="widget-subheading text-light">الخاصه بعمليات جاريه</div>
+              <div class="widget-subheading text-light">صافي ربحنا</div>
             </div>
             <div class="widget-content-right">
 
@@ -89,8 +89,8 @@
         <div class="widget-content-outer">
           <div class="widget-content-wrapper">
             <div class="widget-content-left">
-              <div class="widget-heading text-light"> الاموال المعلقه </div>
-              <div class="widget-subheading text-light">نسبتنا الخاصه من العمليات</div>
+              <div class="widget-heading text-light"> الاموال المحوله </div>
+              <div class="widget-subheading text-light">مجموع الاموال المحوله الينا</div>
             </div>
             <div class="widget-content-right">
               <div class="widget-numbers text-light">{{$money->totalTransfers()}}ريال</div>

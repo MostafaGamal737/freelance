@@ -7,7 +7,7 @@
       <div class="container-fluid">
 
   <div class="image-container">
-              <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image">
+              <img src="{{asset('images/wfh.png')}}" style="width:100%" class="img-fluid" alt="Responsive image">
                  <h1 class="centered" id="failed-deal-txt">المعاملات الفاشله</h1>
 
           </div>

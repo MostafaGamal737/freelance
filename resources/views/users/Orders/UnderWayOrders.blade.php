@@ -7,7 +7,7 @@
       <div class="container-fluid">
 
   <div class="image-container">
-              <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image">
+              <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image" >
                  <h1 class="centered" id="underway-deal-txt">المعاملات الجاريه</h1>
 
           </div>

@@ -50,7 +50,9 @@ class chatController extends Controller
           <td>'.User::find($row->sender_id)->name.'</td>
           <td>'.User::find($row->receiver_id)->name.'</td>
           <td>'.$row->chat.'</td>
-          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class="btn btn-primary">مشاهدة</a></td>
+          <td><a href=../Dashboard/Chats/Chat/'.$row->id.' class="btn btn-primary">مشاهدة</a>
+          <a href=../Home/chats/'.$row->id.' class="btn btn-info">محادثه</a>
+          </td>
 
           </tr>
          ';

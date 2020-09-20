@@ -6,7 +6,7 @@
 
   <div class="container-fluid">
       <div class="image-container">
-          <img src="images/wfh.png" class="img-fluid" alt="Responsive image">
+          <img src="images/wfh.png" class="img-fluid"style="width:100%" alt="Responsive image">
           <h1 class="centered">معامله جديده</h1>
       </div>
 

@@ -18,7 +18,7 @@ class chat extends Model
       $chat=chat::where('sender_id', $user_id)
       ->where('receiver_id', $provider_id)
       ->orwhere('sender_id', $provider_id)
-      ->where('receiver_id', $user_id)
+      ->orwhere('receiver_id', $user_id)
       ->first();
       if ($chat) {
         return 'true';

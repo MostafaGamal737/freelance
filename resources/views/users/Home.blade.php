@@ -13,12 +13,11 @@
                -->
           </div>
           <div class="row d-flex justify-content-center">
-              <img src="images/home-img.svg" class="img-fluid" alt="Responsive image" id="home-img">
+              <img src="images/home-img.svg" class="img-fluid" alt="Responsive image" id="home-img" >
           </div>
           <!-- في حاله ان نوع الحساب لطلب الخدمات-->
           <div class="row d-flex justify-content-center">
             @if (Auth::user()->role=='طالب خدمه')
-
               <a href="{{asset('Home/MakeOrder')}}" type="submit" class="btn btn-success " id="btn-submit">طلب خدمه</a>
           @else
             <a href="{{asset('Home/ExcuteOrder')}}" type="submit" class="btn btn-success " id="btn-submit">انجاز مهمه</a>

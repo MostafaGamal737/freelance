@@ -9,7 +9,7 @@ use App\forgetPassowrd;
 use App\Notifications\ResetPassord;
 use App\Http\Requests\newpassrequest;
 use App\Http\Requests\loginvalidation;
-use App\jobs\ResetPasswordJob;
+use App\Jobs\ResetPasswordJob;
 
 class AuthController extends Controller
 {
@@ -134,6 +134,6 @@ if (strlen($data->password)<6||($data->password)!=($data->password_confirmation)
 
   public function CodeValidation()
   {
-    return view('admin\Auth\CodeValidation');
+    return view('admin/Auth/CodeValidation');
   }
 }

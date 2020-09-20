@@ -91,7 +91,8 @@ Route::get('Dashboard/jobs/Deletejob/{id}',"jobController@DeleteJob");
 Route::post('Dashboard/orders/Addorder',"orderController@AddOrder");
 Route::get('Dashboard/orders/{id}',"orderController@OrdersDetails");
 
-
+Route::get('Dashboard/orders/Approved/{id}',"orderController@Approved");
+Route::get('Dashboard/orders/returnMoney/{id}',"orderController@returnMoney");
 //---------reviews
 Route::post('Dashboard/Reviewsr/AddReview',"orderController@AddReview");
 
@@ -151,7 +152,7 @@ Route::get('Home/Orders/FailedOrders','User\OrderController@FailedOrders');
 Route::get('Home/Orders/PandingOrders','User\OrderController@PandingOrders');
 Route::get('Home/Orders/SuccessedOrders','User\OrderController@SuccessedOrders');
 Route::get('Home/Orders/UnderWayOrders','User\OrderController@UnderWayOrders');
-Route::get('Home/payment','User\OrderController@payment');
+Route::get('Home/payment/{id}','User\OrderController@payment');
 
 //messages-------------
 Route::get('Home/chats','User\MessageController@chats');

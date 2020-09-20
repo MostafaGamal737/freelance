@@ -23,6 +23,7 @@ class CreateOrdersTable extends Migration
             $table->integer("invoice_id");
             $table->integer("payout_id");
             $table->integer("status");
+            $table->enum('approved_status', ['مفعله', 'قيد الانتظار']);
             $table->integer("customers_money_status");
             $table->integer("code");
             $table->date("start_time")->nullable();
