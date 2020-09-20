@@ -30,7 +30,7 @@ Route::get('orders','api\OrderController@Orders');//done
 
 Route::post('MakeOrder','api\OrderController@MakeOrder');//done
 
-Route::post('AcceptOrder','api\OrderController@AcceptOrder');//done
+Route::post('AcceptOrder','api\OrderController@AcceptOrder');//done 
 
 Route::post('CanceledOrder','api\OrderController@CanceledOrder');//done
 
@@ -44,6 +44,8 @@ Route::get('GetMyChats','api\ChatController@GetMyChats');//done
 Route::get('GetNotifications','api\NotificationController@GetNotifications');//done
 
 Route::get('NotificationsCount','api\NotificationController@GetUnreadNotificationsCount');//done
+
+Route::get('user/Notification/{id}','api\NotificationController@Notification');//done
 
 Route::post('Rating','api\OrderController@Rating');
 });

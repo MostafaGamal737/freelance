@@ -5,6 +5,8 @@ namespace App\Http\Controllers\api;
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 use Auth;
+
+use App\order;
 class NotificationController extends Controller
 {
     public function GetNotifications()
@@ -25,4 +27,12 @@ class NotificationController extends Controller
         }
         return response(['false'=>'تم قراءة كل الاشعارات']);
     }
+    public function Notification($id)
+    {   
+        $notification=Auth::user()->unreadNotifications()->where('id',$id)->orderBy('id','desc')->first();
+        $order=order::find($notification->data['id']);
+        $notification->markAsRead();
+        return $order; 
+    }
+    
 }
