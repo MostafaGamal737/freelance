@@ -57,7 +57,8 @@ class OrderNotification extends Notification
          'role' => $this->user->role,
          'message' => $this->message,
          'code' => $this->order->code,
-         'id' => $this->order->id
+         'id' => $this->order->id,
+        
         ];
     }
 }

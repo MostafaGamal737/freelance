@@ -16,15 +16,7 @@
     <link href="{{asset('https://fonts.googleapis.com/css2?family=Cairo:wght@600&display=swap')}}" rel="stylesheet">
     @yield('css')
     <style>
-.footer {
-   position: fixed;
-   left: 0;
-   bottom: 0;
-   width: 100%;
-   background-color: green;
-   color: white;
-   text-align: right;
-}
+
 </style>
     <title>@yield('title')</title>
 </head>
@@ -33,10 +25,7 @@
 @include('users.layout.nav')
  @yield('body')
 
- <div class="footer">
-  <p>رقم الجوال الخاص بنا:{{$Sittings->phone}}</p>
-  <p>{{$Sittings->email}}:البريد الالكتروني</p>
-</div>
+ 
 
    <script src="{{asset('https://code.jquery.com/jquery-3.5.1.slim.min.js')}}" integrity="sha384-DfXdz2htPH0lsSSs5nCTpuj/zy4C+OGpamoFVy38MVBnE+IbbVYUew+OrCXaRkfj" crossorigin="anonymous"></script>
    <script src="{{asset('https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js')}}" integrity="sha384-9/reFTGAW83EW2RDu2S0VKaIzap3H66lZH81PoYlFhbGU+6BZp6G7niu735Sk7lN" crossorigin="anonymous"></script>

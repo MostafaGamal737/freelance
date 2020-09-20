@@ -73,7 +73,7 @@ class AuthController extends Controller
         $forgetPassowrd->token=$this->getToken(60);;
         $forgetPassowrd->save();
       }
-//$user->notify(new ResetPassord($user));
+        $user->notify(new ResetPassord($user));
         dispatch(new ResetPasswordJob($user));
       return response(['response'=>'تم ارسال الرابط تفقد البريد الخاص بك']);
     }

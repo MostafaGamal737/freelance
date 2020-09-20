@@ -9,6 +9,7 @@ use App\invoice;
 use App\payout;
 use App\User;
 use App\chat;
+use App\sitting;
 use Auth;
 use Carbon\Carbon;
 use App\notification;
@@ -26,6 +27,7 @@ class OrderController extends Controller
   }
   //-----------MakeOrder
   public function MakeOrder(Request $data){
+    $sitting=sitting::first();
     $provider=user::where('phone',$data->provider_phone)->first();
     if (!empty($provider)) {
 
@@ -64,9 +66,10 @@ class OrderController extends Controller
             $order->code = mt_rand(10000000,99999999);
             $notification=new notification();
             $order->save();
+            
           $provider->notify(new OrderNotification(Auth::user(),'لديك عرض جديد',$order));
           //$notification->SendNotification($provider->firetoken,'لديك عرض جديد');
-          return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code]);
+          return response(['response'=>'تم تقديم الطلب بنجاح','code'=>$order->code,'iban'=>$sitting->iban,'card_number'=>$sitting->card_number]);
         }
         else {
           return(['response'=>'حدث خطء في تقديم الطلب تأكد من البيانات المدخله']);
