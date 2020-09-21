@@ -22,7 +22,7 @@
                   <p class="text-right mt-0 mb-0" id="payment-text-black">رقم جوال طالب الخدمه : {{$order->invoice->client_phone}}</p>
                   <p class="text-right mt-0 mb-0" id="payment-text-black">رقم جوال منفذ الخدمه : {{$order->invoice->provider_phone}}</p>
                   <p class="text-right mt-0 mb-0" id="payment-text-black">نوع الخدمه : {{$order->job_name}} </p>
-                  <p class="text-right mt-0 mb-0" id="payment-text-black">مده الاتفاق : {{$order->invoice->duration}} </p>
+                  <p class="text-right mt-0 mb-0" id="payment-text-black"> مده الاتفاق : {{$order->invoice->duration}} يوم</p>
                   <p class="text-right mt-0 mb-0" id="payment-text-black">قيمه الطلب :  {{$order->invoice->price}}ريال</p>
                   <p class="text-right mt-0 mb-0" id="payment-text-black">تفاصيل الخدمه : {{$order->description}}</p>
                   <p class="text-right mt-0 mb-0" id="payment-text-black">كود الخدمه : {{$order->code}}</p>
@@ -50,11 +50,15 @@
          <div class="">
           <h2>تم قبول العرض</h2>
          </div>
+         @elseif ($order->status==2)
+         <div class="">
+          <h2>تم تنفيذ الخدمه بنجاح</h2>
+         </div>
          @else
          <div class='bg-danger'>
             <h1> الخدمه معلقه لحين سداد الاموال </h1>
          </div>
-    @endif
+@endif
 
 
                   <!-- Modal for decline -->

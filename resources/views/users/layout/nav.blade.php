@@ -27,7 +27,7 @@ $notifications=[];
       </li>
       <li class="nav-item dropdown"  id="notification">
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-          الاشعارات <small class="text-primary"><strong>{{$count}}</strong></small>
+          الاشعارات <small class="text"><strong>{{$count}}</strong></small>
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
           @if (count($notifications)>0)
@@ -37,7 +37,7 @@ $notifications=[];
 
           @endforeach
         @endif
-
+        <div class='center'>لا يوجد معاملات </div>
           </div>
         </li>
 

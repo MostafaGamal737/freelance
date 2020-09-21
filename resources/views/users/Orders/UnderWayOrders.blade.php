@@ -8,12 +8,13 @@
 
   <div class="image-container">
               <img src="{{asset('images/wfh.png')}}" class="img-fluid" alt="Responsive image" >
-                 <h1 class="centered" id="underway-deal-txt">المعاملات الجاريه</h1>
+                 <h1 class="centered" id="underway-deal-txt">المعاملات قيد التنفيذ</h1>
 
           </div>
           <!--card-->
           <div class="list-group m-5">
-@foreach ($orders as  $order)
+          @if(count($orders)>0)
+            @foreach ($orders as  $order)
 
               <a href="{{asset('Home/Orders/OrdersDetails')}}/{{$order->id}}" type="button" class="list-group-item list-group-item-action">
 
@@ -42,6 +43,9 @@
 
               </a>
             @endforeach
+            @else
+           <div class='d-flex justify-content-center'>لا يوجد معاملات </div>
+           @endif
           </div>
       </div>
 

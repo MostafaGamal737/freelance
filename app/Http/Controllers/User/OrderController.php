@@ -32,10 +32,14 @@ class OrderController extends Controller
     }
     public function OrdersDetails($id)
     {Session::put('website', 'Order');
-      $order=order::find($id);
+      $order=order::where('id',$id)->first();
       if (!empty($order)) {
+      if($order->provider_id==Auth::id()||$order->client_id==Auth::id()){
         return view('users/Orders/OrderDetails',compact('order'));
       }
+      return redirect('Home'); 
+      }
+
       return redirect('Home');
     }
     public function ShowMakeOrder()
@@ -95,12 +99,12 @@ class OrderController extends Controller
     }
 
     public function AcceptOrder($id)
-    {Session::put('website', 'Order');
+    {
+      Session::put('website', 'Order');
       $notification=new notification();
       $order=order::find($id);
       $user=User::find($order->user_id);
-       $order=order::find($id);
-
+       
        if ((Auth::user()->phone)==($order->invoice->provider_phone)&&$order->status==0) {
          $order->start_time=Carbon::now();
          $order->end_time=Carbon::now()->addDays($order->invoice->duration);
@@ -206,13 +210,26 @@ class OrderController extends Controller
     public function ExcuteOrder(Request $data)
     {
       Session::put('website', 'Order');
-      if (auth::user()->role=='منفذ خدمات') {
-        if ($order=order::where('code',$data->code)->first()) {
-          return view('users/Orders/OrderDetails',compact('order'));
+      $data->validate([
+        'provider_phone'=>"numeric",
+        'client_phone'=>"numeric",
+        'account_number'=>'numeric',
+        'IBAN'=>'numeric',
+        'code'=>'numeric'
+
+      ]);
+      if (auth::user()->role=='منفذ خدمات'&&auth::user()->phone==$data->provider_phone) {
+        if(User::where('phone',$data->client_phone)->first()){
+          if ($order=order::where('code',$data->code)->first()) {
+            return view('users/Orders/OrderDetails',compact('order'));
+          }
+          return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
+     
         }
+        
       return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
       }
-   return redirect('Home');
+      return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
     }
 
 }
