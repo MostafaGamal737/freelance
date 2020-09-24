@@ -37,7 +37,7 @@ class OrderController extends Controller
       if($order->provider_id==Auth::id()||$order->client_id==Auth::id()){
         return view('users/Orders/OrderDetails',compact('order'));
       }
-      return redirect('Home'); 
+      return redirect('Home');
       }
 
       return redirect('Home');
@@ -68,7 +68,7 @@ class OrderController extends Controller
 
     }
     public function UnderWayOrders()
-    {  
+    {
       Session::put('website', 'Order');
       $orders=order::where('user_id',Auth::id())->where('status',1)->orwhere('provider_id',Auth::id())->where('status',1)->get();
         return view('users/Orders/UnderWayOrders',compact('orders'));
@@ -104,7 +104,7 @@ class OrderController extends Controller
       $notification=new notification();
       $order=order::find($id);
       $user=User::find($order->user_id);
-       
+
        if ((Auth::user()->phone)==($order->invoice->provider_phone)&&$order->status==0) {
          $order->start_time=Carbon::now();
          $order->end_time=Carbon::now()->addDays($order->invoice->duration);
@@ -134,10 +134,10 @@ class OrderController extends Controller
     public function MakeOrder(OrderRequest $data){
       Session::put('website', 'Order');
       $sitting=sitting::first('tax');
-      
       $payout=new payout();
       $data['status']=1;
       $provider=User::where('phone',$data->provider_phone)->where('role','منفذ خدمات')->first();
+
       if (empty($provider)) {
         return redirect()->back()->with('error','حدث خطء في تقديم الطلب تأكد من البيانات المدخله');
       }
@@ -224,9 +224,9 @@ class OrderController extends Controller
             return view('users/Orders/OrderDetails',compact('order'));
           }
           return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
-     
+
         }
-        
+
       return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');
       }
       return redirect()->back()->with('error','هناك خطأ في البيانات المدخله');

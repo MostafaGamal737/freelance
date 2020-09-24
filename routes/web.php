@@ -19,7 +19,7 @@ Route::get('/', function (Request $request) {
   //broadcast(new SendMessageEvent("mostafa"));
 //return  user::find(1)->Notifications[0]->data['message'];
 
-    return redirect('Login');
+    return 'taameed.app domain';
 });
 //-------------Authantication--------------
 Route::get('Logout',"AuthController@Logout");
