@@ -13,7 +13,7 @@
           </div>
           <!--card-->
           <div class="list-group m-5">
-          @if($chats)
+          @if(count($chats)>0)
             @foreach ($chats as  $chat)
 
                           <a href="{{asset('Home/chats')}}/{{$chat->id}}"type="button" class="list-group-item list-group-item-action">

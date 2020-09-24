@@ -34,10 +34,13 @@ class AuthController extends Controller
     else {
       $user->image='avatar.jpg';
     }
-
+/*
     if ($user->save()) {
       dispatch(new activate($user))->delay(2);
     }
+
+    */
+    $user->save();
     $token=$user->createToken('authToken')->accessToken;
     return response(['success'=>'تم الاضافه بنجاح','user'=>$user]) ;
   }

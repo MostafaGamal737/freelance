@@ -18,6 +18,7 @@ class CreateMessagesTable extends Migration
             $table->text('message');
             $table->integer('user_id');
             $table->integer('chat_id');
+            $table->DATETIME('read_at')->nullable();
             $table->integer('file')->nullable();
             $table->timestamps();
         });

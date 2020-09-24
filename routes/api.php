@@ -30,7 +30,7 @@ Route::get('orders','api\OrderController@Orders');//done
 
 Route::post('MakeOrder','api\OrderController@MakeOrder');//done
 
-Route::post('AcceptOrder','api\OrderController@AcceptOrder');//done 
+Route::post('AcceptOrder','api\OrderController@AcceptOrder');//done
 
 Route::post('CanceledOrder','api\OrderController@CanceledOrder');//done
 

@@ -36,7 +36,7 @@
                                 </div>
                               </div>
                               <div class="widget-content-left flex2">
-                                <div class="widget-heading">{{$order->user->name}}</div>
+                                <div class="widget-heading">{{$order->invoice->client_name}}</div>
                               </div>
                             </div>
                           </div>
