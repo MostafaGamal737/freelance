@@ -7,7 +7,11 @@
       <div class="container" id="home-container">
           <div class="row d-flex justify-content-center">
               <!-- في حاله ان نوع الحساب لطلب الخدمات-->
+              @if (Auth::user()->role=='طالب خدمه')
               <h2 class="text-center">!لقد قمت بالتسجيل بنجاح يمكنك طلب خدمه الان</h2>
+              @else
+              <h2 class="text-center">!لقد قمت بالتسجيل بنجاح يمكنك انجاز مهمه الان</h2>
+              @endif
               <!--في حاله ان نوع الحساب تنفيذ خدمات
               <h2 class="text-center">!لقد قمت بالتسجيل بنجاح يمكنك تنفيذ خدمه الان</h2>
                -->

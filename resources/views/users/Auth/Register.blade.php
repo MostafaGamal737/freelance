@@ -83,8 +83,8 @@
 
              <div class="row d-flex justify-content-center">
                  <select class="form-control" id="exampleFormControlSelect1">
-                     <option selected disabled>الدوله</option>
-                     <option>السعوديه</option>
+                     <option  disabled>الدوله</option>
+                     <option selected>السعوديه</option>
                   </select>
              </div>
              <div class="row d-flex justify-content-center">

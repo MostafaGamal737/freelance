@@ -8,11 +8,12 @@
 
   <div class="image-container">
               <img src="{{asset('images/wfh.png')}}" class="img-fluid" style="width:100%" alt="Responsive image">
-                 <h1 class="centered" id="failed-deal-txt">المحادثات</h1>
+                 <h1 class="centered" id="">المحادثات</h1>
 
           </div>
           <!--card-->
           <div class="list-group m-5">
+          @if($chats)
             @foreach ($chats as  $chat)
 
                           <a href="{{asset('Home/chats')}}/{{$chat->id}}"type="button" class="list-group-item list-group-item-action">
@@ -48,6 +49,9 @@
 
                           </a>
                         @endforeach
+              @else
+              <div class='d-flex justify-content-center'>لا يوجد معاملات </div>
+              @endif
           </div>
       </div>
 

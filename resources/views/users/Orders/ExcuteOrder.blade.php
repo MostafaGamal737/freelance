@@ -26,22 +26,37 @@
                   <div class="row d-flex justify-content-center">
                       <input name="provider_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بك" required oninvalid="this.setCustomValidity('ادخل رقم الجوال الخاص بك')"
                       oninput="setCustomValidity('')">
+                      @if (!empty($errors->has('provider_phone')))
+                        <small class="text-danger">يجب ان تكون المدخلات ارقام فقط</small>
+                      @endif
                   </div>
                   <div class="row d-flex justify-content-center">
                       <input name="client_phone" class="form-control" type="phone" placeholder="رقم الجوال الخاص بطالب الخدمه"required oninvalid="this.setCustomValidity('ادخل رقم الجوال الخاص بطالب الخدمه')"
                       oninput="setCustomValidity('')">
+                      @if (!empty($errors->has('client_phone')))
+                        <small class="text-danger">يجب ان تكون المدخلات ارقام فقط</small>
+                      @endif
                   </div>
                   <div class="row d-flex justify-content-center">
                       <input name="code" class="form-control" type="text" placeholder="الكود"required oninvalid="this.setCustomValidity('ادخل الكود الخاص بالخدمه المطلوبه')"
                       oninput="setCustomValidity('')">
+                      @if (!empty($errors->has('code')))
+                        <small class="text-danger">يجب ان تكون المدخلات ارقام فقط</small>
+                      @endif
                   </div>
                   <div class="row d-flex justify-content-center">
                       <input name="account_number" class="form-control" type="text" placeholder="رقم الحساب"required oninvalid="this.setCustomValidity('ادخل رقم الحساب الخاص بك')"
-                      oninput="setCustomValidity('')">
+                      oninput="setCustomValidity('')"> 
+                      @if (!empty($errors->has('account_number')))
+                        <small class="text-danger">يجب ان تكون المدخلات ارقام فقط</small>
+                      @endif
                   </div>
                   <div class="row d-flex justify-content-center">
                       <input name="IBAN" class="form-control" type="text" placeholder="IBAN"required oninvalid="this.setCustomValidity('ادخل ال IBAN الخاص بك')"
                       oninput="setCustomValidity('')">
+                      @if (!empty($errors->has('IBAN')))
+                        <small class="text-danger">يجب ان تكون المدخلات ارقام فقط</small>
+                      @endif
                   </div>
 
                   <div class="row" id="check-row">
