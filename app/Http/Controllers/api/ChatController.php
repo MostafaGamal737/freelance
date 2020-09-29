@@ -29,7 +29,7 @@ class ChatController extends Controller
       $chat=chat::find($_GET['chat_id']);
       if (Auth::id()==$chat->sender_id||Auth::id()==$chat->receiver_id||Auth::user()->role=='مدير'||Auth::user()->role=='مدير عام')
        {
-      $messages=message::where('chat_id', $_GET['chat_id'])->with('user')->get();
+      $messages=message::where('chat_id', $_GET['chat_id'])->with('user')->paginate(10);
       return response(['status'=>'true','messages'=>$messages]);
   }
 else {
