@@ -29,15 +29,17 @@ $notifications=[];
         <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
           الاشعارات <small class="text"><strong>{{$count}}</strong></small>
         </a>
-        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown" style="overflow-y: scroll; height:200px;"> 
           @if (count($notifications)>0)
 
             @foreach ($notifications as $notification)
-             <a class="dropdown-item" href="{{asset('Home/Orders/OrdersDetails')}}/{{$notification->data['id']}}">{{$notification->data['message']}}  <strong class="font-weight-bold">{{$notification->data['name']}} كود العرض {{$notification->data['code']}}</strong></a>
+             <a class="dropdown-item list-group-item list-group-item-dark" href="{{asset('Home/Orders/OrdersDetails')}}/{{$notification->data['id']}}">{{$notification->data['message']}}  <strong class="font-weight-bold">{{$notification->data['name']}} كود العرض {{$notification->data['code']}}</strong></a>
 
           @endforeach
-        @endif
+@else
         <div class='center'>لا يوجد معاملات </div>
+        @endif
+
           </div>
         </li>
 

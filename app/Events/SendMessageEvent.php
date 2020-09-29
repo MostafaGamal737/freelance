@@ -37,6 +37,6 @@ class SendMessageEvent implements ShouldBroadcastNow
     public function broadcastOn()
     {
         //return new PresenceChannel('Chat.'.$this->message->chat->id);
-        return new PresenceChannel('Chat.'.$this->chat_id);
+        return new Channel('Chat.'.$this->chat_id);
     }
 }

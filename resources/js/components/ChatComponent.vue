@@ -25,7 +25,7 @@
                     <div class="row">
                     <div class="col-sm">
                         <input name="message" type="text"  placeholder="اكتب رسالتك" autocomplete="off"
-                        @keydown="typing"
+                       
                         v-model="newmessage"
                         @keyup.enter="sendmessages"
                         />
@@ -46,17 +46,18 @@
                     <div class="recent_heading">
                         <h4>الاعضاء</h4>
                     </div>
-
+<!--
                     <div class="chat_list">
                         <div class="chat_people" v-for='user in users' >
                             <div class="chat_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
                             <div class="chat_ib">
                                 <h5 class="text-right">{{user.name}} <span class="chat_date">متاح</span></h5>
-                                <p class="text-right"><span class="text-muted" v-if='activeUSer==user.name'>يكتب الان..</span></p>
+                             <p class="text-right"><span class="text-muted" v-if='activeUSer==user.name'>يكتب الان..</span></p>
 
                             </div>
                         </div>
                     </div>
+                  -->
                 </div>
             </div>
         </div>
@@ -85,35 +86,16 @@
     created(){
       this.getmessages();
 
-      Echo.join('Chat.'+this.chat.id)
-      .here(user=>{
-        this.users=user;
-
-        this.time = String(new Date().getHours()-12)+':'+String(new Date().getMinutes());
-      })
-      .leaving(user=>{
-        this.users=this.users.filter(u=>u.id !=user.id);
-      })
-      .joining(user=>{
-        this.users.push(user);
-          this.seen=true;
-      })
-      .listen('SendMessageEvent',(e)=>{
-        this.messages.push(e.message);
-
-      })
-      .listenForWhisper('typing', (e) => {
-        if (e.message!='') {
-          this.activeUSer=e.name;
-        }
-        else {
-          this.activeUSer=null;
-        }
-
+      Echo.channel('Chat.'+this.chat.id)
+     .listen('SendMessageEvent',(user)=>{
+       // this.users=user;
+        this.messages.push(user.message);
+        //this.time = String(new Date().getHours()-12)+':'+String(new Date().getMinutes());
+        console.log(user);
       });
-
+    
     },
-
+  
     methods:{
       date: function (date) {
         return moment(date).format('MMMM Do , h:mm a');
@@ -145,13 +127,7 @@
         this.newmessage="";
 
       },
-      typing(){
-        Echo.join('Chat.'+this.chat.id)
-          .whisper('typing',{
-            name:this.user.name,
-            message:this.newmessage,
-          });
-      }
+     
     },
   }
   </script>
