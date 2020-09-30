@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\message;
 use App\chat;
 use Auth;
+use Carbon\Carbon;
 use App\Events\SendMessageEvent;
 class ChatController extends Controller
 {
@@ -29,7 +30,16 @@ class ChatController extends Controller
       $chat=chat::find($_GET['chat_id']);
       if (Auth::id()==$chat->sender_id||Auth::id()==$chat->receiver_id||Auth::user()->role=='مدير'||Auth::user()->role=='مدير عام')
        {
-      $messages=message::where('chat_id', $_GET['chat_id'])->with('user')->paginate(10);
+      $messages=message::where('chat_id', $_GET['chat_id'])->orderBy('id','DESC')->with('user')->paginate(10);
+      foreach($messages as $message)
+      {
+        if((Auth::id()!=$message->user_id&&Auth::user()->role=='منفذ خدمات')||(Auth::id()!=$message->user_id&&Auth::user()->role=='طالب خدمه'))
+        {
+          $message->read_at=Carbon::now();
+          $message->save();
+        }
+        
+      }
       return response(['status'=>'true','messages'=>$messages]);
   }
 else {
@@ -46,6 +56,17 @@ else {
         $chats=chat::where('sender_id',Auth::id())
         ->orwhere('receiver_id',Auth::id())->with('messages')->get();
         if (count($chats)>0) {
+          foreach($chats as $key=>$chat){
+            $UnreadMessages=0;
+            $messages=$chat->messages;
+            foreach($messages as $message){
+            if(Auth::id()!=$message->user_id&&$message->read_at==null){
+              $UnreadMessages+=1;
+             }
+             
+            }
+            $chats[$key]['UnreadMessages']=$UnreadMessages;
+           }
             return response(['chats'=>$chats]);
         }
         else {

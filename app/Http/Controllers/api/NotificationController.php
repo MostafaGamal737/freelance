@@ -20,7 +20,7 @@ class NotificationController extends Controller
     }
     public function GetUnreadNotificationsCount()
     {
-        $Notifications=count(Auth::user()->unreadNotifications()->orderBy('id', 'desc')->get());
+        $Notifications=count(Auth::user()->unreadNotifications()->orderBy('id', 'desc')->paginate(10));
         if($Notifications>0)
         {
             return response(['result'=>true,'Notificationscount'=>$Notifications],200);

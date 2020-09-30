@@ -17,6 +17,7 @@ class CreateChatsTable extends Migration
             $table->id();
             $table->integer("sender_id");
             $table->integer("receiver_id");
+            $table->integer("order_id")->nullable();
             $table->string("sender_name");
             $table->string("receiver_name");
             $table->string("chat");

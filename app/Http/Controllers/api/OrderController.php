@@ -19,10 +19,10 @@ class OrderController extends Controller
 {
   public function Orders()
   {
-    $success=order::where('provider_id',Auth::id())->where('status',2)->orwhere('user_id',Auth::id())->where('status',2)->get();
-    $padding=order::where('provider_id',Auth::id())->where('status',0)->orwhere('user_id',Auth::id())->where('status',0)->get();
-    $failed=order::where('provider_id',Auth::id())->where('status',-1)->orwhere('user_id',Auth::id())->where('status',-1)->get();
-    $processing=order::where('provider_id',Auth::id())->where('status',1)->orwhere('user_id',Auth::id())->where('status',1)->get();
+    $success=order::where('provider_id',Auth::id())->where('status',2)->orwhere('user_id',Auth::id())->where('status',2)->paginate(10);
+    $padding=order::where('provider_id',Auth::id())->where('status',0)->orwhere('user_id',Auth::id())->where('status',0)->paginate(10);
+    $failed=order::where('provider_id',Auth::id())->where('status',-1)->orwhere('user_id',Auth::id())->where('status',-1)->paginate(10);
+    $processing=order::where('provider_id',Auth::id())->where('status',1)->orwhere('user_id',Auth::id())->where('status',1)->paginate(10);
     return response(['data'=>['success'=>$success,'failed'=>$failed,'padding'=>$padding,'processing'=>$processing]]);
   }
   //-----------MakeOrder
@@ -63,6 +63,7 @@ class OrderController extends Controller
             $order->customers_money_status=0;
             $order->approved_status='قيد الانتظار';
             $order->status=0;
+            $order->chat_id=0;
             $order->code = mt_rand(10000000,99999999);
             $notification=new notification();
             $order->save();
@@ -138,6 +139,7 @@ class OrderController extends Controller
         else {
 
           $chat->sender_id=$order->user_id;
+          $chat->order_id=$order->id;
           $chat->receiver_id=$order->provider_id;
           $chat->sender_name=$order->invoice->client_name;
           $chat->receiver_name=$order->invoice->provider_name;
@@ -165,7 +167,7 @@ class OrderController extends Controller
     $user=user::find($order->user_id);
     if ($order&&$provider->id==Auth::id()&&$order->approved_status=='مفعله') {
 
-      if ($order->status!=0) {
+      if ($order->status!=0&&$order->status!=1) {
 
         return response(['success'=>'تم رفض الطلب']);
       }
@@ -174,6 +176,10 @@ class OrderController extends Controller
         $order->end_time=Carbon::now()->addDays($order->invoice->duration);
         $order->status=-1;
         $order->cancel=$data->cancel;
+        $invoice=$order->invoice;
+        $invoice->app_money=$invoice->price*(1/100);
+        $invoice->total_price=$invoice->app_money+$invoice->price;
+        $invoice->save();
         $order->save();
         $notification->SendNotification($user,'لقدم تم رفض الطلب');
         $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام برفض العرض',$order));
@@ -191,10 +197,10 @@ class OrderController extends Controller
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
     if (Auth::user()->role=='منفذ خدمات') {
-      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
+      $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->paginate(10);
     }
     else {
-      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->with('invoice')->get();
+      $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->with('invoice')->paginate(10);
     }
     if (count($SuccessedOreders)>0) {
       return response(['response'=>'success','data'=>$SuccessedOreders]);

@@ -21,7 +21,7 @@ class CreateSittingsTable extends Migration
             $table->integer('iban')->nullable();
             $table->text('description')->nullable();
             $table->text('terms')->nullable();
-            $table->integer('tax')->default(5);
+            $table->double('tax')->default(2.5);
             $table->timestamps();
         });
     }

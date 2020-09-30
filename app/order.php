@@ -17,6 +17,10 @@ class order extends Model
   {
     return $this->belongsTo('App\invoice');
   }
+  public function chat(){
+    return $this->belongsTo('App\chat');
+  }
+
   public function usermoney()
   {
     $money=0;

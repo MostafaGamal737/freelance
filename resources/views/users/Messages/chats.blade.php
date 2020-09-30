@@ -15,7 +15,8 @@
           <div class="list-group m-5">
           @if(count($chats)>0)
             @foreach ($chats as  $chat)
-
+                            {{$chat->UnreadMessages}}
+                            {{$chat->order->end_time}}
                           <a href="{{asset('Home/chats')}}/{{$chat->id}}"type="button" class="list-group-item list-group-item-action">
 
                               <div class="media">

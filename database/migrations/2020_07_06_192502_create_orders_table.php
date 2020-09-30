@@ -22,12 +22,13 @@ class CreateOrdersTable extends Migration
             $table->integer('provider_id')->nullable();
             $table->integer("invoice_id");
             $table->integer("payout_id");
+            $table->integer("chat_id")->nullable();
             $table->integer("status");
             $table->enum('approved_status', ['مفعله', 'قيد الانتظار']);
             $table->integer("customers_money_status");
             $table->integer("code");
-            $table->date("start_time")->nullable();
-            $table->date("end_time")->nullable();
+            $table->DATETIME ("start_time")->nullable();
+            $table->DATETIME ("end_time")->nullable();
             $table->timestamps();
         });
     }

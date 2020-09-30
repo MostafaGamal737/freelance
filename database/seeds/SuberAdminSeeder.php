@@ -12,9 +12,9 @@ class SuberAdminSeeder extends Seeder
     public function run()
     {
         $user=new User();
-        $user->name='mostafa';
-        $user->email='admin@gmail.com';
-        $user->password=bcrypt('asdasdasd');
+        $user->name='مدير عام';
+        $user->email='Taameed@hotmail.com';
+        $user->password=bcrypt('1234567');
         $user->phone=1234567;
         $user->role='مدير عام';
         $user->location='السعوديه';
