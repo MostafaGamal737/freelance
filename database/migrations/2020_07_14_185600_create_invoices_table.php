@@ -23,9 +23,9 @@ class CreateInvoicesTable extends Migration
             $table->double('price');
             $table->double('total_price');
             $table->integer('duration');
-            $table->float('tax');
+            $table->double('tax');
             $table->boolean('status');
-            $table->integer('app_money');
+            $table->double('app_money');
             $table->timestamps();
         });
     }

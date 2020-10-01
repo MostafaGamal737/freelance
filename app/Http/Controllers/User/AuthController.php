@@ -9,6 +9,7 @@ use App\User;
 use App\Http\Requests\loginvalidation;
 use Auth;
 use session;
+use Exception;
 
 class AuthController extends Controller
 {
@@ -35,6 +36,7 @@ class AuthController extends Controller
     }
     public function AddUser(adminValidation $data)
     {
+      try{
       $data['role']='null';
       $image_name='null';
       $user=new User();
@@ -54,6 +56,11 @@ class AuthController extends Controller
       }
  $user->save();
       return view('users/Auth/UserType',compact('user'));
+    }
+    catch(Exception $e){
+      return redirect()->back()->with('message',$e->getMessage());
+     
+    }
     }
     public function UserType()
     {

@@ -19,6 +19,7 @@
         "laravel/passport": "^9.3",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
+        "opis/closure": "^3.5",
         "pusher/pusher-php-server": "~4.0"
     },
     "require-dev": {

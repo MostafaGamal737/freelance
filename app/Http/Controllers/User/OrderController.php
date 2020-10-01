@@ -90,6 +90,10 @@ class OrderController extends Controller
          $order->end_time=Carbon::now()->addDays($order->invoice->duration);
          $order->status=-1;
          $order->cancel=$data->cancel;
+         $invoic=$orders->invoice;
+         $invoice->app_money=$invoice->price*(1/100);
+         $invoice->total_price=$invoice->app_money+$invoice->price;
+         $invoic->save();
          $order->save();
          $notification->SendNotification($user,'لقدم تم رفض الطلب');
          $user->notify(new OrderNotification(User::find($order->provider_id),'تم رفض الطلب المقدم ل ',$order));
@@ -106,19 +110,20 @@ class OrderController extends Controller
       $user=User::find($order->user_id);
 
        if ((Auth::user()->phone)==($order->invoice->provider_phone)&&$order->status==0) {
-         $order->start_time=Carbon::now();
+         $order->start_time=Carbon::now()->toDateTimeString();
          $order->end_time=Carbon::now()->addDays($order->invoice->duration);
          $order->status=1;
          $order->save();
          $notification->SendNotification($user,'لقد تم قبول الطلب');
          $user->notify(new OrderNotification(User::find($order->provider_id),'تم قبول العرض المقدم ل ',$order));
            $chat=new chat();
-             if (($chat->findChat($order->user_id,$order->provider_id))=="false") {
+             if ($chat->order->id!=$data->id) {
                $chat->sender_id=$order->user_id;
                $chat->receiver_id=$order->provider_id;
                $chat->sender_name=$order->invoice->client_name;
                $chat->receiver_name=$order->invoice->provider_name;
                $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
+               $chat->order_id=$order->id;
                $chat->save();
              return redirect()->back()->with('message','لقد تم قبول الطلب');
              }

@@ -37,6 +37,7 @@ class adminValidation extends FormRequest
         'email.required'=>'يحب ادخال البريد الاكتروني بشكل صحيح',
         'email.email'=>'يحب ادخال البريد الاكتروني بشكل صحيح',
         'email.unique'=>'هذا البريد موجد لدينا اختر واحدا اخر',
+        'phone.max'=>'يجب ان لا يزيد  الجوال عن 12 ارقام',
         'phone.numeric'=>'يجب الا يقل رقم الجوال عن 7 ارقام',
         'phone.min'=>'الجوال يجب ان يكون ارقام فقط',
         'phone.unique'=>'هذا الرقم موجود بالفعل',

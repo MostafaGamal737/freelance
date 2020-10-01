@@ -44,9 +44,11 @@
                 <a href="{{asset('Dashboard/orders/Approved')}}/{{$order->id}}" class="btn btn-success" >تفعيل</a>
               @endif
             </td>
-            <td class="center">{{ $orders->links() }}</td>
+
+           
 
             </tr>
+           <tr> <td class="center">{{ $orders->links() }}</td></tr>
           @endforeach
           @csrf
         </tbody>

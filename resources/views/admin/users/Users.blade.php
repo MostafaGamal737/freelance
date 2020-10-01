@@ -54,9 +54,9 @@
 
             </tr>
     @endforeach
-    <tr>
-      <td class="center">{{ $users->links() }}</td>
-    </tr>
+   
+     <tr> <td class="center">{{ $users->links() }}</td></tr>
+   
 @csrf
           </tbody>
         </table>
