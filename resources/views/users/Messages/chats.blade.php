@@ -27,7 +27,7 @@
 
 
                                             <div class="col-sm " >
-                                              <p class="mt-0" id="failed-deal-txt">المحادثه</p>
+                                              <p class="mt-0" id="failed-deal-txt">{{$chat->order->job_name}}</p>
                                             </div>
 
                                             <div class="col-sm">

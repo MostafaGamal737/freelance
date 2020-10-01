@@ -66,6 +66,7 @@ else {
              
             }
             $chats[$key]['UnreadMessages']=$UnreadMessages;
+            $chats[$key]['end_date']=$chat->order->end_time;
            }
             return response(['chats'=>$chats]);
         }

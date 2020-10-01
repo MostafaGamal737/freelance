@@ -131,7 +131,7 @@ class OrderController extends Controller
         $order->save();
         $chat=new chat();
 
-        if ($chat->findChat($order->user_id,$order->provider_id)=='true') {
+        if ($chat->order->id==$data->id) {
           //$notification->SendNotification($user->firetoken,'لقدم تم قبول الطلب');
          $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبول العرض',$order));
           return response(['success'=>'تم قبول العرض بنجاح ','order'=>$order]);
@@ -144,6 +144,7 @@ class OrderController extends Controller
           $chat->sender_name=$order->invoice->client_name;
           $chat->receiver_name=$order->invoice->provider_name;
           $chat->chat='chat'.($order->user_id+$order->provider_id+'500');
+          
           $chat->save();
           $user->notify(new OrderNotification(user::find($order->provider_id),'لقد قام بقبل العرض',$order));
           //$notification->SendNotification($user,'لقدم تم قبول الطلب');
@@ -196,11 +197,14 @@ class OrderController extends Controller
 
   public function GetOrderUsingStatus(Request $status){
     $SuccessedOreders;
+    
     if (Auth::user()->role=='منفذ خدمات') {
       $SuccessedOreders=order::where('provider_id',Auth::id())->where('status', $status->status)->with('invoice')->paginate(10);
+      return $SuccessedOreders;
     }
     else {
       $SuccessedOreders=order::where('user_id',Auth::id())->where('status', $status->status)->with('invoice')->paginate(10);
+     
     }
     if (count($SuccessedOreders)>0) {
       return response(['response'=>'success','data'=>$SuccessedOreders]);

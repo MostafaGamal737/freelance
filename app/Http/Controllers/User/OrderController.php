@@ -117,7 +117,7 @@ class OrderController extends Controller
          $notification->SendNotification($user,'لقد تم قبول الطلب');
          $user->notify(new OrderNotification(User::find($order->provider_id),'تم قبول العرض المقدم ل ',$order));
            $chat=new chat();
-             if (($chat->findChat($order->user_id,$order->provider_id))=="false") {
+             if ($chat->order->id!=$data->id) {
                $chat->sender_id=$order->user_id;
                $chat->receiver_id=$order->provider_id;
                $chat->sender_name=$order->invoice->client_name;
