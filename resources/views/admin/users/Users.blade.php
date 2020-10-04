@@ -11,17 +11,11 @@
           {{ session()->get('message') }}
       </div>
   @endif
-  <div class="">
-     <form class="form" action="{{asset('search/user')}}" method="post">
-       <div class="form-group">
-@csrf
-       <input required class="form-control col-lg-2" type="text" name="search" value="" placeholder="بحث" style="text-align:right;">
-       <input class="btn btn-primary form-control col-lg-2" type="submit" name="" value="بحث">
-     </div>
-     </form>
-  </div>
+ 
+    
+  
       </form>
-      <table class="table table-striped">
+      <table class="table table-striped" id='table_id'>
         <thead>
           <tr>
             <th>الاسم</th>
@@ -55,7 +49,7 @@
             </tr>
     @endforeach
    
-     <tr> <td class="center">{{ $users->links() }}</td></tr>
+     
    
 @csrf
           </tbody>
@@ -65,6 +59,60 @@
 
   @endsection
   @section('jsSection')
+
+
+
+
+
+  
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/1.10.22/js/jquery.dataTables.js"></script>
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/plug-ins/1.10.21/i18n/Arabic.json"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.4/js/dataTables.buttons.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.flash.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/jszip/3.1.3/jszip.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/pdfmake.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdnjs.cloudflare.com/ajax/libs/pdfmake/0.1.53/vfs_fonts.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.html5.min.js"></script>
+
+<script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/buttons/1.6.4/js/buttons.print.min.js"></script>
+
+<script>
+  $(document).ready(function() {
+    $('#table_id').DataTable( {
+        dom: 'Bfrtip',
+        buttons: [
+            'copy', 'csv', 'excel', 'pdf', 'print'
+        ],
+        "language": {
+          "sEmptyTable":     "ليست هناك بيانات متاحة في الجدول",
+    "sLoadingRecords": "جارٍ التحميل...",
+    "sProcessing":   "جارٍ التحميل...",
+    "sLengthMenu":   "أظهر _MENU_ مدخلات",
+    "sZeroRecords":  "لم يعثر على أية سجلات",
+    "sInfo":         "إظهار _START_ إلى _END_ من أصل _TOTAL_ مدخل",
+    "sInfoEmpty":    "يعرض 0 إلى 0 من أصل 0 سجل",
+    "sInfoFiltered": "(منتقاة من مجموع _MAX_ مُدخل)",
+    "sInfoPostFix":  "",
+    "sSearch":       "ابحث:",
+    "sUrl":          "",
+    "oPaginate": {
+        "sFirst":    "الأول",
+        "sPrevious": "السابق",
+        "sNext":     "التالي",
+        "sLast":     "الأخير"
+        }}
+
+    } );
+} );
+
+</script>
   <script>
      $('table td input[type=checkbox]' ).click(function() {
   var  id = (this.name) ; // button ID

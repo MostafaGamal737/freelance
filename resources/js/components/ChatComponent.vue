@@ -40,13 +40,13 @@
                     </div>
                 </div>
             </div>
-
+<!--
             <div class="inbox_people">
                 <div class="headind_srch">
                     <div class="recent_heading">
                         <h4>الاعضاء</h4>
                     </div>
-<!--
+
                     <div class="chat_list">
                         <div class="chat_people" v-for='user in users' >
                             <div class="chat_img"> <img src="/images/Avatar.png" alt="avatar"> </div>
@@ -57,9 +57,9 @@
                             </div>
                         </div>
                     </div>
-                  -->
+                 
                 </div>
-            </div>
+            </div> -->
         </div>
     </div>
   </template>

@@ -26,6 +26,20 @@ class chatController extends Controller
    }
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+   
+
    public function action(Request $data_search)
    {
      $output='';

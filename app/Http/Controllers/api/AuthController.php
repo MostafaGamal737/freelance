@@ -65,7 +65,7 @@ class AuthController extends Controller
       if ($this->checkforget($user)) {
         $forgetPassowrd=forgetPassowrd::where('email', $user->email)->first();
         $forgetPassowrd->email=$user->email;
-        $forgetPassowrd->token=$this->getToken(60);;
+        $forgetPassowrd->token=mt_rand(10000000,99999999);
         $forgetPassowrd->save();
 
       }
@@ -73,15 +73,55 @@ class AuthController extends Controller
 
         $forgetPassowrd=new forgetPassowrd();
         $forgetPassowrd->email=$user->email;
-        $forgetPassowrd->token=$this->getToken(60);;
+        $forgetPassowrd->token=mt_rand(10000000,99999999);
         $forgetPassowrd->save();
       }
-        $user->notify(new ResetPassord($user));
+       // $user->notify(new ResetPassord($user));
         dispatch(new ResetPasswordJob($user));
       return response(['response'=>'تم ارسال الرابط تفقد البريد الخاص بك']);
     }
     return response(['response'=>'هذا الاميل غير موجود ']);
   }
+
+
+
+  public function NewPassword(request $token)
+  {
+    $forgetPassowrd=forgetPassowrd::where('token',$token->token)->first();
+    if ($forgetPassowrd) {
+      $email=$forgetPassowrd->email;
+      $token=$forgetPassowrd->token;
+      return response(['result'=>true,'message'=>' صحيح']);
+    }
+    else {
+      return response(['result'=>false,'message'=>' هناك خطئ']);
+    }
+  }
+   
+ public function ResetNewPassword(Request $data){
+
+  if (strlen($data->password)<6||($data->password)!=($data->password_confirmation)) {
+    return response(['result'=>false,'message'=>'تأكد من كلمة المرور جيدا ']);
+  }
+  
+      $user=User::where('email',$data->email)->first();
+      $user->password=bcrypt($data->password);
+      $user->save();
+      $forgetPassowrd=forgetPassowrd::where('token',$data->token)->first()->delete();
+      if ($user->role=='منفذ خدمات'||$user->role=='طالب خدمه') {
+        return response(['result'=>true,'message'=>'تم تغير كلمة السر بنجاح']);
+      }
+      return response(['result'=>false,'message'=>'تأكد من كلمة المرور جيدا ']);
+   }
+
+
+
+
+
+
+
+
+
 
   public function checkforget($user)
   {

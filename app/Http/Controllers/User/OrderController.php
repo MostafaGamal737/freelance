@@ -34,7 +34,8 @@ class OrderController extends Controller
     {Session::put('website', 'Order');
       $order=order::where('id',$id)->first();
       if (!empty($order)) {
-      if($order->provider_id==Auth::id()||$order->client_id==Auth::id()){
+        
+      if($order->provider_id==Auth::id()||$order->user_id==Auth::id()){
         return view('users/Orders/OrderDetails',compact('order'));
       }
       return redirect('Home');

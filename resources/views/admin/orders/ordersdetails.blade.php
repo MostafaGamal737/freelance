@@ -69,13 +69,13 @@
         <td>نسبة الموقع</td>
       </tr>
       <tr>
-        <th scope="row">{{$order->start_time}}</th>
+        <th scope="row">{{date('Y-m-d ', strtotime($order->start_time))}}</th>
         <td>بدأ العمليه</td>
         <th>{{$order->invoice->duration}} ايام</td>
         <td>مدة تنفيذ الطلب</td>
       </tr>
       <tr>
-        <th scope="row">{{$order->end_time}}</th>
+        <th scope="row">{{date('Y-m-d ', strtotime($order->end_time))}}</th>
         <td>انتهاء العمليه</td>
         <th>{{$order->invoice->app_money}} ريال</td>
         <td>اموال الموقع </td>
