@@ -19,7 +19,7 @@
             <th>المسلسل</th>
             <th>اسم طالب الخدمه</th>
             <th>اسم مقدم الخدمات</th>
-            <th>اسم المحادثه</th>
+            <th>اسم الخدمه</th>
             <th >الفعل</th>
           </tr>
         </thead>
@@ -30,11 +30,11 @@
   <td>{{$chat->id}}</td>
   <td>{{$chat->sender_name}}</td>
   <td>{{$chat->receiver_name}}</td>
-  <td>{{$chat->chat}}</td>
+  <td>{{$chat->order->job_name}}</td>
   
   
   <td ><a href="{{asset('Dashboard/Chats/Chat')}}/{{$chat->id}}" class="btn btn-primary">تفاصيل</a>
-        <a href="{{asset('Home/chats')}}/{{$chat->id}}" class="btn btn-success" >تفعيل</a>
+        <a href="{{asset('Home/chats')}}/{{$chat->id}}" class="btn btn-success" >دخول المحادثه</a>
   </td>
 
        

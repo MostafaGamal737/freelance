@@ -28,7 +28,7 @@ class orderController extends Controller
       $order->approved_status='مفعله';
       $order->save();
       $provider=user::find($order->user_id);
-      $provider->notify(new OrderNotification($provider,'تم تفعيل العرض ارسل الكود الي مقدم الخدمه ',$order));
+      Auth::user()->notify(new OrderNotification($provider,'تم تفعيل العرض ارسل الكود الي مقدم الخدمه ',$order));
      return redirect()->back()->with('message','تم تفعيل الخدمه');
     }
     else{

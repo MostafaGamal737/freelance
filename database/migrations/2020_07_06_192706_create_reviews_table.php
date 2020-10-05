@@ -16,8 +16,8 @@ class CreateReviewsTable extends Migration
         Schema::create('reviews', function (Blueprint $table) {
             $table->id();
             $table->integer("user_id");
-            $table->integer("client_id");
-            $table->text("review");
+            $table->integer("order_id");
+            $table->enum('review', ['جيد', 'جيد جدا','سيئ']);
             $table->timestamps();
            
         });

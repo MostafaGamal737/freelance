@@ -22,6 +22,7 @@ class CreateOrdersTable extends Migration
             $table->integer('provider_id')->nullable();
             $table->integer("invoice_id");
             $table->integer("payout_id");
+            $table->integer("review_id");
             $table->integer("chat_id")->nullable();
             $table->integer("status");
             $table->enum('approved_status', ['مفعله', 'قيد الانتظار']);
