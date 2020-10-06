@@ -36,15 +36,15 @@ $notifications=[];
              <a class="dropdown-item list-group-item list-group-item-dark" href="{{asset('Home/Orders/OrdersDetails')}}/{{$notification->data['id']}}">{{$notification->data['message']}}  <strong class="font-weight-bold">{{$notification->data['name']}} كود العرض {{$notification->data['code']}}</strong></a>
 
           @endforeach
-@else
-        <div class='center'>لا يوجد معاملات </div>
-        @endif
+           @else
+          <div class='center'>لا يوجد معاملات </div>
+          @endif
 
           </div>
-        </li>
+          </li>
 
-      </ul>
-    </div>
+         </ul>
+       </div>
     <a class="navbar-brand" href="#" id="logo">
       <img src="{{asset('images/logotext.svg')}}" width="60" height="45" class="d-inline-block align-top" alt="" loading="lazy">
     </a>

@@ -15,8 +15,7 @@
           <div class="list-group m-5">
           @if(count($chats)>0)
             @foreach ($chats as  $chat)
-                            {{$chat->UnreadMessages}}
-                            {{$chat->order->end_time}}
+                          
                           <a href="{{asset('Home/chats')}}/{{$chat->id}}"type="button" class="list-group-item list-group-item-action">
 
                               <div class="media">
@@ -25,13 +24,15 @@
                                           <div class="row flex-column-reverse flex-md-row mt-3">
 
 
-
+                                          <div class="col-sm">
+                                              <p class="mt-0"id="failed-deal-txt">{{$chat->order->status === 1 ? "جاريه" : "انتهت"}}</p>
+                                            </div>
                                             <div class="col-sm " >
                                               <p class="mt-0" id="failed-deal-txt">{{$chat->order->job_name}}</p>
                                             </div>
 
                                             <div class="col-sm">
-                                              <h5 class="mt-0"id="failed-deal-txt">{{date("d/m/Y", strtotime($chat->created_at))}}</h5>
+                                              <h5 class="mt-0"id="failed-deal-txt">{{date("d/m/Y", strtotime($chat->order->end_time))}}</h5>
                                             </div>
                                             <div class="col-sm ">
                                               @if (Auth::user()->role=='طالب خدمه'&&Auth::id()==$chat->sender_id)
@@ -42,6 +43,7 @@
 
                                               @endif
                                             </div>
+                                            
                                           </div>
                                       </div>
                                   </div>

@@ -68,7 +68,7 @@ return [
     */
 
     'timezone' => 'UTC',
-
+   // SA
     /*
     |--------------------------------------------------------------------------
     | Application Locale Configuration
@@ -174,7 +174,7 @@ return [
          App\Providers\BroadcastServiceProvider::class,
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
-
+        Yajra\Datatables\DatatablesServiceProvider::class,
     ],
 
     /*

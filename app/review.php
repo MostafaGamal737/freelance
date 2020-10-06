@@ -12,4 +12,7 @@ class review extends Model
     public function user(){
       return  $this->belongsTo('App\User');
     }
+    public function order(){
+      return  $this->belongsTo('App\order');
+    }
 }

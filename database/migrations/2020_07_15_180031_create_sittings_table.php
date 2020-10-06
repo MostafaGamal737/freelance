@@ -16,9 +16,9 @@ class CreateSittingsTable extends Migration
         Schema::create('sittings', function (Blueprint $table) {
             $table->id();
             $table->string('email')->nullable();
-            $table->integer('phone')->nullable();
+            $table->biginteger('phone')->nullable();
             $table->biginteger('card_number')->nullable();
-            $table->integer('iban')->nullable();
+            $table->biginteger('iban')->nullable();
             $table->text('description')->nullable();
             $table->text('terms')->nullable();
             $table->double('tax')->default(2.5);

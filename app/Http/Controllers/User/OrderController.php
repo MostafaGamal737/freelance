@@ -34,7 +34,8 @@ class OrderController extends Controller
     {Session::put('website', 'Order');
       $order=order::where('id',$id)->first();
       if (!empty($order)) {
-      if($order->provider_id==Auth::id()||$order->client_id==Auth::id()){
+        
+      if($order->provider_id==Auth::id()||$order->user_id==Auth::id()){
         return view('users/Orders/OrderDetails',compact('order'));
       }
       return redirect('Home');
@@ -117,7 +118,7 @@ class OrderController extends Controller
          $notification->SendNotification($user,'لقد تم قبول الطلب');
          $user->notify(new OrderNotification(User::find($order->provider_id),'تم قبول العرض المقدم ل ',$order));
            $chat=new chat();
-             if ($chat->order->id!=$data->id) {
+             if (!empty(chat::where('order_id',$id))) {
                $chat->sender_id=$order->user_id;
                $chat->receiver_id=$order->provider_id;
                $chat->sender_name=$order->invoice->client_name;

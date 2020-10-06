@@ -11,7 +11,9 @@
   <meta name="description" content="This is an example dashboard created using build-in elements and components.">
   <meta name="msapplication-tap-highlight" content="no">
   <meta name="csrf-token" content="{{ csrf_token() }}">
-
+  
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.10.22/css/jquery.dataTables.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/buttons/1.6.4/css/buttons.dataTables.min.css">
     <link href="{{asset('admin/css/bootstrap.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/fontawesome.css')}}" rel="stylesheet">
     <link href="{{asset('admin/css/main.css')}}" rel="stylesheet">

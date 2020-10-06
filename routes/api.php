@@ -54,3 +54,5 @@ Route::post('Rating','api\OrderController@Rating');
 Route::post('Register','api\AuthController@Register');//done
 Route::post('Login','api\AuthController@Login');//done
 Route::post('ResetPassord','api\AuthController@Reset');//done
+Route::post('CodeValidation','api\AuthController@NewPassword');//done
+Route::post('ResetNewPassword','api\AuthController@ResetNewPassword');//done

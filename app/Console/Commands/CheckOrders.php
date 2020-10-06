@@ -7,6 +7,7 @@ use App\user;
 use App\order;
 use App\notification;
 use Carbon\Carbon;
+use App\Notifications\OrderNotification;
 
 class CheckOrders extends Command
 {
@@ -48,9 +49,15 @@ class CheckOrders extends Command
         foreach ($orders as $order) {
         $order->status=2;
         $order->save();
-        }
         $tokens=user::where('id', $order->user_id)->orwhere('id',$order->provider_id)->get();
+        $provider=user::find($order->provider_id);
+        $user=user::find($order->user_id);
+        $provider->notify(new OrderNotification($provider,'لقد انتهت المعامله ',$order));
+        $user->notify(new OrderNotification($user,'لقد انتهت المعامله ',$order));
         $notification->SendNotification($tokens,'لقدم تم انتهاء الوقت المحدد لتنفيذ الطلب');
+        }
+       
+        
       return('قد تم اتمام المهمه اذهم لتري النتيجه ثم قم بالتقييم');
     }
 }

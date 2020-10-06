@@ -19,7 +19,7 @@ class CreateUsersTable extends Migration
           $table->string('email')->unique();
           $table->string('image')->nullable();
           $table->string('password');
-          $table->integer('phone')->unique();
+          $table->biginteger('phone')->unique();
           $table->string('job_title')->nullable();
           //$table->integer('hourly_rate')->nullable();
           $table->double('rating')->default(0);

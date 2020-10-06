@@ -20,6 +20,9 @@ class order extends Model
   public function chat(){
     return $this->belongsTo('App\chat');
   }
+  public function review(){
+    return  $this->belongsTo('App\review');
+  }
 
   public function usermoney()
   {
