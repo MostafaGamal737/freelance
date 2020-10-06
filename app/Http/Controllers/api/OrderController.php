@@ -10,6 +10,7 @@ use App\payout;
 use App\User;
 use App\chat;
 use App\sitting;
+use App\review;
 use Auth;
 use Carbon\Carbon;
 use App\notification;
@@ -207,22 +208,29 @@ class OrderController extends Controller
      
     }
     if (count($SuccessedOreders)>0) {
-      return response(['response'=>'success','data'=>$SuccessedOreders]);
+      return response(['result'=>true,'data'=>$SuccessedOreders]);
     }
     else {
-      return response(['response'=>'ليس لديك شئ']);
+      return response(['result'=>false,'response'=>'ليس لديك شئ']);
     }
 
   }
   public function Rating(Request $data)
   {
-    $order=order::where('user_id',Auth::id())
-    ->orwhere('provider_id',$data->id)->get();
-    if (count($order)>0) {
+    $order=order::find($data->order_id);
+    if (!empty($order)&&auth::user()->role=='طالب خدمه'&&$order->status==2) {
+      $review=new review();
+      $review->order_id=$data->order_id;
+      $review->user_id=$order->provider_id ;
+      $review->review=$data->rate;
+      $review->save();
+      $order->review_id=$review->id;
+       $order->save();
       $user=user::find($data->id);
-      return ('$user->rating=$data->rating');
+      return response(['result'=>true]);
     }
-    return $data;
+    
+    return response(['result'=>false,'response'=>'لا يوجد خدمات لديك']);
   }
 
 }
